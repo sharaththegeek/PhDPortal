@@ -1,0 +1,392 @@
+{%load static%}
+<html>
+<head>
+	<title>SASTRA Deemed University</title>
+	<meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+	<link rel="stylesheet" href="{%static 'header.css' %}">
+	<script src="{% static 'header.js' %}"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Research - SASTRA Deemed University</title>
+</head>
+<body oncontextmenu="return false" >
+			
+	<div id="navbar">
+			<a href="/logq" class="buttons">{{logg}}</a>
+			<a href="/support" class="buttons">Support</a>
+			<a href="javascript:void(0)" class="buttons">Downloads</a>
+		    <a href="/home" class="buttons">SASTRA Home</a>
+	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+	</div>
+	<div id="navbar-mobile">
+		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+					<i class="fas fa-bars"></i>
+		</a>
+	</div>
+	<div id="sidebar-mobile">
+		<a href="javascript:void(0);" class="icon" onclick="sideClose()">
+					<i class="fas fa-times"></i>
+		</a>
+		<a href="#about" onclick="sideClose()">{{logg}}</a>
+		<a href="#" onclick="sideClose()">Support</a>
+		<a href="#" onclick="sideClose()">Downloads</a>
+		<a href="#" onclick="sideClose()">SASTRA Home</a>
+	</div> 	
+  
+  			<!---------------- Mid content ----------------------------------->
+  					<div class="clearpad"><div class="item-page">
+
+              <br>
+              <h1 class="loginhead">Login</h1>
+              <font color="{{col}}"><h3>{{message}}</h3></font>
+              <div class="Top">
+                <div onclick='myfunc1()' class="scholar-box" id='1'>Scholar</div><div onclick='myfunc2()' class="supervisor-box" id='2' >Supervisor</div><div onclick='myfunc3()' class="dean-box" id='3' >Dean</div>
+                <div class="bor-top"></div>
+              </div>
+              <div class="login">
+                <div class="scholar" id='11'>
+                  <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins">
+                    <br>
+                  <div class="box_size">  Register Number: <br><input type='text' name='regno'/><br>
+                    {%csrf_token%}</div>
+                    <br>
+                    Password: <br><input type='password' name='password'/></font><br>
+                    <br>
+                    <a href="http://127.0.0.1:8000/support/">Forgot Password</a><br><br>
+                    <button class="buttonlog" type='submit' name='in'>Login</button>
+
+                  </form>
+                </div>
+                <div class="supervisor" id='22'>
+                  <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">
+                    <br>
+                    <div class="box_size">  User ID: <br>
+                    <input type='text' name='mid'/><br></div>
+                        {%csrf_token%}
+                    <br>
+                    Password:<br> <input type='password' name='password'/></font><br>
+                    <br>
+                      <a href="http://127.0.0.1:8000/support/">Forgot Password</a><br><br>
+                    <button class="buttonlog" name='in'>Login</button>
+                  </form>
+                </div>
+                  <div class="dean" id='33'>
+                    <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">
+                      <br>
+                    <div class="box_size">    Dean ID: <br><input type='text' name='mid'/><br></div>
+                          {%csrf_token%}
+                      <br>
+                      Password: <br><input type='password' name='password'/></font><br>
+                      <br>
+                      <button class="buttonlog "type='submit' name='in'>Login</button>
+                    </form>
+                  </div>
+                </div>
+
+                </div>
+                <br>
+                <br>
+                <br>
+                <hr>
+                <style>
+                    @media only screen and (max-width:800px) {
+                    /* For tablets: */
+                    .mainmenu {
+                      width: 80%;
+                      padding: 0;
+                    }
+                    .menunav{
+                      width: 100%;
+                    }
+                  }
+                  @media only screen and (max-width:500px) {
+                    /* For mobile phones: */
+                    .mainmenu, .menunav{
+                      width: 100%;
+                    }
+                  }
+.box_size{
+  margin-left: 38%;
+  margin-right: 38%;
+}
+body{
+  font-size: 100%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+h3{
+ text-align:center;
+}
+.buttonlog {
+    background-color:darkblue;
+    border: solid;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 15px;
+  box-shadow: 0 4px #999;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+}
+.buttonlog:hover {background-color: darkblue}
+
+.buttonlog:active {
+  background-color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+h1{
+  text-align: left;
+  font-size: 2em;
+  padding: 0;
+  margin-left: -15%;
+  margin-right: 0;
+  margin-top: 0%;
+  margin-bottom: 0;
+}
+h2{
+  font-size=100%;
+  text-align:center;
+  margin-top:-4%;
+  margin-bottom:0%;
+}
+.loginhead{
+  text-align: center;
+  margin-left: 1%;
+}
+.headd{
+  font-size:300%;
+  margin-top:-9%;
+  margin-left:40%;
+}
+li{
+  font-size: 0.8em;
+}
+li a{
+  text-decoration: none;
+  color: black;
+}
+li a.active{
+  font-weight: bolder;
+}
+li a:hover{
+  font-weight: bold;
+}
+.Top{
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  text-align: center;
+}
+.login{
+  border-style: solid;
+  border-width: thin;
+  height: 251px;
+  width:599px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-top: none;
+  border-right: solid;
+  border-width: thin;
+  position: relative;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+}
+.bor-top{
+
+  border-top: solid;
+  border-width: thin;
+  width: 240px;
+  margin-left: 360px;
+  margin-top: -1px;
+}
+.scholar-box{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: solid;
+  border-left: solid;
+  border-right: solid;
+  border-bottom: none;
+  border-width: thin;
+  height:30px;
+  width: 120px;
+  text-align: center;
+  font-weight: bold;
+  margin-left: 0px;
+}
+.supervisor-box{
+  height: 5px;
+  width:10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: solid;
+  border-left: none;
+
+  border-right: solid;
+  border-bottom: solid;
+  border-width: thin;
+  height:30px;
+  width:120px;
+  margin-left: 120px;
+  margin-top: -32px;
+  text-align: center;
+  font-weight: normal;
+
+}
+.dean-box{
+  height: 5px;
+  width:10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: solid;
+  border-left: none;
+  border-right: solid;
+  border-bottom: solid;
+  border-width: thin;
+  height:30px;
+  width:120px;
+  margin-left: 240px;
+  margin-top: -32px;
+  text-align: center;
+  font-weight: normal;
+}
+.footer{
+	width:100%;
+	background-color: #0D2C5F;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
+
+
+.dean-box:hover{
+  cursor: pointer;
+}
+.supervisor-box:hover{
+  cursor: pointer;
+}
+.scholar-box:hover{
+  cursor: pointer;
+}
+.scholar{
+  display: block;
+}
+.supervisor{
+  display:none;
+}
+.dean{
+  display: none;
+}
+</style>
+<script>
+ function myfunc1(){
+   var A=document.getElementById('1')
+   {
+     A.style.fontWeight='bold';
+     A.style.borderBottom='none';
+     A.style.borderWidth='thin';
+   }
+   var B=document.getElementById('2')
+   {
+     B.style.fontWeight='normal';
+     B.style.borderBottom='solid';
+     B.style.borderWidth='thin';
+   }
+   var E=document.getElementById('3')
+   {
+     E.style.fontWeight='normal';
+     E.style.borderBottom='solid';
+     E.style.borderWidth='thin';
+   }
+   var C=document.getElementById('11')
+   {
+     C.style.display='block';
+   }
+   var D=document.getElementById('22')
+   {
+     D.style.display='none';
+   }
+   var F=document.getElementById('33')
+   {
+     F.style.display='none';
+   }
+
+ }
+ function myfunc2(){
+   var A=document.getElementById('1')
+   {
+     A.style.fontWeight='normal';
+     A.style.borderBottom='solid';
+     A.style.borderWidth='thin';
+   }
+   var B=document.getElementById('2')
+   {
+     B.style.fontWeight='bold';
+     B.style.borderBottom='none';
+     B.style.borderWidth='thin';
+
+   }
+   var E=document.getElementById('3')
+   {
+     E.style.fontWeight='normal';
+     E.style.borderBottom='solid';
+     E.style.borderWidth='thin';
+   }
+   var C=document.getElementById('11')
+   {
+     C.style.display='none';
+   }
+   var D=document.getElementById('22')
+   {
+     D.style.display='block';
+   }
+   var F=document.getElementById('33')
+   {
+     F.style.display='none';
+   }
+ }
+ function myfunc3(){
+   var A=document.getElementById('1')
+   {
+     A.style.fontWeight='normal';
+     A.style.borderBottom='solid';
+     A.style.borderWidth='thin';
+   }
+   var B=document.getElementById('2')
+   {
+     B.style.fontWeight='normal';
+     B.style.borderBottom='solid';
+     B.style.borderWidth='thin';
+   }
+   var E=document.getElementById('3')
+   {
+     E.style.fontWeight='bold';
+     E.style.borderBottom='none';
+     E.style.borderWidth='thin';
+   }
+   var C=document.getElementById('11')
+   {
+     C.style.display='none';
+   }
+   var D=document.getElementById('22')
+   {
+     D.style.display='none';
+   }
+   var F=document.getElementById('33')
+   {
+     F.style.display='block';
+   }
+ }
+
+</script>
+<div class="footer">
+	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+</div>
+</body>
+</html>

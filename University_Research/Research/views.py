@@ -36,7 +36,7 @@ from Research.forms import PwdForm
 import random
 # Create your views here.
 logg="Login"
-levels={"A":"Zeroth Review","B":"First DC","C":"Coursework Completion","D":"Comprehensive Viva","E":"RAC","F":"Second DC","G":"Thesis Submission","H":"Open Defence"}
+levels=[("A","Zeroth Review"),("B","First DC"),("C","Coursework Completion"),("D","Comprehensive Viva"),("E","RAC"),("F","Second DC"),("G","Thesis Submission"),("H","Open Defence")]
 def home(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
      logg="Logout"
@@ -113,10 +113,12 @@ def adett(request):
     dcmm=dcmForm(request.POST)
     if dcmm.is_valid():
       mi=dcmm.cleaned_data['mmid']
+      regno=dcmm.cleaned_data['regno']
       dbSS=Su_Personal_Det.objects.filter(supervisor__mid=mi).values()
       if dbSS.exists():
-        dbSSS=Su_Personal_Det.objects.get(supervisor__mid=mi)
-        dbD=DCM(mid=dcmm.cleaned_data['mmid'],regno=dcmm.cleaned_data['regno'],name=dbSSS.name,institution=dbSSS.institution)
+        dbSSS=Supervisor.objects.get(mid=mi)
+        dbD=DC_Meeting.objects.get(scholar__regno=regno,progress="B")
+        dbD.supervisors.add(dbSSS)
         dbD.save()
         return HttpResponseRedirect('/profile/')
       else:
@@ -266,7 +268,7 @@ def dschinfo(request):
       if dbst.exists():
         status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
         status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
+      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"email":dbP.email,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
     else:
       return render(request,"home.html",{})
   else:
@@ -293,7 +295,7 @@ def schinfo(request):
       if dbst.exists():
         status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
         status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
+      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
     else:
       return render(request,"home.html",{})
   else:
@@ -312,7 +314,8 @@ def schedit(request):
       dbS.save()
       return HttpResponseRedirect('/supervisor1')
     else:
-      return render(request,"login.html",{})
+      errmess=EForm.errors
+      return render(request,"login.html",{"message":errmess})
   else:
       return render(request,"home.html",{})
 
@@ -409,13 +412,14 @@ def schreg(request):
       SObj.save()
       SuObj.save()
       TObj.save()
-      for key,values in levels.iteritems():
+      for key,values in levels:
         UObj=DC_Meeting(scholar=TObj,progress=key)
         UObj.save()
       return render(request,"login.html",{"message":"Registered Successfully!","col":"green"})
     else:
       errmess=schregForm.errors
-      return render(request,"login.html",{"message":errmess,"col":"red"})
+      errmess1=schregForm.non_field_errors
+      return render(request,"login.html",{"message":errmess1,"col":"red"})
   else:
     return render(request,"home.html",{})
 
@@ -460,15 +464,17 @@ def super4(request):
 def support(request):
    if request.session.has_key('mid') or request.session.has_key('regno'):
      logg="Logout"
-     if request.sessions.has_key('mid'):
-       midv=request.session['mid']
-       supsch='supervisor'
-     else:
-       schv=request.session['regno']
-       supsch='scholar'
+     midv=request.session['mid']
+     desig=midv
+     supsch='supervisor'
+   elif request.session.has_key('regno'):
+     logg="Logout"
+     schv=request.session['regno']
+     desig=midv
+     supsch='scholar'
    else:
      logg="Login"
-   return render(request,"support.html",{"logg":logg})
+   return render(request,"support.html",{"logg":logg,"desig":desig})
 
 def supmes(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):

@@ -166,7 +166,7 @@
 					</div>
 					<div id="prog" class="tabcontent">
             {% for sp in dbsp %}
-						{%for key,value in levels.items%}
+						{%for key,value in levels%}
 						{%ifequal key sp.progress%}
 						 {% ifequal sp.Started True %}
 							 {% ifequal sp.Completed True %}
@@ -231,8 +231,8 @@
 					 </tr>
 					 {%for dc in dbDC.supervisors.all%}
 					 <tr>
-						 <td>{{dc.Su_Personal_Det.name}}</td>
-						 <td>{{dc.Su_Personal_Det.institution}}</td>
+						 <td>{{dc.Su_Personal_Det.name}}1</td>
+						 <td>{{dc.Su_Personal_Det.institution}}2</td>
 					 </tr>
 					 {%endfor%}
 				 </table>

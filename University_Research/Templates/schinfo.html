@@ -16,6 +16,7 @@
 	<div id="navbar">
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="/support" class="buttons">Support</a>
+			<a href="/profile" class="buttons">Profile</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
 		    <a href="www.sastra.edu" class="buttons">SASTRA Home</a>
 	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -118,7 +119,7 @@
 					</head>
 					<body>
 
-					<h1>Scholar:</h1>
+					<h1>Scholar Details - {{name}}</h1>
 
 					<div class="tab">
 					  <button class="tablinks" onclick="openCity(event, 'regde')">Registration Details</button>
@@ -190,7 +191,7 @@
 					</div>
 					<div id="prog" class="tabcontent">
 						{% for sp in dbsp %}
-						{%for key,value in levels.items%}
+						{%for key,value in levels%}
 						 {%ifequal key sp.progress%}
 						 {% ifequal sp.Started True %}
 							{% ifequal sp.Completed True %}

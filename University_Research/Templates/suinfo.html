@@ -108,13 +108,13 @@
 				      </tr>
             {%for s in sch%}
 						<tr>
-							<td>{{s.regno}}</td>
+							<td>{{s.scholar.regno}}</td>
 							<td>{{s.name}}</td>
 							<td>{{s.email}}</td>
 							<td>
 								<form method="POST" action="http://127.0.0.1:8000/schinfo/">
 									{%csrf_token%}
-									<input type="hidden" name="regno" value={{s.regno}}>
+									<input type="hidden" name="regno" value={{s.scholar.regno}}>
 									<input type="submit" name="Info" value="Info">
 								</form>
 							</td>

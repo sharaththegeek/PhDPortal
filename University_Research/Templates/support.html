@@ -47,13 +47,18 @@
 <button class='A' onclick='fun1()'>Write to the Dean</button>
 <div class='panel' id='1'>
   <form method="POST" action="http://127.0.0.1:8000/supmes/">{%csrf_token%}
-		<br>
-	  Designation: <input type="radio" name="desig" value="Scholar"> Scholar </input>
-		<input type="radio" name="desig" value="Supervisor"> Supervisor </input><br><br>
+    <br>
+    {% if supsch == "scholar" %}
+	  Designation: <input type="radio" name="desig" value="Scholar" checked> Scholar </input>
+    <input type="radio" name="desig" value="Supervisor" disabled> Supervisor </input><br><br>
+    {% elif supsch == "supervisor" %}
+	  Designation: <input type="radio" name="desig" value="Scholar" disabled> Scholar </input>
+    <input type="radio" name="desig" value="Supervisor" checked> Supervisor </input><br><br>
+    {%endif%}
     Title: <input type="text" name="head" required>
     Message: <br><textarea name="body" rows='10' cols='100' required>
     </textarea><br><br>
-    <input type="hidden" name="desig" value={{desig}} >
+    <input type="hidden" name="desig" value={{supsch}} >
     <input type="submit" value="Submit">
   </form>
 </div>

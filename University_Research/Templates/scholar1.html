@@ -43,8 +43,7 @@
 					/* Style the tab */
 					.tab {
 					    overflow: hidden;
-					    border: 1px solid #ccc;
-					    background-color: #f1f1f1;
+					    background-color: #5B81E9;
 					}
 
 					/* Style the buttons inside the tab */
@@ -61,26 +60,34 @@
 
 					/* Change background color of buttons on hover */
 					.tab button:hover {
-					    background-color: #ddd;
+					    background-color: #628CFF;
 					}
 
 					/* Create an active/current tablink class */
 					.tab button.active {
-					    background-color: #ccc;
+					    background-color: #628CFF;
 					}
 
 					/* Style the tab content */
 					.tabcontent {
 					    display: none;
 					    padding: 6px 12px;
-					    border: 1px solid #ccc;
-					    border-top: none;
 					}
 					.dropdown{
 						display:none;
 					}
 					.dropdown1{
 						display: none;
+					}
+					.tablinks{
+						color: white;
+					}
+					.tabtitle{
+						text-align: left;
+					}
+					.DCMembers{
+					  border: '1',
+
 					}
 					</style>
 					</head>
@@ -92,38 +99,38 @@
 					  <button class="tablinks" onclick="openCity(event, 'regde')">Registration Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'prog')">Progress</button>
-						<button class="tablinks" onclick="openCity(event, 'dcm')">DC Details</button>
-						<button class="tablinks" onclick="openCity(event, 'report')">Updates</button>
+						<button class="tablinks" onclick="openCity(event, 'dcm')">DC Members</button>
+						<button class="tablinks" onclick="openCity(event, 'report')">Reports</button>
 					</div>
 
 					<div id="regde" class="tabcontent">
 					  <center><table>
             <tr>
-							<th style="width:30%">First Name:</th>
+							<th class="tabtitle" style="width:30%">First Name:</th>
 							<td style="text-align:center">{{name}}</td>
 						</tr>
 						<tr>
-							<th style="width:30%">Last Name:</th>
+							<th class="tabtitle" style="width:30%">Last Name:</th>
 							<td style="text-align:center">{{lname}}</td>
 						</tr>
 						<tr>
-							<th>Date of Birth:</th>
+							<th class="tabtitle">Date of Birth:</th>
 							<td style="text-align:center">{{dob}}</td>
 						</tr>
 						<tr>
-							<th>Sex:</th>
+							<th class="tabtitle">Sex:</th>
 							<td style="text-align:center">{{sex}}</td>
 						</tr>
 						<tr>
-							<th>Registration Number:</th>
+							<th class="tabtitle">Registration Number:</th>
 							<td style="text-align:center">{{regno}}</td>
 						</tr>
 						<tr>
-							<th>Registration Date:</th>
+							<th class="tabtitle">Registration Date:</th>
 							<td style="text-align:center">{{regdate}}</td>
 					  </tr>
 						<tr>
-							<th>School:</th>
+							<th class="tabtitle">School:</th>
 							<td style="text-align:center">{{school}}</td>
 						</tr>
 					</table>
@@ -146,7 +153,7 @@
 					  <h3>Current Status: {{status1}}</h3><br>
 						<h3>Supervisor: Dr. {{supervisor}} </h3><br>
 						<h2>Publication Details</h2>
-						<table>
+						<table border="1">
 							<tr>
 								<th>Title of the Publication</th>
 								<th>Name of the Journal</th>
@@ -223,8 +230,8 @@
 
 					</div>
 					<div id="dcm" class="tabcontent">
-           <h2>DC Details: </h2>
-					 <table>
+           <h2>DC Members: </h2>
+					 <table border="1" class="DCMembers">
 						<tr>
 						 <th>DC Member</th>
 						 <th>Institution</th>
@@ -233,12 +240,15 @@
 					 <tr>
 						 <td>{{dc.Su_Personal_Det.name}}1</td>
 						 <td>{{dc.Su_Personal_Det.institution}}2</td>
+						 <td>3</td>
+						 <td>4</td>
+						 <td>5</td>
 					 </tr>
 					 {%endfor%}
 				 </table>
 					</div>
 					<div id="report" class="tabcontent">
-						<h2>Updates: </h2>
+						<h2>Reports: </h2>
 						{%for rep in reports%}
 						<button class="accordion1"><h2>{{rep.head}}</h2></button>
 						<div class="panel">

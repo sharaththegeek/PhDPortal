@@ -125,8 +125,8 @@
 					  <button class="tablinks" onclick="openCity(event, 'regde')">Registration Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'prog')">Progress</button>
-						<button class="tablinks" onclick="openCity(event, 'dcm')">DC Details</button>
-						<button class="tablinks" onclick="openCity(event, 'report')">Updates</button>
+						<button class="tablinks" onclick="openCity(event, 'dcm')">DC Members</button>
+						<button class="tablinks" onclick="openCity(event, 'report')">Reports</button>
 					</div>
 
 					<div id="regde" class="tabcontent">
@@ -171,7 +171,7 @@
 					  <h3>Current Status: {{status1}}</h3>
 						<h3>Supervisor: Dr. {{supervisor}}</h3>
 						<br><h3>Publication Details</h3><br>
-						<table>
+						<table border="1">
 							<tr>
 								<th>Title of the Publication</th>
 								<th>Name of the Journal</th>
@@ -300,8 +300,8 @@
 					 {% endfor %}
 					</div>
 					<div id="dcm" class="tabcontent">
-					 <h2>DC Details: </h2>
-					 <button class="accordion">Add/Edit DC Details</button>
+					 <h2>DC Members: </h2>
+					 <button class="accordion">Add/Edit DC Members</button>
 					 <div class="panel">
 						 <br>
 						 <form method="POST" action="http://127.0.0.1:8000/adett">{%csrf_token%}
@@ -314,10 +314,13 @@
 					 </form>
 					 </div>
 					 <br>
-					 <table class="dett">
+					 <table border="1" class="dett">
 						<tr>
 						 <th>DC Member</th>
 						 <th>Institution</th>
+						 <th>Address</th>
+						 <th>Phone Number</th>
+						 <th>Email ID</th>
 					 </tr>
 					 {%for dc in dcm%}
 					 <tr>

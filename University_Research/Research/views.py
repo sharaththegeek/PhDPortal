@@ -462,7 +462,7 @@ def super4(request):
    return render(request,"super4.html",{})
 
 def support(request):
-   if request.session.has_key('mid') or request.session.has_key('regno'):
+   if request.session.has_key('mid'):
      logg="Logout"
      midv=request.session['mid']
      desig=midv
@@ -470,18 +470,18 @@ def support(request):
    elif request.session.has_key('regno'):
      logg="Logout"
      schv=request.session['regno']
-     desig=midv
+     desig=schv
      supsch='scholar'
    else:
      logg="Login"
-   return render(request,"support.html",{"logg":logg,"desig":desig})
+   return render(request,"support.html",{"logg":logg,"desig":desig,"supsch":supsch})
 
 def supmes(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
     if request.POST:
      Spup=supForm(request.POST)
      if Spup.is_valid():
-       if Spup.cleaned_data['desig']=='Scholar':
+       if Spup.cleaned_data['desig']=='scholar':
          regno=request.session['regno']
          mid=0
        else: 

@@ -17,8 +17,8 @@
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="/support" class="buttons">Support</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 	</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -92,27 +92,21 @@
 					</style>
 					</head>
 					<body>
-					<p style="float:right">Welcome {{name}}</p>
-					<h3>Scholar:</h3>
-					
+					<h4><p style="float:right">Welcome {{name}}</p></h4>		
+					<br><br><br><br>			
 
 					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')">Registration Details</button>
+					  <button class="tablinks" onclick="openCity(event, 'regde')"id="defaultOpen">Registration Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
 					  <button class="tablinks" onclick="openCity(event, 'prog')">Progress</button>
-						<button class="tablinks" onclick="openCity(event, 'dcm')">DC Members</button>
 						<button class="tablinks" onclick="openCity(event, 'report')">Reports</button>
 					</div>
-
+<br></br>
 					<div id="regde" class="tabcontent">
 					  <center><table>
             <tr>
-							<th class="tabtitle" style="width:30%">First Name:</th>
-							<td style="text-align:center">{{name}}</td>
-						</tr>
-						<tr>
-							<th class="tabtitle" style="width:30%">Last Name:</th>
-							<td style="text-align:center">{{lname}}</td>
+							<th class="tabtitle" style="width:30%">Name:</th>
+							<td style="text-align:center">{{name}} {{lname}}</td>
 						</tr>
 						<tr>
 							<th class="tabtitle">Date of Birth:</th>
@@ -137,7 +131,7 @@
 					</table>
 					<br>
 					<br>
-					<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button></p><br><br>
+					<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button></p>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
 						Old Password: <input type="password" name="old"><br><br>
@@ -150,9 +144,9 @@
         </center>
       </div>
 
-					<div id="resde" class="tabcontent">
-					  <h3>Current Status: {{status1}} Completed</h3><br>
-						<h3>Supervisor: Dr. {{supervisor}} </h3><br>
+					<center><div id="resde" class="tabcontent">
+					  <h3>Current Status: {{status1}} Completed</h3>
+						<h3>Supervisor: Dr. {{supervisor}} </h3>
 						<h2>Publication Details</h2>
 						<table border="1">
 							<tr>
@@ -171,7 +165,8 @@
 							{%endfor%}
 
 						</table>
-					</div>
+					</div></center>
+					<div class="righta">
 					<div id="prog" class="tabcontent">
             {% for sp in dbsp %}
 						{%for key,value in levels%}
@@ -229,8 +224,8 @@
  						{%endfor%}
 					  {% endfor %}
 
-					</div>
-					<div id="dcm" class="tabcontent">
+					</div></div>
+					<center><div id="dcm" class="tabcontent">
            <h2>DC Members: </h2>
 					 <table border="1" class="DCMembers">
 						<tr>
@@ -247,6 +242,7 @@
 					 </tr>
 					 {%endfor%}
 				 </table>
+				 <br><br><br><br><br>
 					</div>
 					<div id="report" class="tabcontent">
 						<h2>Reports: </h2>
@@ -256,8 +252,9 @@
             <p>{{rep.body}}</p>
 						</div>
 						{%endfor%}
-					</div>
+					</div> <br><br><br><br><br><br><br></center>
 					<script>
+						document.getElementById("defaultOpen").click();
 					var acc = document.getElementsByClassName("accordion1");
 var i;
 
@@ -315,6 +312,11 @@ for (i = 0; i < acc.length; i++) {
 					    display: inline-block;
 					    font-size: 15px;
 					}
+					.tab {
+  float: left;
+  width: 16%;
+  height: 300px;
+}
 					.buttonlog {
 					    background-color:darkblue;
 					    border: solid;
@@ -327,6 +329,7 @@ for (i = 0; i < acc.length; i++) {
 					    display: inline-block;
 					    font-size: 15px;
 					}
+					
 					.buttonlog:hover {background-color: darkblue}
 
 					.buttonlog:active {
@@ -361,6 +364,10 @@ for (i = 0; i < acc.length; i++) {
     text-align: center;
 }
 
+.righta{
+   	margin-left: 20%;
+	width: 80%;   
+}
 
 
 .accordion1:after{
@@ -374,7 +381,12 @@ for (i = 0; i < acc.length; i++) {
 .active1:after{
     content: "\2212";
 }
-
+body{
+	margin:0;
+	padding:0;
+	width: 80%;
+	margin-left: 10%;
+}
 .panel {
     padding: 0 18px;
     background-color: white;
@@ -403,6 +415,7 @@ for (i = 0; i < acc.length; i++) {
 <style>
 
 </style>
+<br><br><br>
 <div class="footer">
 	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 </div>

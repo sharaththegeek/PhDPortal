@@ -19,8 +19,8 @@
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
 			<a href="/profile" class="buttons">Profile</a>
-		    <a href="www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 	</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -37,6 +37,7 @@
 		<a href="#" onclick="sideClose()">Downloads</a>
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
+	<br><br>
 			<!---------------- Mid content ----------------------------------->
 					<div class="clearpad"><div class="item-page">
 						<style>
@@ -45,7 +46,6 @@
 					/* Style the tab */
 					.tab {
 					    overflow: hidden;
-					    border: 1px solid #ccc;
 					    background-color: #f1f1f1;
 					}
 
@@ -72,7 +72,12 @@
 					.tab button:hover {
 					    background-color: #ddd;
 					}
-
+					body{
+	margin:0;
+	padding:0;
+	width: 80%;
+	margin-left: 10%;
+}
 					/* Create an active/current tablink class */
 					.tab button.active {
 					    background-color: #ccc;
@@ -82,22 +87,24 @@
 					.tabcontent {
 					    display: none;
 					    padding: 6px 12px;
-					    border: 1px solid #ccc;
 					    border-top: none;
 					}
+					.tab {
+  float: left;
+  width: 16%;
+  height: 300px;
+}
 					</style>
 					</head>
 					<body>
 
-					<h1>{{message}}</h1>
-
 					<div class="tab">
 					  <button class="tablinks" onclick="openCity(event, 'regde')">Scholars</button>
 					  <button class="tablinks" onclick="openCity(event, 'resde')">Supervisors</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')">Information</button>
+					  <button class="tablinks" onclick="openCity(event, 'prog')"id="defaultOpen">Information</button>
 					  <button class="tablinks" onclick="openCity(event, 'sched')">Schedular</button>
 					</div>
-
+<center>
 					<div id="regde" class="tabcontent">
 					  <h3>Scholars</h3>
 						<a href="http://127.0.0.1:8000/reg/"><p>Create new Scholar</p></a><br>
@@ -165,7 +172,7 @@
 					<div id="sched" class="tabcontent">
 						<iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 					</div>
-
+</center>
 					<script>
 					function openCity(evt, cityName) {
 					    var i, tabcontent, tablinks;
@@ -180,6 +187,8 @@
 					    document.getElementById(cityName).style.display = "block";
 					    evt.currentTarget.className += " active";
 					}
+					document.getElementById("defaultOpen").click();
+
 					</script>
 </div>
 </div>
@@ -198,6 +207,7 @@
 		</div><div class="clear"></div>
 		</div>
 	</div>
+	<br><br><br><br><br><br><br><br>
 
 	<div class="footer">
 		<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>

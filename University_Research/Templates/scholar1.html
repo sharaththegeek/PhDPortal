@@ -7,7 +7,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 	<link rel="stylesheet" href="{%static 'header.css' %}">
+	<link rel="stylesheet" href="{%static 'scholar.css' %}">
 	<script src="{% static 'header.js' %}"></script>
+	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>Research - SASTRA Deemed University</title>
 </head>
@@ -17,8 +24,9 @@
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="/support" class="buttons">Support</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+				<p class="main">PhD Portal</p>
+			<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 	</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -41,38 +49,7 @@
 					body {font-family: Arial;}
 
 					/* Style the tab */
-					.tab {
-					    overflow: hidden;
-					    background-color: #5B81E9;
-					}
-
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 17px;
-					}
-
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #628CFF;
-					}
-
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #628CFF;
-					}
-
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 6px 12px;
-					}
+				
 					.dropdown{
 						display:none;
 					}
@@ -86,52 +63,71 @@
 						text-align: left;
 					}
 					.DCMembers{
-					  border: '1',
-
+					  border: '1';
 					}
+					.welcome{
+						float:right;
+						margin-right: 2%;
+					}
+					.holding{
+						margin-left: 41%;
+            z-index: 0;
+					}
+					.tab{
+						text-decoration: none;
+						
+					}
+					.tabbed{
+						color: white;
+						text-decoration: none;
+					}
+				
 					</style>
 					</head>
 					<body>
-					<h4><p style="float:right">Welcome {{name}}</p></h4>		
-					<br><br><br><br>			
-
-					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')"id="defaultOpen">Registration Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')">Progress</button>
-						<button class="tablinks" onclick="openCity(event, 'report')">Reports</button>
+					
+					<br>
+					<h6><p class="welcome">Welcome {{name}}</p></h6>	
+          <div class="hold">
+						<div class="holding s-12">
+							<ul class="tabs">
+								<li class="tab"><a class="tabbed" href="#profile">Profile</a></li>
+								<li class="tab"><a class="tabbed" href="#progress">Progress</a></li>
+							</ul>
+						</div>
 					</div>
-<br></br>
-					<div id="regde" class="tabcontent">
-					  <center><table>
-            <tr>
-							<th class="tabtitle" style="width:30%">Name:</th>
-							<td style="text-align:center">{{name}} {{lname}}</td>
-						</tr>
-						<tr>
-							<th class="tabtitle">Date of Birth:</th>
-							<td style="text-align:center">{{dob}}</td>
-						</tr>
-						<tr>
-							<th class="tabtitle">Sex:</th>
-							<td style="text-align:center">{{sex}}</td>
-						</tr>
-						<tr>
-							<th class="tabtitle">Registration Number:</th>
-							<td style="text-align:center">{{regno}}</td>
-						</tr>
-						<tr>
-							<th class="tabtitle">Registration Date:</th>
-							<td style="text-align:center">{{regdate}}</td>
-					  </tr>
-						<tr>
-							<th class="tabtitle">School:</th>
-							<td style="text-align:center">{{school}}</td>
-						</tr>
-					</table>
-					<br>
-					<br>
-					<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button></p>
+				<br>
+					<div id="profile">
+						<div id="info">
+							<div class="card">
+							  <div class="card-title">Personal Details</div>
+								<table>
+										<tr>
+											<th class="tabtitle" style="width:30%">Name:</th>
+											<td style="text-align:center">{{name}} {{lname}}</td>
+										</tr>
+										<tr>
+											<th class="tabtitle">Date of Birth:</th>
+											<td style="text-align:center">{{dob}}</td>
+										</tr>
+										<tr>
+											<th class="tabtitle">Sex:</th>
+											<td style="text-align:center">{{sex}}</td>
+										</tr>
+										<tr>
+											<th class="tabtitle">Registration Number:</th>
+											<td style="text-align:center">{{regno}}</td>
+										</tr>
+										<tr>
+											<th class="tabtitle">Registration Date:</th>
+											<td style="text-align:center">{{regdate}}</td>
+										</tr>
+										<tr>
+											<th class="tabtitle">School:</th>
+											<td style="text-align:center">{{school}}</td>
+										</tr>
+									</table>
+									<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button></p>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
 						Old Password: <input type="password" name="old"><br><br>
@@ -141,119 +137,64 @@
 						<input type="submit" value="Submit">
 					</form>
 						</div>
-        </center>
-      </div>
-
-					<center><div id="resde" class="tabcontent">
-					  <h3>Current Status: {{status1}} Completed</h3>
-						<h3>Supervisor: Dr. {{supervisor}} </h3>
-						<h2>Publication Details</h2>
-						<table border="1">
-							<tr>
-								<th>Title of the Publication</th>
-								<th>Name of the Journal</th>
-								<th>Authors </th>
-								<th>Year of Publication</th>
-							</tr>
-							{%for p in pubs%}
-							  <tr>
-									<td>{{p.title}}</td>
-									<td>{{p.name}}</td>
-									<td>{{p.author}}</td>
-									<td>{{p.date}}</td>
-								</tr>
-							{%endfor%}
-
-						</table>
-					</div></center>
-					<div class="righta">
-					<div id="prog" class="tabcontent">
-            {% for sp in dbsp %}
-						{%for key,value in levels%}
-						{%ifequal key sp.progress%}
-						 {% ifequal sp.Started True %}
-							 {% ifequal sp.Completed True %}
-							 <button class="accordion1"><h2 style="color:green;">{{value}}</h2></button>
-						   <div class="panel">
-								 <table>
-									<tr><th style="width:30%">Date Completed:</th><td style="text-align:center">{{sp.cdate}}</td></tr>
-								 {%if key == "A" or key == "C" or key == "E" %}
-	 							<tr><th style="width:30%">Status: </th><td style="text-align:center">{{sp.status}}</td></tr>
-	 							<tr><th style="width:30%">Remarks:</th><td style="text-align:center">{{sp.remarks}}</td></tr>
-								{%elif key == "B" or key == "F"%}
-								{%for member in sp.supervisors.all %}
-								 <tr><th style="width:30%">Name:</th><td style="text-align:center">Dr. {{member.Su_Personal_Det.name}}</td></tr>
-								 {%endfor%}
-								 <tr><th style="width:30%">Comments:</th><td style="text-align:center">{{sp.remarks}}</td></tr>
-					             
-								{%elif key == "D"%}
-							   <tr><th style="width:30%">Marks:</th><td style="text-align:center">{{sp.marks}}</td></tr>
-								 <tr><th style="width:30%">Result:</th><td style="text-align:center">{{sp.status}}</td></tr>
-								{%elif key == "G"%}
-								{%for guide in sp.supervisors.all%}
-								 <tr><th style="width:30%">Examiners: </th><td style="text-align:center">{{guide.Su_Personal_Det.name}}</td></tr>
-							  {%endfor%}
-								 <tr><th style="width:30%">Status: </th><td style="text-align:center">{{sp.status}}</td></tr>
-								{%elif key == "H"%}
-								 <tr><th style="width:30%">Comments: </th><td style="text-align:center">{{sp.remarks}}</td></tr>
-								 <tr><th style="width:30%">Result: </th><td style="text-align:center">{{sp.status}}</td></tr>
-		            {%endif%}
-								 </table><br><br>
-						   </div>
-						  {% else %}
-							<button class="accordion1"><h2 style="color:red;">{{value}}</h2></button>
-						    <div class="panel">
-								{%ifequal sp.status "Fail"%}
-								<table>
-	 							<th style="width:30%">Repeat Date:</th><td style="text-align:center">{{sp.cdate}}</td><br>
-	 							<tr><th style="width:30%">Status: </th><td style="text-align:center">{{sp.status}}</td></tr>
-	 							<tr><th style="width:30%">Remarks:</th><td style="text-align:center">{{sp.remarks}}</td></tr>
-							</table>
-								{%else%}<br>
-								<table>
-								<tr><th style="width:30%">Date:</th><td style="text-align:center">{{sp.sdate}}</td></tr>
-								<tr><th style="width:30%">Message:</th><td style="text-align:center">{{sp.message}}</td></tr>
-								{%endifequal%}
-							</table><br><br>
-						    </div>
-              {% endifequal %}
-					   {% else %}
-					    <h2 style="opacity:0.5">{{value}}</h2>
-					   {% endifequal %}
-						 {%endifequal%}
- 						{%endfor%}
-					  {% endfor %}
-
-					</div></div>
-					<center><div id="dcm" class="tabcontent">
-           <h2>DC Members: </h2>
-					 <table border="1" class="DCMembers">
-						<tr>
-						 <th>DC Member</th>
-						 <th>Institution</th>
-					 </tr>
-					 {%for dc in dbDC.supervisors.all%}
-					 <tr>
-						 <td>{{dc.Su_Personal_Det.name}}1</td>
-						 <td>{{dc.Su_Personal_Det.institution}}2</td>
-						 <td>3</td>
-						 <td>4</td>
-						 <td>5</td>
-					 </tr>
-					 {%endfor%}
-				 </table>
-				 <br><br><br><br><br>
-					</div>
-					<div id="report" class="tabcontent">
-						<h2>Reports: </h2>
-						{%for rep in reports%}
-						<button class="accordion1"><h2>{{rep.head}}</h2></button>
-						<div class="panel">
-            <p>{{rep.body}}</p>
 						</div>
-						{%endfor%}
-					</div> <br><br><br><br><br><br><br></center>
+					</div>
+	
+            <div id="publications">
+							  <div class="card">
+								<h3>Current Status: {{status1}} Completed</h3>
+								<h3>Supervisor: Dr. {{supervisor}} </h3>
+								<h2>Publication Details</h2>
+								<table border="1">
+									<tr>
+										<th>Title of the Publication</th>
+										<th>Name of the Journal</th>
+										<th>Authors </th>
+										<th>Year of Publication</th>
+									</tr>
+									{%for p in pubs%}
+										<tr>
+											<td>{{p.title}}</td>
+											<td>{{p.name}}</td>
+											<td>{{p.author}}</td>
+											<td>{{p.date}}</td>
+										</tr>
+									{%endfor%}
+		
+								</table>
+								<h2>Reports: </h2>
+								{%for rep in reports%}
+								<button class="accordion1"><h2>{{rep.head}}</h2></button>
+								<div class="panel">
+								<p>{{rep.body}}</p>
+								</div>
+								{%endfor%}
+						
+						</div>
+					</div>
+					</div>
+          <div id="progress">
+						<div class="card">
+							Current status:
+						</div>
+						<div class="divided">
+							<div class="done">
+							<div class="card">
+								Done:
+							</div>
+						</div>
+						<div class="done">
+							<div class="card">
+								To Do:
+							</div>
+						</div>
+						</div>
+					</div>
 					<script>
+						var element=document.querySelector('.tabs');
+						var instance=M.Tabs.init(element,{
+							swipeable: true,
+						});
 						document.getElementById("defaultOpen").click();
 					var acc = document.getElementsByClassName("accordion1");
 var i;
@@ -356,13 +297,7 @@ for (i = 0; i < acc.length; i++) {
 .active1,.accordion1:hover{
     background-color: #ccc;
 }
-.footer{
-	width:100%;
-	background-color: #0D2C5F;
-	color:white;
-	height: 5%;
-    text-align: center;
-}
+
 
 .righta{
    	margin-left: 20%;
@@ -384,8 +319,6 @@ for (i = 0; i < acc.length; i++) {
 body{
 	margin:0;
 	padding:0;
-	width: 80%;
-	margin-left: 10%;
 }
 .panel {
     padding: 0 18px;
@@ -413,7 +346,13 @@ body{
 		</div>
 	</div>
 <style>
-
+.footer{
+	width:100%;
+	background-color: #3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
 </style>
 <br><br><br>
 <div class="footer">

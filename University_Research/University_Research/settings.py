@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Research',
-    'rest_framework',
+    'polymorphic',
 ]
 
 MIDDLEWARE = [

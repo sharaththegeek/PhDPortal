@@ -12,7 +12,13 @@ from Research.models import Personal_Det
 from Research.models import Su_Personal_Det
 from Research.models import Supervisor
 from Research.models import Publications
-from Research.models import DC_Meeting
+from Research.models import DCMembers
+from Research.models import Progress
+from Research.models import DC
+from Research.models import Coursework
+from Research.models import Others
+from Research.models import Thesis
+from Research.models import Zero
 from Research.forms import editform
 from Research.forms import regnosearchForm
 from Research.forms import startform
@@ -36,7 +42,7 @@ from Research.forms import PwdForm
 import random
 # Create your views here.
 logg="Login"
-levels=[("A","Zeroth Review"),("B","First DC"),("C","Coursework Completion"),("D","Comprehensive Viva"),("E","RAC"),("F","Second DC"),("G","Thesis Submission"),("H","Open Defence")]
+levels=[(1,"Zeroth Review"),(2,"First DC"),(3,"Coursework Completion"),(4,"Comprehensive Viva"),(5,"Second DC"),(6,"Third DC"),(7,"Synopsis Submission"),(8,"RAC"),(9,"Thesis Submission"),(10,"Open Defence")]
 def home(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
      logg="Logout"
@@ -50,7 +56,6 @@ def login(request):
   else:
      logg="Login"
   return render(request,"login.html",{"logg":logg})
-
 
 def newann(request):
   if request.POST:
@@ -208,18 +213,21 @@ def scholar1(request):
   else:
      logg="Login"
   status1=""
+  current=""
   rno=request.session['regno']
   dbP=Personal_Det.objects.get(scholar__regno=rno)
   dbPu=Publications.objects.filter(scholars__regno=rno)
-  dbst=DC_Meeting.objects.filter(scholar__regno=rno,Completed=False,Started=True).values()
-  dbDC=DC_Meeting.objects.filter(scholar__regno=rno,progress="B")
+  dbProg=Progress.objects.filter(scholar__regno=rno)
+  dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass")
   dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
-  dbsp=DC_Meeting.objects.filter(scholar__regno=rno).values()
   reports=Reports.objects.filter(scholar__regno=rno).values()
-  if dbst.exists():
-    status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
-    status1=status.get_progress_display()
-  return render(request,"scholar1.html",{"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dbDC":dbDC,"logg":logg})
+  for db in dbProg:
+    if db.current==True:
+      lvl=db.level
+      lvl=lvl-1
+      dbCurrent=Progress.objects.filter(scholar__regno=rno,level=lvl-1)
+      current=dbCurrent.name
+  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg})
 
 def supervisor1(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
@@ -230,7 +238,7 @@ def supervisor1(request):
   dbP=Su_Personal_Det.objects.get(supervisor__mid=mid)
   dbPu=Publications.objects.filter(supervisors__mid=mid).values()
   dbSch=Personal_Det.objects.filter(supervisor__mid=mid)
-  return render(request,"supervisor1.html",{"logg":logg,"pubs":dbPu,"sch":dbSch,"name":dbP.name,"lname":dbP.lname,"email":dbP.email,"sex":dbP.sex,"school":dbP.school,"mid":dbP.supervisor.mid,"aoi":dbP.aoi})
+  return render(request,"supervisor1.html",{"logg":logg,"pubs":dbPu,"sch":dbSch,"name":dbP.name,"email":dbP.email,"sex":dbP.sex,"school":dbP.school,"mid":dbP.supervisor.mid,"aoi":dbP.aoi})
 
 def suinfo(request):
   if request.POST:
@@ -242,7 +250,7 @@ def suinfo(request):
        dbP=Su_Personal_Det.objects.get(supervisor__mid=mid)
        dbPu=Publications.objects.filter(supervisors__mid=mid).values()
        dbSch=Personal_Det.objects.filter(supervisor__mid=mid)
-       return render(request,"suinfo.html",{"pubs":dbPu,"sch":dbSch,"name":dbP.name,"lname":dbP.lname,"email":dbP.email,"sex":dbP.sex,"school":dbP.school,"mid":dbP.supervisor.mid,"aoi":dbP.aoi})
+       return render(request,"suinfo.html",{"pubs":dbPu,"sch":dbSch,"name":dbP.name,"email":dbP.email,"sex":dbP.sex,"school":dbP.school,"mid":dbP.supervisor.mid,"aoi":dbP.aoi})
   else:
      return render(request,"home.html",{})
 
@@ -268,7 +276,7 @@ def dschinfo(request):
       if dbst.exists():
         status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
         status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"email":dbP.email,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
+      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"email":dbP.email,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
     else:
       return render(request,"home.html",{})
   else:
@@ -295,7 +303,7 @@ def schinfo(request):
       if dbst.exists():
         status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
         status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"lname":dbP.lname,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
+      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
     else:
       return render(request,"home.html",{})
   else:
@@ -372,7 +380,7 @@ def sureg(request):
          SuuObj.save()
          SuObj.institution=RegSu.cleaned_data['institution']
          SuObj.designation=RegSu.cleaned_data['designation']
-         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],lname=RegSu.cleaned_data['lname'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
+         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
          SuObj.supervisor=SuuObj
          SuObj.save()
          SuuObj.save()
@@ -381,7 +389,7 @@ def sureg(request):
       else:
          SuuObj=Supervisor(mid=RegSu.cleaned_data['mid'],password=RegSu.cleaned_data['mid'])
          SuuObj.save()
-         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],lname=RegSu.cleaned_data['lname'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
+         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
          SuObj.institution="SASTRA"
          SuObj.designation=""     
          SuObj.supervisor=SuuObj
@@ -397,7 +405,7 @@ def schreg(request):
   if request.POST:
     RegS=schregForm(request.POST)
     if RegS.is_valid():
-      SObj=Personal_Det(name=RegS.cleaned_data['name'],lname=RegS.cleaned_data['lname'],sex=RegS.cleaned_data['sex'],dob=RegS.cleaned_data['dob'],school=RegS.cleaned_data['school'],email=RegS.cleaned_data['email'],regdate=RegS.cleaned_data['regdate'],category=RegS.cleaned_data['category'],pemail=RegS.cleaned_data['pemail'],phno=RegS.cleaned_data['phno'],retitle=RegS.cleaned_data['retitle'],typet=RegS.cleaned_data['typet'])
+      SObj=Personal_Det(name=RegS.cleaned_data['name'],sex=RegS.cleaned_data['sex'],dob=RegS.cleaned_data['dob'],school=RegS.cleaned_data['school'],email=RegS.cleaned_data['email'],regdate=RegS.cleaned_data['regdate'],category=RegS.cleaned_data['category'],pemail=RegS.cleaned_data['pemail'],phno=RegS.cleaned_data['phno'],retitle=RegS.cleaned_data['retitle'],typet=RegS.cleaned_data['typet'])
       TObj=Scholar(regno=RegS.cleaned_data['regno'],password=RegS.cleaned_data['regno'])
       SuObj=Supervisor.objects.get(mid=RegS.cleaned_data['supervisor'])
       SObj.supervisor=SuObj
@@ -413,13 +421,26 @@ def schreg(request):
       SuObj.save()
       TObj.save()
       for key,values in levels:
-        UObj=DC_Meeting(scholar=TObj,progress=key)
-        UObj.save()
+        if key == 1:
+          zer=Zero(level=key,name=values,scholar=TObj,result="yet")
+          zer.save()
+        elif key == 2 or key == 5 or key == 6:
+          dcd=DC(level=key,name=values,scholar=TObj,result="yet")
+          dcd.save()
+        elif key == 3:
+          cor=Coursework(level=key,name=values,scholar=TObj,result="yet")
+          cor.save()
+        elif key == 4 or key == 7 or key == 8 or key == 10:
+          other=Others(level=key,name=values,scholar=TObj,result="yet")
+          other.save()
+        elif key == 10:
+          thesis=Thesis(level=key,name=values,scholar=TObj,result="yet")
+          thesis.save()
       return render(request,"login.html",{"message":"Registered Successfully!","col":"green"})
     else:
       errmess=schregForm.errors
       errmess1=schregForm.non_field_errors
-      return render(request,"login.html",{"message":errmess1,"col":"red"})
+      return render(request,"login.html",{"message":errmess,"col":"red"})
   else:
     return render(request,"home.html",{})
 
@@ -467,14 +488,16 @@ def support(request):
      midv=request.session['mid']
      desig=midv
      supsch='supervisor'
+     return render(request,"support.html",{"logg":logg,"desig":desig,"supsch":supsch})
    elif request.session.has_key('regno'):
      logg="Logout"
      schv=request.session['regno']
      desig=schv
      supsch='scholar'
+     return render(request,"support.html",{"logg":logg,"desig":desig,"supsch":supsch})
    else:
-     logg="Login"
-   return render(request,"support.html",{"logg":logg,"desig":desig,"supsch":supsch})
+     return HttpResponseRedirect('/home')
+   
 
 def supmes(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):

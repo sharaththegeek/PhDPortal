@@ -134,7 +134,6 @@ class midsearchForm(forms.Form):
 
 class suregForm(forms.Form):
    name=forms.CharField(max_length=30)
-   lname=forms.CharField(max_length=30)
    sex=forms.CharField(max_length=10)
    phno=forms.CharField(max_length=11)
    mid=forms.CharField(max_length=15)
@@ -147,8 +146,7 @@ class suregForm(forms.Form):
    designation=forms.CharField(max_length=300)
 
 class schregForm(forms.Form):
-   name=forms.CharField(max_length=30)
-   lname=forms.CharField(max_length=30)
+   name=forms.CharField(max_length=50)
    sex=forms.CharField(max_length=10)
    dob=forms.DateField()
    category=forms.CharField(max_length=10)

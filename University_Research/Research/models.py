@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from polymorphic.models import PolymorphicModel
 import datetime
 # Create your models here.
 class Scholar(models.Model):
@@ -16,8 +17,7 @@ class Supervisor(models.Model):
    external=models.BooleanField(default=False)
 
 class Personal_Det(models.Model):
-   name=models.CharField(max_length=30)
-   lname=models.CharField(max_length=30)
+   name=models.CharField(max_length=50)
    scholar=models.OneToOneField(Scholar)
    email=models.EmailField()
    pemail=models.EmailField()
@@ -36,7 +36,6 @@ class Personal_Det(models.Model):
 class Su_Personal_Det(models.Model):
    supervisor=models.OneToOneField(Supervisor)
    name=models.CharField(max_length=30)
-   lname=models.CharField(max_length=30)
    phno=models.PositiveIntegerField()
    email=models.EmailField()
    pemail=models.EmailField()
@@ -46,28 +45,33 @@ class Su_Personal_Det(models.Model):
    institution=models.CharField(max_length=500)
    designation=models.CharField(max_length=300)
 
-class DC_Meeting(models.Model):
-   Progress_Choices=(
-        ("A","Zeroth Review"),
-        ("B","First DC"),
-        ("C","Coursework Completion"),
-        ("D","Comprehensive Viva"),
-        ("E","RAC"),
-        ("F","Second DC"),
-        ("G","Thesis Submission"),
-        ("H","Open Defence"),
-   )
-   progress=models.CharField(choices=Progress_Choices,default="A",max_length=30)
-   remarks=models.CharField(max_length=500)
-   message=models.CharField(max_length=500)
-   status=models.CharField(max_length=30,default="None")
-   marks=models.IntegerField(default=0)
-   sdate=models.DateField(null=True,blank=True)
-   cdate=models.DateField(null=True,blank=True)
-   Completed=models.BooleanField(default=False)
-   Started=models.BooleanField(default=False)
+class Progress(PolymorphicModel):
+   level=models.IntegerField()
+   name=models.CharField(max_length=40)
    scholar=models.ForeignKey(Scholar)
-   supervisors=models.ManyToManyField(Supervisor)
+   current=models.BooleanField(default=False)
+   result=models.CharField(max_length=5)
+   
+class DC(Progress):
+   date=models.DateTimeField(null=True)
+   comments=models.CharField(max_length=500)
+
+class Coursework(Progress):
+   pass
+
+class Others(Progress):
+   date=models.DateTimeField(null=True)
+   marks=models.IntegerField(default=0)
+   comments=models.CharField(max_length=500)
+
+class Thesis(Progress):
+   date=models.DateField(null=True)
+   comments=models.CharField(max_length=30)
+
+class Zero(Progress):
+   presented=models.DateField(null=True)
+   fees=models.CharField(max_length=5)
+   datePaid=models.DateField(null=True)
 
 class Publications(models.Model):
    title=models.CharField(max_length=1000)
@@ -81,7 +85,6 @@ class Announcement(models.Model):
   body=models.CharField(max_length=1000)
   adate=models.DateField(null=True,blank=True)
 
-
 class Reports(models.Model):
   head=models.CharField(max_length=100)
   body=models.CharField(max_length=1000)
@@ -93,3 +96,16 @@ class SupMess(models.Model):
   regno=models.CharField(max_length=17)
   mid=models.CharField(max_length=15)
 
+class Subject(models.Model):
+   name=models.CharField(max_length=100)
+   code=models.CharField(max_length=20)
+
+class Subjected(Subject):
+   datePassed=models.DateField(null=True)
+   marks=models.IntegerField()
+   status=models.CharField(max_length=10)
+   course=models.ForeignKey(Coursework)
+
+class DCMembers(models.Model):
+   scholar=models.OneToOneField(Scholar)
+   members=models.ManyToManyField(Supervisor)

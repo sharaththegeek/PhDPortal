@@ -23,6 +23,7 @@ from Research.views import login1
 from Research.views import login
 from Research.views import loginsu
 from Research.views import logind
+from Research.views import schprog
 from Research.views import superm
 from Research.views import super1
 from Research.views import super2
@@ -50,6 +51,7 @@ from Research.views import logout
 from Research.views import logq
 from Research.views import supmes
 from Research.views import readj
+from Research.views import storesch
 from Research.views import logoutsu
 
 urlpatterns = [
@@ -58,6 +60,8 @@ urlpatterns = [
     url(r'^home/', home),
     url(r'^logq/', logq),
     url(r'^login/',login),
+    url(r'^schprog/',schprog),
+    url(r'^storesch/',storesch),
     url(r'^login1/',login1),
     url(r'^chnpwd/',chnpwd),
     url(r'^login1/',login1),

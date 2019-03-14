@@ -191,6 +191,8 @@ def logout(request):
 def logoutsu(request):
   try:
     del request.session['mid']
+    if request.session.has_key('stored'):
+      del request.session['stored']
   except:
     pass
   return render(request,"login.html",{"message":"Logged out successfully!","col":"green"})
@@ -217,23 +219,25 @@ def scholar1(request):
   rno=request.session['regno']
   dbP=Personal_Det.objects.get(scholar__regno=rno)
   dbPu=Publications.objects.filter(scholars__regno=rno)
-  dbProg=Progress.objects.filter(scholar__regno=rno)
-  dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass")
+  dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
+  dbNext=dbUpcoming[0]
+  dbRest=dbUpcoming[1:]
+  dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+  dbLatest=dbCompleted[0]
+  dbOthers=dbCompleted[1:]
   dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
   reports=Reports.objects.filter(scholar__regno=rno).values()
-  for db in dbProg:
-    if db.current==True:
-      lvl=db.level
-      lvl=lvl-1
-      dbCurrent=Progress.objects.filter(scholar__regno=rno,level=lvl-1)
-      current=dbCurrent.name
-  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg})
+  DCguys=DCMembers.objects.filter(scholar__regno=rno)
+  current=dbCompleted[0].name
+  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers})
 
 def supervisor1(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
      logg="Logout"
   else:
      logg="Login"
+  if request.session.has_key('stored'):
+     del request.session['stored']
   mid=request.session['mid']
   dbP=Su_Personal_Det.objects.get(supervisor__mid=mid)
   dbPu=Publications.objects.filter(supervisors__mid=mid).values()
@@ -282,30 +286,48 @@ def dschinfo(request):
   else:
     return render(request,"home.html",{})
 
-
-def schinfo(request):
-  if request.session.has_key('mid') or request.session.has_key('regno'):
-    logg="Logout"
-  else:
-    logg="Login"
-  status1=""
+def storesch(request):
   if request.POST:
     IForm=infof(request.POST)
     if IForm.is_valid():
       rno=IForm.cleaned_data['regno']
-      dbP=Personal_Det.objects.get(scholar__regno=rno)
-      dbPu=Publications.objects.filter(scholars__regno=rno)
-      dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
-      dbst=DC_Meeting.objects.filter(scholar__regno=rno,Completed=False,Started=True)
-      dbsp=DC_Meeting.objects.filter(scholar__regno=rno)
-      dcms=DC_Meeting.objects.filter(scholar__regno=rno,progress="B")
-      reports=Reports.objects.filter(scholar__regno=rno).values()
-      if dbst.exists():
-        status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
-        status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
-    else:
-      return render(request,"home.html",{})
+      request.session['stored']=rno
+      return HttpResponseRedirect('/schinfo')
+  else:
+    return render(request,"home.html",{})
+
+def schinfo(request):
+  if request.session.has_key('mid'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  status1=""
+  if request.session.has_key('stored'):
+    rno=request.session['stored']
+    dbP=Personal_Det.objects.get(scholar__regno=rno)
+    dbPu=Publications.objects.filter(scholars__regno=rno)
+    dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
+    dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+    current=dbCompleted[0].name
+    return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":current})
+  else:
+    return render(request,"home.html",{})
+
+def schprog(request):
+  if request.session.has_key('mid'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  if request.session.has_key('stored'):
+    current=""
+    rno=request.session['stored']
+    dbP=Personal_Det.objects.get(scholar__regno=rno)
+    dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
+    dbNext=dbUpcoming[0]
+    dbRest=dbUpcoming[1:]
+    dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+    DCguys=DCMembers.objects.filter(scholar__regno=rno)
+    return render(request,"schprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest})
   else:
     return render(request,"home.html",{})
 

@@ -22,7 +22,6 @@
 			
 	<div id="navbar">
 			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="/support" class="buttons">Support</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
 				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
 				<p class="main">PhD Portal</p>
@@ -39,7 +38,6 @@
 					<i class="fas fa-times"></i>
 		</a>
 		<a href="#about" onclick="sideClose()">{{logg}}</a>
-		<a href="/support" onclick="sideClose()">Support</a>
 		<a href="#" onclick="sideClose()">Downloads</a>
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
@@ -93,6 +91,7 @@
 							<ul class="tabs">
 								<li class="tab"><a class="tabbed" href="#profile">Profile</a></li>
 								<li class="tab"><a class="tabbed" href="#progress">Progress</a></li>
+								<li class="tab"><a class="tabbed" href="#messages">Messages</a></li>
 							</ul>
 						</div>
 					</div>
@@ -162,32 +161,115 @@
 									{%endfor%}
 		
 								</table>
-								<h2>Reports: </h2>
-								{%for rep in reports%}
-								<button class="accordion1"><h2>{{rep.head}}</h2></button>
-								<div class="panel">
-								<p>{{rep.body}}</p>
-								</div>
-								{%endfor%}
-						
 						</div>
 					</div>
 					</div>
           <div id="progress">
-						<div class="card">
-							Current status:
-						</div>
+						
 						<div class="divided">
 							<div class="done">
 							<div class="card">
-								Done:
+								Completed:
+								<ul class="collapsible popout">
+									<li class="active">
+										<div class="collapsible-header">{{dbLatest.name}}</div>
+										<div class="collapsible-body">
+											{% if dbLatest.level == 1 %}
+											 <p>Presented on: {{dbLatest.presented}} </p>
+											 {%ifequal dbNext.fees "paid"%}
+											 <p>Provisionally Admitted: Yes </p>
+											 {%else%}
+											 <p>Provisionally Admitted: No </p>
+											 {%endifequal%}
+											{% elif dbLatest.level == 2 or dbLatest.level == 5 or dbLatest.level == 6 %}
+											<p>Held on: {{dbLatest.date}}</p>
+											<p>DC Members:</p>
+											<p>Comments: {{dbLatest.comments}}</p>
+											{% elif dbLatest.level == 9%}
+											<p>Date: {{dbLatest.date}}</p>
+											<p>Comments: {{dbLatest.comments}}</p>
+											{% elif dbLatest.level == 4 or dbLatest.level == 7 or dbLatest.level == 8 or dbLatest.level == 10%}
+											<p>Date: {{dbLatest.date}}</p>
+											<p>Comments: {{dbLatest.comments}}</p>
+											{% elif dbLatest.level == 3%}
+											<p>Subjects:</p>
+											{% endif %}
+										</div>
+									</li>
+									{%for others in dbOthers%}
+									<li>
+											<div class="collapsible-header">{{others.name}}</div>
+											<div class="collapsible-body">
+												{% if others.level == 1%}
+												 <p>Presented on: {{others.presented}} </p>
+												 {%ifequal others.fees "paid"%}
+												 <p>Provisionally Admitted: Yes </p>
+												 {%else%}
+												 <p>Provisionally Admitted: No </p>
+												 {%endifequal%}
+												{% elif others.level == 2 or others.level == 5 or others.level == 6 %}
+												<p>Held on: {{others.date}}</p>
+												<p>DC Members:</p>
+												<p>Comments: {{others.comments}}</p>
+												{% elif others.level == 9%}
+												<p>Date: {{others.date}}</p>
+												<p>Comments: {{others.comments}}</p>
+												{% elif others.level == 4 or others.level == 7 or others.level == 8 or others.level == 10%}
+												<p>Date: {{others.date}}</p>
+												<p>Comments: {{others.comments}}</p>
+												{% elif others.level == 3%}
+												<p>Subjects:</p>
+												{%endif%}
+											</div>
+										</li>
+									{% endfor %}
+								</ul>							
 							</div>
 						</div>
 						<div class="done">
 							<div class="card">
-								To Do:
+								Upcoming:
+								<ul class="collapsible popout">
+									<li class="active">
+										<div class="collapsible-header">{{dbNext.name}}</div>
+										<div class="collapsible-body">
+												{% if dbNext.level == 1%}
+												 <p>Presented on: {{dbNext.presented}} </p>
+												 {%ifequal dbNext.fees "paid"%}
+												 <p>Provisionally Admitted: Yes </p>
+												 {%else%}
+												 <p>Provisionally Admitted: No </p>
+												 {%endifequal%}
+												{% elif dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
+												<p>To be held on: {{dbNext.date}}</p>
+												<p>DC Members:</p>
+												{% elif dbNext.level == 9%}
+												<p>To be submitted before: {{dbNext.date}}</p>
+												{% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
+												<p>Date: {{dbNext.date}}</p>
+												{% elif dbNext.level == 3%}
+												<p>Subjects:</p>
+												{%endif%}
+											</div>
+									</li>
+									{% for come in dbRest%}
+									<li>
+									<div class="collapsible-header">{{come.name}}</div>
+							   	</li>
+									{%endfor%}
+								</ul>	
 							</div>
 						</div>
+						</div>
+					</div>
+					<div id="messages">
+						<div class="card">
+							<h3>Reports</h3>
+							<p>No reports to show currently!</p>
+						</div>
+						<div class="message">
+							<h3>Messages</h3>
+							<p>No messages to show currently!</p>
 						</div>
 					</div>
 					<script>
@@ -195,52 +277,12 @@
 						var instance=M.Tabs.init(element,{
 							swipeable: true,
 						});
-						document.getElementById("defaultOpen").click();
-					var acc = document.getElementsByClassName("accordion1");
-var i;
+						document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+             var instances = M.Collapsible.init(elems, {});
+          });
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
-  });
-}
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
-					function drop(){
-						var doc=document.getElementById("dropdown");
-						if (doc.style.display=="none"){
-							doc.style.display="block";
-						}
-						else {
-							doc.style.display="none";
-						}
-					}
-					function drop1(){
-						var doc=document.getElementById("dropdown1");
-						if (doc.style.display=="none"){
-							doc.style.display="block";
-						}
-						else {
-							doc.style.display="none";
-						}
-					}
+
 					</script>
 					<style>
 					.button {

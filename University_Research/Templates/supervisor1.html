@@ -5,23 +5,30 @@
 	<meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+	/>
+	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<link rel="stylesheet" href="{%static 'header.css' %}">
 	<script src="{% static 'header.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'supervisor.css' %}">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>Research - SASTRA Deemed University</title>
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
-			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="/support" class="buttons">Support</a>
-			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+		<div id="navbar">
+				<a href="/logq" class="buttons">{{logg}}</a>
+				<a href="javascript:void(0)" class="buttons">Downloads</a>
+					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+					<p class="main">PhD Portal</p>
+				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		<p class="main">PhD Portal</p>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
 					<i class="fas fa-bars"></i>
 		</a>
@@ -31,7 +38,6 @@
 					<i class="fas fa-times"></i>
 		</a>
 		<a href="#about" onclick="sideClose()">{{logg}}</a>
-		<a href="#" onclick="sideClose()">Support</a>
 		<a href="#" onclick="sideClose()">Downloads</a>
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
@@ -76,8 +82,6 @@
 body{
 	margin:0;
 	padding:0;
-	width: 80%;
-	margin-left: 10%;
 }
 
 					/* Style the tab content */
@@ -86,9 +90,13 @@ body{
 					    padding: 6px 12px;
 					    border-top: none;
 					}
+					.welcome{
+						float:right;
+						margin-right: 2%;
+					}
 					.footer{
 	width:100%;
-	background-color: #0D2C5F;
+	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
     text-align: center;
@@ -96,16 +104,19 @@ body{
 					</style>
 					</head>
 					<body>
-							<h4><p style="float:right">Welcome {{name}}</p></h4>		
-							<br><br><br><br>
-					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')">Scholar Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')"id="defaultOpen">Personal Details</button>
-					</div>
-
-					<center><div id="regde" class="tabcontent">
-					  <br><h3>List of Scholars: </h3><br>
+							<h4><p class="welcome">Welcome Dr. {{name}}</p></h4>		
+							<div class="hold">
+									<div class="holding s-12">
+										<ul class="tabs">
+											<li class="tab"><a class="tabbed" href="#scholars">List of Scholars</a></li>
+											<li class="tab"><a class="tabbed" href="#profile">Profile</a></li>
+											<li class="tab"><a class="tabbed" href="#messages">Messages</a></li>
+										</ul>
+									</div>
+								</div>
+                      <div id="scholars">
+						  <div class="card">
+					  <h3>List of Scholars: </h3>
 						<table>
 							<tr>
 								<th>Register Number</th>
@@ -115,11 +126,11 @@ body{
 				      </tr>
             {%for s in sch%}
 						<tr>
-							<td style="text-align:center">{{s.scholar.regno}}</td>
-							<td style="text-align:center">{{s.name}}</td>
-							<td style="text-align:center">{{s.email}}</td>
-							<td style="text-align:center">
-								<form method="POST" action="http://127.0.0.1:8000/schinfo/">
+							<td >{{s.scholar.regno}}</td>
+							<td >{{s.name}}</td>
+							<td >{{s.email}}</td>
+							<td>
+								<form method="POST" action="http://127.0.0.1:8000/storesch/">
 									{%csrf_token%}
 									<input type="hidden" name="regno" value={{s.scholar.regno}}>
 									<input style="width:40%" type="submit" name="Info" value="Info">
@@ -128,10 +139,44 @@ body{
 						</tr>
 						{%endfor%}
 					</table>
-					</div>
+				</div>
+				</div>
 
-					<div id="resde" class="tabcontent">
-						<br><h3>Publication Details :</h3><br>
+					<div id="profile">
+					  <div id="divided">
+					  <div id="divide">
+						  <div class="card">
+									<table>
+									<tr>
+										<th style="text-align:center">Name:</th>
+										<td style="text-align:center">{{name}} {{lname}}</td>
+									</tr>
+									<tr>
+										<th style="text-align:center">Sex:</th>
+										<td style="text-align:center">{{sex}}</td>
+									</tr>
+									<tr>
+										<th style="text-align:center">E-mail:</th>
+										<td style="text-align:center">{{email}}</td>
+									</tr>
+									<tr>
+										<th style="text-align:center">Employee ID:</th>
+										<td style="text-align:center">{{mid}}</td>
+									</tr>
+									<tr>
+										<th style="text-align:center">School:</th>
+										<td style="text-align:center">{{school}}</td>
+									</tr>
+									<tr>
+										<th style="text-align:center">Area of Interest:</th>
+										<td style="text-align:center">{{aoi}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="divide">
+						<div class="card">
+						<h3>Publication Details :</h3>
 						<table>
 							<tr>
 								<th style="width:30%">Title of Publication</th>
@@ -148,53 +193,21 @@ body{
 								</tr>
 							{%endfor%}
 						</table>
-					</div></center>
-
-					<div id="prog" class="tabcontent">
-						<br><center><table>
-						<tr>
-							<th style="text-align:center">First Name:</th>
-							<td style="text-align:center">{{name}} {{lname}}</td>
-						</tr>
-						<tr>
-							<th style="text-align:center">Sex:</th>
-							<td style="text-align:center">{{sex}}</td>
-						</tr>
-						<tr>
-							<th style="text-align:center">E-mail:</th>
-							<td style="text-align:center">{{email}}</td>
-						</tr>
-						<tr>
-							<th style="text-align:center">Employee ID:</th>
-							<td style="text-align:center">{{mid}}</td>
-						</tr>
-						<tr>
-							<th style="text-align:center">School:</th>
-							<td style="text-align:center">{{school}}</td>
-						</tr>
-						<tr>
-							<th style="text-align:center">Area of Interest:</th>
-							<td style="text-align:center">{{aoi}}</td>
-						</tr>
-					</table>
-				</center>
+					</div>
+					   </div> 
+					</div>
+					</div>
+					<div id="messages">
+						<h3>Messages</h3>
+						<p>No messages to show right now!</p>
 					</div>
 
-					<script>
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
-					</script>
+		<script>
+			var element=document.querySelector('.tabs');
+		    var instance=M.Tabs.init(element,{
+							swipeable: true,
+						});
+		</script>
 </div>
 </div>
  </div>

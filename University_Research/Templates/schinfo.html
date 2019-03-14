@@ -5,7 +5,13 @@
 	<meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+		/>
+			<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<link rel="stylesheet" href="{%static 'header.css' %}">
 	<script src="{% static 'header.js' %}"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -13,14 +19,13 @@
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
-			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="/support" class="buttons">Support</a>
-			<a href="/profile" class="buttons">Profile</a>
-			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+		<div id="navbar">
+				<a href="/logq" class="buttons">{{logg}}</a>
+				<a href="javascript:void(0)" class="buttons">Downloads</a>
+					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+					<p class="main">PhD Portal</p>
+				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -32,7 +37,6 @@
 					<i class="fas fa-times"></i>
 		</a>
 		<a href="#about" onclick="sideClose()">{{logg}}</a>
-		<a href="#" onclick="sideClose()">Support</a>
 		<a href="#" onclick="sideClose()">Downloads</a>
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
@@ -121,31 +125,34 @@
 					body{
 	margin:0;
 	padding:0;
-	width: 80%;
-	margin-left: 10%;
+}
+.divided{
+    display: flex;
+}
+#done{
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
 }
 					</style>
-					</head>
-					<body>
-
-					<h1>Scholar Details - {{name}}</h1>
-
-					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')"id="defaultOpen">Registration Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')">Progress</button>
-						<button class="tablinks" onclick="openCity(event, 'report')">Reports</button>
-					</div>
-
-					<div id="regde" class="tabcontent">
-					  <center><table>
+							<nav>
+									<div class="nav-wrapper">
+										<div class="col s12">
+											<a href="/profile" class="breadcrumb">Scholars</a>
+											<a href="#!" class="breadcrumb">{{name}}</a>
+										</div>
+									</div>
+								</nav>
+							
+					<h1>Scholar Information - {{name}}</h1>
+					<button><a href="/schprog">Edit Progress</a></button>
+					<div class="divided">
+          <div class="card" id="done">
+					<table>
             <tr>
-							<th style="width:30%">First Name:</th>
+							<th style="width:30%">Name:</th>
 							<td style="text-align:center">{{name}}</td>
-						</tr>
-						<tr>
-							<th style="width:30%">Last Name:</th>
-							<td style="text-align:center">{{lname}}</td>
 						</tr>
 						<tr>
 							<th>Date of Birth:</th>
@@ -172,14 +179,12 @@
 							<td style="text-align:center">{{school}}</td>
 						</tr>
 					</table>
-        </center>
-					</div>
-<center>
-					<div id="resde" class="tabcontent">
+				</div>
+				 <div class="card" id="done">
 					  <h3>Current Status: {{status1}} Completed</h3>
 						<h3>Supervisor: Dr. {{supervisor}}</h3>
 						<br><h3>Publication Details</h3><br>
-						<table border="1">
+						<table>
 							<tr>
 								<th>Title of the Publication</th>
 								<th>Name of the Journal</th>
@@ -196,270 +201,14 @@
 							{%endfor%}
 
 						</table>
-					</div></center>
-					<div class="righta">
-
-					<div id="prog" class="tabcontent">
-						{% for sp in dbsp %}
-						{%for key,value in levels%}
-						 {%ifequal key sp.progress%}
-						 {% ifequal sp.Started True %}
-							{% ifequal sp.Completed True %}
-
-						<h2 style="color:green;">{{value}}</h2>
-
-						<button class="accordion">{{value}}</button>
-						<div class="panel">
-							<table>
-							<th style="width:30%">Date Completed:</th><td style="text-align:center">{{sp.cdate}}</td><br>
-							<tr><th style="width:30%">Status: </th><td style="text-align:center">{{sp.status}}</td></tr>
-							<tr><th style="width:30%">Remarks:</th><td style="text-align:center">{{sp.remarks}}</td></tr>
-							</table><br><br>
-							<button class="accordion">Edit</button>
-							<div class="panel1">
-								<form method="POST" action="http://127.0.0.1:8000/schedit/">{%csrf_token%}
-								<div id="ed1" class="ed1">
-                   <br>
-                 <h3>Status:</h3><br>
-								 <div class="choice">
-								 <select id="e1" name="Status"><br><br>
-									 <option value="Pass">Pass</option>
-									 <option value="Fail">Fail</option><br><br>
-								 </select>
-							 </div>
-								 <br>
-								 <button class="buttonl" type="button" onclick="document.getElementsByClassName('panel1').style.display='none'"><span>Cancel<span></button>
-								 <button class="buttonl" type="button" onclick="editfun1()"><span>Next</span></button><br>
-							 </div>
-							 <div id="ed2" class="ed2">
-									 <p id="p1"></p>
-										 <input type="Date" name="Date">
-								Remarks:
-								<input type="text" name="Remarks">
-								<input type="hidden" name="progress" value={{sp.progress}}>
-								<input type="hidden" name="regno" value={{sp.scholar.regno}}>
-								<button type="button">Cancel</button><input type="submit" name="submit" value="submit">
-							</div>
-							</form>
-
-							</div>
-
-						</div>
-
-						 {% else %}
-						<h2 style="color:red;">{{value}}</h2>
-								<button class="accordion">{{value}}</button>
-								<div class="panel">
-									<table>
-							 <th style="width:30%">Date:</th><td style="text-align:center">{{sp.sdate}}</td><br>
-
-							 <tr><th style="width:30%">Message:</th><td style="text-align:center">{{sp.message}}</td><br>
-						 </table>
-						 <br>
-							<button class="accordion">Update</button>
-							 <div class="panel1">
-							 <form method="POST" action="http://127.0.0.1:8000/schedit/">{%csrf_token%}
-								 <div class="no1" id="no1">
-									<h2>Status:</h2><br>
-									<select id="n1" class="n1" name="status">
-										<option value="Pass"><br><h2>Pass</h2></option>
-										<option value="Fail"><br><h2>Fail</h2></option>
-									</select>
-								 <button class="buttonl" type="button" onclick="document.getElementById('panel1').style.display='none'">Cancel</button>
-                 <button class="buttonl" type="button" onclick="updatefun1()">Next</button>
-							 </div>
-								<p id="p2"></p>
-								<div class="no2" id="no2">
-									<input type="Date" name="date"><br><br>
-								 Remarks:
-								 <br><input type="text" name="remarks">
-								 <input type="hidden" name="progress" value={{sp.progress}}>
-								 <input type="hidden" name="regno" value={{sp.scholar.regno}}>
-								<br> <br><button type="button">Cancel</button><input type="submit" name="submit" value="submit">
-							 </div>
-							 </form>
-							 </div>
-						 </div>
-							{% endifequal %}
-						{%else%}
-					 <h2 >{{value}}</h2>
-
-								<button class="accordion">{{value}}</button>
-								<div class="panel">
-						 <br><button class="accordion">Start</button>
-						 <div class="panel1">
-						 <br>
-						 <form method="POST" action="http://127.0.0.1:8000/schstart/">{%csrf_token%}
-							<div class="no1" id="no1">
-								Date:
-								<input type="Date" name="date">
-								<br><br>
-								Message:
-								<input type="text" name="message"><br>
-							 <input type="hidden" name="progress" value={{sp.progress}}>
-							 <input type="hidden" name="regno" value={{sp.scholar.regno}}>
-							<br> <button type="button" onclick="document.getElementById('Start').style.display='none'" type="cancelbtn">Cancel</button>
-							 <input type="submit" name="submit" value="submit">
-						 </div>
-						 </form>
-					 </div>
-				 </div>
-					 {%endifequal%}
-					 {%endifequal%}
-					{%endfor%}
-					 {% endfor %}
 					</div>
-					<center>
-					<div id="dcm" class="tabcontent">
-					 <h2>DC Members: </h2>
-					 <button class="accordion">Add/Edit DC Members</button>
-					 <div class="panel">
-						 <br>
-						 <form method="POST" action="http://127.0.0.1:8000/adett">{%csrf_token%}
-						 <bold>Supervisor ID:<br> </bold>
-						 <input type="text" name="mmid">
-						 <br>
-						 <input type="hidden" name="regno" value={{regno}}>
-						 <br>
-						 <input type="submit" value="Add">
-					 </form>
-					 </div>
-					 <br>
-					 <table border="1" class="dett">
-						<tr>
-						 <th>DC Member</th>
-						 <th>Institution</th>
-						 <th>Address</th>
-						 <th>Phone Number</th>
-						 <th>Email ID</th>
-					 </tr>
-					 {%for dc in dcm%}
-					 <tr>
-						 <td>{{dc.name}}</td>
-						 <td>{{dc.institution}}</td>
-					 </tr>
-					 {%endfor%}
-				 </table>
-					</div></center>
-					<div id="report" class="tabcontent">
-						<br><br>
-					 <button class="accordion">Add an Update/Progress Report: </button>
-					 <div class="panel">
-						 <br>
-						 <form method="POST" action="http://127.0.0.1:8000/adup">{%csrf_token%}
-						 <bold>Title:</bold>
-						 <input tyoe="text" name="head"><br><br><bold>Body:</bold><br>
-
-						 <textarea name="body" rows='10' cols='100'>
-				     </textarea>
-						 <br><br>
-						 <input type="hidden" name="regno" value={{regno}}>
-						 <input type="submit" value="Add">
-					 </form>
-					 </div>
-					 <h2>Updates: </h2>
-					 {%for rep in reports%}
-					 <button class="accordion"><h2>{{rep.head}}</h2></button>
-					 <div class="panel">
-						<p>{{rep.body}}</p>
-					 </div>
-					 {%endfor%}
-					</div></div>
-					<br><br><br><br><br><br><br><br><br><br><br>
-
+				</div>
 					<div class="footer">
 						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 					</div>
 
 					<script>
-					var acc = document.getElementsByClassName("accordion");
-          var i;
-
-          for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight){
-            panel.style.maxHeight = null;
-            } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-          });
-          }
-
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
-					function drop(){
-						var doc=document.getElementById("dropdown");
-						if (doc.style.display=="none"){
-							doc.style.display="block";
-						}
-						else {
-							doc.style.display="none";
-						}
-					}
-					function drop1(){
-						var doc=document.getElementById("dropdown1");
-						if (doc.style.display=="none"){
-							doc.style.display="block";
-						}
-						else {
-							doc.style.display="none";
-						}
-					}
-					function drop2(){
-						var doc=document.getElementById("dropdown2");
-						if (doc.style.display=="none"){
-							doc.style.display="block";
-						}
-						else {
-							doc.style.display="none";
-						}
-					}
-          function updatefun(){
-						var doc=document.getElementById("no1");
-						doc.style.display="block";
-					}
-          function updatefun1(){
-						var doc=document.getElementById("n1");
-						var a=doc.options[doc.selectedIndex].text;
-            if(a=="Pass") {
-            	document.getElementById("p2").innerHTML="Date Completed:";
-            }
-						if(a=="Fail"){
-							document.getElementById("p2").innerHTML="Repeat Date:";
-						}
-						document.getElementById("no2").style.display="block";
-						document.getElementById("no1").style.display="none";
-					}
-					function editfun(){
-						var doc=document.getElementById("ed1");
-						doc.style.display="block";
-					}
-					function editfun1(){
-						var doc=document.getElementById("e1");
-						var a=doc.options[doc.selectedIndex].text;
-						if(a=="Pass") {
-							document.getElementById("p1").innerHTML="Date Completed:";
-						}
-						if(a=="Fail"){
-							document.getElementById("p1").innerHTML="Repeat Date:";
-						}
-						document.getElementById("ed2").style.display="block";
-						document.getElementById("ed1").style.display="none";
-					}
-					document.getElementById("defaultOpen").click();
+		
 
 					</script>
 					<style>
@@ -498,14 +247,7 @@
 					    font-size: 15px;
 					    transition: 0.4s;
 					}
-					.footer{
-	width:100%;
-	background-color: #0D2C5F;
-	color:white;
-	height: 5%;
-    text-align: center;
-}
-
+				
 
 					.active1, .accordion:hover {
 					    background-color: #ccc;
@@ -524,12 +266,11 @@
 					}
 					.footer{
 	width:100%;
-	background-color: darkblue;
+	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
     text-align: center;
 }
-
 					.panel {
 					    padding: 20 18px;
 					    background-color: white;
@@ -547,25 +288,7 @@
 										}
 
 </style>
-</div>
-</div>
- </div>
-				</div>
-		<div id="bottom">
-			<div style="<!--border:1px outset #eee;-->">
-				<div id="bottom-1">
-				<div id="bottom_useful-link"><div class="clear"></div></div>
-				<div id="bottom2"><div class="clear"></div></div>
-				<div id="bottom_contact"><div class="clear"></div></div>
-				<div class="clear"></div>
-				</div>
-			</div>
-		</div>
-		</div><div class="clear"></div>
-		</div>
-	</div>
 
-</div>
 <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

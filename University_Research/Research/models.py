@@ -67,6 +67,8 @@ class Others(Progress):
 class Thesis(Progress):
    date=models.DateField(null=True)
    comments=models.CharField(max_length=30)
+   fees=models.CharField(max_length=5)
+   datePaid=models.DateField(null=True)
 
 class Zero(Progress):
    presented=models.DateField(null=True)

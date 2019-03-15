@@ -6,19 +6,26 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-	<link rel="stylesheet" href="{%static 'header.css' %}">
+  <link rel="stylesheet" href="{%static 'header.css' %}">
+  	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="{% static 'header.js' %}"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>Research - SASTRA Deemed University</title>
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
-			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+    <div id="navbar">
+        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="javascript:void(0)" class="buttons">Downloads</a>
+          <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+          <p class="main">PhD Portal</p>
+        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+    </div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -33,73 +40,96 @@
 		<a href="#" onclick="sideClose()">Downloads</a>
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
+  
   			<!---------------- Mid content ----------------------------------->
   					<div class="clearpad"><div class="item-page">
 
               <br>
-              <h1 class="loginhead">Login</h1>
-              <font color="{{col}}"><h3>{{message}}</h3></font>
-              <div class="Top">
-                <div onclick='myfunc1()' class="scholar-box" id='1'>Scholar</div><div onclick='myfunc2()' class="supervisor-box" id='2' >Supervisor</div><div onclick='myfunc3()' class="dean-box" id='3' >Dean</div>
-                <div class="bor-top"></div>
-              </div>
-              <div class="login">
-                <div class="scholar" id='11'>
-                  <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins">
-                    <br>
-                  <div class="box_size">  Register Number: <br><input type='text' name='regno'/><br>
-                    {%csrf_token%}</div>
-                    <br>
-                    Password: <br><input type='password' name='password'/></font><br>
-                    <br>
-                    <a href="http://127.0.0.1:8000/support/">Forgot Password</a><br><br>
-                    <button class="buttonlog" type='submit' name='in'>Login</button>
-
-                  </form>
+              <div class="card">
+                <div class="card-title">Login</div>
+                <p style="color:{{col}}">{{message}}</p>
+                <div class="card-tabs">
+                  <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a href="#scholar">Scholar</a></li>
+                    <li class="tab"><a href="#supervisor">Supervisor</a></li>
+                    <li class="tab"><a href="#dean">Dean</a></li>
+                  </ul>
                 </div>
-                <div class="supervisor" id='22'>
-                  <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">
-                    <br>
-                    <div class="box_size">  User ID: <br>
-                    <input type='text' name='mid'/><br></div>
-                        {%csrf_token%}
-                    <br>
-                    Password:<br> <input type='password' name='password'/></font><br>
-                    <br>
-                      <a href="#">Forgot Password</a><br><br>
-                    <button class="buttonlog" name='in'>Login</button>
-                  </form>
-                </div>
-                  <div class="dean" id='33'>
-                    <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">
-                      <br>
-                    <div class="box_size">    Dean ID: <br><input type='text' name='mid'/><br></div>
-                          {%csrf_token%}
-                      <br>
-                      Password: <br><input type='password' name='password'/></font><br>
-                      <br>
-                      <button class="buttonlog "type='submit' name='in'>Login</button>
+                <div class="card-content">
+                  <div id="scholar">
+                      <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
+                    <div class="input-field">
+                    <input id='regno' type="text" name='regno' required/>
+                    <label for="regno">Register Number</label>
+                  </div>
+                  <div class="input-field">
+                    <input id="password" type="password" name="password" required/>
+                    <label for="password">Password</label>
+                  </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>  
                     </form>
                   </div>
+                  <div id="supervisor">
+                      <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
+                      <div class="input-field">
+                      <input id='regno' type="text" name='mid' required/>
+                      <label for="regno">User ID</label>
+                    </div>
+                    <div class="input-field">
+                      <input id="password" type="password" name="password" required/>
+                      <label for="password">Password</label>
+                    </div>
+                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                          <i class="material-icons right">send</i>
+                      </button>  
+                      </form>
+                  </div>
+                  <div id="dean">
+                      <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
+                      <div class="input-field">
+                      <input id='regno' type="text" name='mid' required/>
+                      <label for="regno">Dean ID</label>
+                    </div>
+                    <div class="input-field">
+                      <input id="password" type="password" name="password" required/>
+                      <label for="password">Password</label>
+                    </div>
+                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                          <i class="material-icons right">send</i>
+                      </button>  
+                      </form>
+                  </div>
                 </div>
-
-                </div>
-                <br>
-                <br>
-                <br>
-                <hr>
-                <div class="footer">
-                  <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
-                </div>
-<style>
+              </div>
+            
+                
+                <style>
+                    @media only screen and (max-width:800px) {
+                    /* For tablets: */
+                    .mainmenu {
+                      width: 80%;
+                      padding: 0;
+                    }
+                    .menunav{
+                      width: 100%;
+                    }
+                  }
+                  @media only screen and (max-width:500px) {
+                    /* For mobile phones: */
+                    .mainmenu, .menunav{
+                      width: 100%;
+                    }
+                  }
 .box_size{
   margin-left: 38%;
   margin-right: 38%;
 }
 body{
   font-size: 100%;
-  width: 80%;
-  margin-left: 10%;
+  margin: 0;
+  padding: 0;
 }
 h3{
  text-align:center;
@@ -150,15 +180,6 @@ h2{
 li{
   font-size: 0.8em;
 }
-.footer{
-	width:100%;
-	background-color: darkblue;
-	color:white;
-	height: 5%;
-    text-align: center;
-}
-
-
 li a{
   text-decoration: none;
   color: black;
@@ -232,14 +253,6 @@ li a:hover{
   font-weight: normal;
 
 }
-.footer{
-	width:100%;
-	background-color: #0D2C5F;
-	color:white;
-	height: 5%;
-    text-align: center;
-}
-
 .dean-box{
   height: 5px;
   width:10px;
@@ -257,6 +270,15 @@ li a:hover{
   text-align: center;
   font-weight: normal;
 }
+.footer{
+	width:100%;
+	background-color: #3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
+
+
 .dean-box:hover{
   cursor: pointer;
 }
@@ -277,111 +299,20 @@ li a:hover{
 }
 </style>
 <script>
-var Ti=setTimeout(me1(),100)
+  var Ti=setTimeout(me1(),100)
 function me1(){
   window.alert("You need to login first!");
 }
- function myfunc1(){
-   var A=document.getElementById('1')
-   {
-     A.style.fontWeight='bold';
-     A.style.borderBottom='none';
-     A.style.borderWidth='thin';
-   }
-   var B=document.getElementById('2')
-   {
-     B.style.fontWeight='normal';
-     B.style.borderBottom='solid';
-     B.style.borderWidth='thin';
-   }
-   var E=document.getElementById('3')
-   {
-     E.style.fontWeight='normal';
-     E.style.borderBottom='solid';
-     E.style.borderWidth='thin';
-   }
-   var C=document.getElementById('11')
-   {
-     C.style.display='block';
-   }
-   var D=document.getElementById('22')
-   {
-     D.style.display='none';
-   }
-   var F=document.getElementById('33')
-   {
-     F.style.display='none';
-   }
-
- }
- function myfunc2(){
-   var A=document.getElementById('1')
-   {
-     A.style.fontWeight='normal';
-     A.style.borderBottom='solid';
-     A.style.borderWidth='thin';
-   }
-   var B=document.getElementById('2')
-   {
-     B.style.fontWeight='bold';
-     B.style.borderBottom='none';
-     B.style.borderWidth='thin';
-
-   }
-   var E=document.getElementById('3')
-   {
-     E.style.fontWeight='normal';
-     E.style.borderBottom='solid';
-     E.style.borderWidth='thin';
-   }
-   var C=document.getElementById('11')
-   {
-     C.style.display='none';
-   }
-   var D=document.getElementById('22')
-   {
-     D.style.display='block';
-   }
-   var F=document.getElementById('33')
-   {
-     F.style.display='none';
-   }
- }
- function myfunc3(){
-   var A=document.getElementById('1')
-   {
-     A.style.fontWeight='normal';
-     A.style.borderBottom='solid';
-     A.style.borderWidth='thin';
-   }
-   var B=document.getElementById('2')
-   {
-     B.style.fontWeight='normal';
-     B.style.borderBottom='solid';
-     B.style.borderWidth='thin';
-   }
-   var E=document.getElementById('3')
-   {
-     E.style.fontWeight='bold';
-     E.style.borderBottom='none';
-     E.style.borderWidth='thin';
-   }
-   var C=document.getElementById('11')
-   {
-     C.style.display='none';
-   }
-   var D=document.getElementById('22')
-   {
-     D.style.display='none';
-   }
-   var F=document.getElementById('33')
-   {
-     F.style.display='block';
-   }
- }
-
+  	var element=document.querySelector('.tabs');
+						var instance=M.Tabs.init(element,{
+							swipeable: true,
+						});
 </script>
-
-
+<div class="footer">
+	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+</div>
 </body>
 </html>
+
+
+

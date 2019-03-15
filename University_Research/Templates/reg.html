@@ -8,6 +8,13 @@
     />
 	<link rel="stylesheet" href="{%static 'header.css' %}">
   <script src="{% static 'header.js' %}"></script>
+    	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script> 
@@ -17,13 +24,12 @@
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
-			<a href="/logq" class="buttons">{{logg}}</a>
-      <a href="javascript:void(0)" class="buttons">Downloads</a>
-      <a href="/profile" class="buttons">Profile</a>
-		    <a href="www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+    <div id="navbar">
+        <a href="javascript:void(0)" class="buttons">Downloads</a>
+          <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+          <p class="main">Research Portal</p>
+        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+    </div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -39,104 +45,95 @@
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
 			<!---------------- Mid content ----------------------------------->
-					<div class="clearpad"><div class="item-page">
-	<h1 class="item-page-title">Registration Form</h1>
-
-		<ul class="button-icons">
-										<li class="print-icon">
-						<a href="/index.php/2014-01-29-07-16-29.html?tmpl=component&amp;print=1&amp;page=" title="Print article < Research >" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow">					<img src="/media/system/images/printButton.png" alt="Print" />	</a>				</li>
-
-								<li class="email-icon">
-						<a href="/index.php/component/mailto/?tmpl=component&amp;template=santosh&amp;link=0c860eb1c04f364d83f1ff29161b2db6056b50d8" title="Email this link to a friend" onclick="window.open(this.href,'win2','width=400,height=350,menubar=yes,resizable=yes'); return false;" rel="nofollow">			<img src="/media/system/images/emailButton.png" alt="Email" />	</a>				</li>
-												</ul>
-                        <div class="Top">
-                          <div onclick='myfunc1()' class="scholar-box" id='1'>Scholar</div><div onclick='myfunc2()' class="supervisor-box" id='2' >Supervisor</div>
-                          <div class="bor-top"></div>
-                        </div>
-                        <div class="login">
-
-                          <div class="scholar" id='11'>
-														<form method="POST" action="http://127.0.0.1:8000/schreg/" name="logins">
-															{%csrf_token%}
-                              <br>
-                              <div class="reg3"> First Name:  <input type='text' name='name'/><br></div>
-															<div class="reg3">
-															Sex:<br> <input type="radio" name="sex" value="Male" checked> Male</input>
-															<input type="radio" name="sex" value="Female"> Female</input><br></div>
-															<div class="reg2">
-															Date of Birth: <br><input type="date" id="" name="dob"><br></div>
-															<div class="reg3">  Category:<br><select name="category"><option value="OC">OC</option>
-															<option value="BC">BC</option>
-															<option value="MBC">MBC</option>
-															<option value="SC">SC</option>
-															<option value="ST">ST</option></select>
-															</div>
-															<div class="reg2">  Register Number: <input type='text' name='regno'/>
-															</div>
-															<div class="reg3">  School:<input type='text' name='school'/>
-															</div>
-															<div class="reg2"> Official E-mail ID:<input type='text' name='email'/><br>
-															</div>
-															<div class="reg3">  Personal E-mail ID:<input type='text' name='pemail'/><br>
-															</div>
-																<div class="reg2">  Phone Number:<input type='text' name='phno'/>
-																</div>
-																<div class="reg3">  Supervisor ID:<input type='text' name='supervisor'/><br>
-																</div>
-																<div class="reg2">  Date of Registration:<br><input id="" type='date' name='regdate'/><br>
-																</div>
-																<div class="reg3"> <br> Proposed Title of Research: <br><input type='text' name='retitle'/>
-																<br></div>
-																<div class="reg2">  Type: <br><input type='radio' name='typet' value='Full-Time' checked> Full-Time</input><br>
-																	<input type='radio' name='typet' value='Part-Time'> Part-Time</input><br>
-																<br></div>
-																<div class="reg1">Institution:<br><input type='radio' name='exin' value='SASTRA' onclick="document.getElementById('external').style.display='none'"> SASTRA</input>
-																	<br><input type="radio" name="exin" value="Other" onclick="document.getElementById('external').style.display='block'"> OTHER</input><br>
-																	<div class="external" id="external"><br>
-																		<div class="reg1">Institiution  Name: <input type='text' name='institution' value="College Name"/><br>
-																		</div>
-																		<div class="reg1">Institiution  Address: <input type='text' name='institution_ad' value="Where is your college?"/><br>
-																		<br></div>
-																 </div>
-															</div>
-              <br>
-                            </font>
-      <button class="buttonlog" type='submit' name='in'>Submit</button>
-                            </form>
-                          </div>
-                          <div class="supervisor" id='22'>
-                            <form method="POST" action="http://127.0.0.1:8000/sureg/" name="loginsu">
-															{%csrf_token%}
-                              <br>
-                              <div class="reg3">First Name: <input type='text' name='name'/><br></div>
-															<br>
-															<div class="reg3">Sex: <input type="radio" name="sex" value="Male" checked/> Male
-															<input type="radio" name="sex" value="Female"/> Female<br></div>
-															   <div class="reg2"> Phone Number:<input type='text' name='phno'/></div><br>
-										            <div class="reg3">Staff ID: <input type='text' name='mid'/> <p style="opacity:0.3">Not for External Supervisors</p>
-														                              </div>
-                              <div class="reg4">  School: <input type='text' name='school'/>
-                              <br></div>
-                              <div class="reg3">  Official E-mail ID:<input type='text' name='email'/>
-                              <br></div>
-															<div class="reg2"> Personal E-mail ID:<input type='text' name='pemail'/><br>
-															<br></div>
-                                <div class="reg3">Areas of Interest:<input type='text' name="aoi"/><br>
-                              </div>
-															<div class="reg2">Institution:<br><input type='radio' name="exin" value='SASTRA' onclick="document.getElementById('externalsu').style.display='none'"/> SASTRA
-																<br><input type="radio" name="exin" value="Other" onclick="document.getElementById('externalsu').style.display='block'"/> OTHER<br>
-															  <div class="externalsu" id="externalsu"><br>
-																	<div class="reg1">Institiution  Name: <input type='text' name='institution' value="Where do you work?"/><br>
-		                              </div>
-																	<div class="reg1">  Designation: <input type='text' name='designation' value="What do you do there?"/><br>
-		                              <br></div>
-                               </div>
-														</div>
-                            <br>  <button class="buttonlog" type='submit' name='in'>Submit</button>
-                            </form>
-														<br>
-                          </div>
-												</div>
+          <div class="container">
+              <h1 class="item-page-title">Registration Form - Scholar</h1>
+            <div class="divider"></div>
+            <form method="POST" action="http://127.0.0.1:8000/schreg/" name="logins">
+              {%csrf_token%}
+              <div class="input-field col s6">
+                  <input placeholder="Name" id="name" name="name" type="text" class="validate">
+                  <label for="name">Name</label>
+              </div>
+              <span>Sex</span>
+              <label>
+                  <input name="sex" value="Male" type="radio">
+                  <span>Male</span>
+              </label>
+              <label>
+                  <input name="sex" value="Female" type="radio">
+                  <span>Female</span>
+              </label>
+              <span>Date of Birth</span>
+              <input type="text" class="datepicker" name="dob">
+              <span>Category</span>
+              <select name="category">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="OC">OC</option>
+                  <option value="BC">BC</option>
+                  <option value="MBC">MBC</option>
+                  <option value="SC">SC</option>
+                  <option value="ST">ST</option>
+              </select>
+              <div class="input-field col s6">
+                  <input placeholder="Register Number" id="regno" name="regno" type="text" class="validate">
+                  <label for="regno">Register Number</label>
+              </div>
+              <div class="input-field col s6">
+                  <input placeholder="Department" id="school" name="school" type="text" class="validate">
+                  <label for="school">Department</label>
+              </div>
+              <div class="input-field col s6">
+                  <input placeholder="Official E-mail ID" id="email" name="email" type="text" class="validate">
+                  <label for="email">Official E-mail</label>
+              </div>
+              <div class="input-field col s6">
+                  <input placeholder="Personal E-mail ID" id="pemail" name="pemail" type="text" class="validate">
+                  <label for="pemail">Personal E-mail</label>
+              </div>
+              <div class="input-field col s6">
+                  <input placeholder="Phone Number" id="phno" name="phno" type="text" class="validate">
+                  <label for="phno">Phone Number</label>
+              </div>
+              <div class="input-field col s6">
+                  <input placeholder="Supervisor ID" id="sup" name="supervisor" type="text" class="validate">
+                  <label for="sup">Supervisor ID</label>
+              </div>
+              <span>Date of Registration</span>
+              <input type="text" class="datepicker" name="regdate">
+              <div class="input-field col s6">
+                  <input id="title" name="retitle" type="text" class="validate">
+                  <label for="title">Proposed Title of Research</label>
+              </div>
+              <span>Type</span>
+              <label>
+                  <input name="typet" value="Part-Time" type="radio">
+                  <span>Part-Time Scholar</span>
+              </label>
+              <label>
+                  <input name="typet" value="Full-Time" type="radio">
+                  <span>Full-Time Scholar</span>
+              </label>
+              <span>Institution:</span>
+              <label>
+                  <input name="exin" value="SASTRA" type="radio" onclick="document.getElementById('external').style.display='none'">
+                  <span>SASTRA</span>
+              </label>
+              <label>
+                  <input name="exin" value="Other" type="radio" onclick="document.getElementById('external').style.display='block'">
+                  <span>Other</span>
+              </label>
+              <div class="external" id="external">
+                  <div class="input-field col s6">
+                      <input id="inst" name="institution" type="text" class="validate">
+                      <label for="inst">Institution Name:</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input id="inst_ad" name="institution_ad" type="text" class="validate">
+                      <label for="inst_ad">Institution Address:</label>
+                  </div>
+              </div>
+            </form>
+            </div>
 
 <style>
 input{

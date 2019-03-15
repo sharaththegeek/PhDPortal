@@ -87,7 +87,7 @@
                       </form>
                   </div>
                   <div id="dean">
-                      <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">
+                      <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
                       <label for="regno">Dean ID</label>

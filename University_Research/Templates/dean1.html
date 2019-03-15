@@ -8,6 +8,13 @@
     />
 	<link rel="stylesheet" href="{%static 'header.css' %}">
 	<link rel="stylesheet" href="{%static 'awesomplete.css'%}" />
+	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		
   <script src="{% static 'awesomplete.js'%}" async></script>
 	<script src="{% static 'header.js' %}"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -97,14 +104,17 @@
 					</head>
 					<body>
 
-					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')">Scholars</button>
-					  <button class="tablinks" onclick="openCity(event, 'resde')">Supervisors</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')"id="defaultOpen">Information</button>
-					  <button class="tablinks" onclick="openCity(event, 'sched')">Schedular</button>
-					</div>
-<center>
-					<div id="regde" class="tabcontent">
+							<h6><p class="welcome">Welcome {{name}}</p></h6>	
+							<div class="hold">
+								<div class="holding s-12">
+									<ul class="tabs">
+										<li class="tab"><a class="tabbed" href="#profile">Members</a></li>
+										<li class="tab"><a class="tabbed" href="#messages">Messages</a></li>
+										<li class="tab"><a class="tabbed" href="#schedule">Schedule</a></li>
+									</ul>
+								</div>
+							</div>
+					<div id="profile">
 					  <h3>Scholars</h3>
 						<a href="http://127.0.0.1:8000/reg/"><p>Create new Scholar</p></a><br>
 						                              <h5>Search for a Scholar:</h5><br>
@@ -115,13 +125,11 @@
 												<option>{{student.scholar.regno}} - {{student.name}}</option>
 												{% endfor %}
 											</datalist>
-                                          <input type="submit" value="Search">
+                      <input type="submit" value="Search">
 									      </form><br>
-										  
 </div>
-					<div id="resde" class="tabcontent">
 						<h3>Supervisors</h3>
-						<a href="http://127.0.0.1:8000/reg/"><p>Create new Supervisor</p></a><br>
+						<a href="http://127.0.0.1:8000/sureg/"><p>Create new Supervisor</p></a><br>
 						                              <h5>Search for a Supervisor</h5><br>
 													  <form method="POST" action="http://127.0.0.1:8000/suinfo/">{%csrf_token%}
 														<input class="awesomplete" name="mid" list="mylist1"/>
@@ -132,43 +140,24 @@
 														</datalist>
 													  <input type="submit" value="Search">
 													  </form><br>
-					</div>
 				
-					<div id="prog" class="tabcontent">
+					<div id="messages">
 					  <h3>Total No of Scholars: {{sch}}</h3>
 					  <h3>Total No of Supervisors: {{sup}}</h3>
-						<h2>Messages from Scholars:</h2>
-						<table border="1">
-						<tr>
-							<th>Register Number:</th>
-							<th>Subject:</th>
-							<th>Message:</th>
-						</tr>
-						{%for supp in supmessage%}
-            <tr>
-							<td>{{supp.regno}}</td>
-							<td>{{supp.head}}</td>
-							<td>{{supp.body}}</td>
-						</tr>
-						{%endfor%}
-					</table><br>
-						<h2>Messages from Supervisors:</h2>
-						<table border="1">
-						<tr>
-							<th>Employee ID:</th>
-							<th>Subject:</th>
-							<th>Message:</th>
-						</tr>
-						{%for supp1 in supmessage1%}
-						<tr>
-							<td>{{supp1.mid}}</td>
-							<td>{{supp1.head}}</td>
-							<td>{{supp1.body}}</td>
-						</tr>
-						{%endfor%}
-					</table><br>
+						<h2>Messages:</h2>
+				    <p>No messages to show right now!</p>
 					</div>
-					<div id="sched" class="tabcontent">
+					<div id="schedule">
+						  Schedule a DC Meeting:
+							<form method="POST" action="http://127.0.0.1:8000/dsched/">{%csrf_token%}
+								<input class="awesomplete" name="regno" placeholder="Search Scholar..." list="mylist"/>
+								<datalist id="mylist">
+									{% for student in dbA %}
+									<option>{{student.scholar.regno}} - {{student.name}}</option>
+									{% endfor %}
+							</datalist>
+							<input type="submit" value="Search">
+						</form><br>
 						<iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 					</div>
 </center>

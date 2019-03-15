@@ -30,6 +30,7 @@ from Research.views import super2
 from Research.views import super3
 from Research.views import super4
 from Research.views import support
+from Research.views import schedit
 from Research.views import scholar1
 from Research.views import dean1
 from Research.views import schedit
@@ -86,6 +87,7 @@ urlpatterns = [
     url(r'^supervisor1',supervisor1),
     url(r'^schedit',schedit),
     url(r'^schstart',schstart),
+    url(r'^schedit',schedit),
     url(r'^schinfo',schinfo),
     url(r'^dschinfo',dschinfo),
     url(r'^reg',reg),

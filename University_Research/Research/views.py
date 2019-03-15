@@ -22,7 +22,7 @@ from Research.models import Zero
 from Research.forms import editform
 from Research.forms import regnosearchForm
 from Research.forms import startform
-from Research.models import Reports
+from Research.models import Message
 from Research.forms import infof
 from Research.serializers import AnnouncementSerializer
 import datetime
@@ -161,8 +161,11 @@ def logins(request):
     MyUseForm=LoginS(request.POST)
     if MyUseForm.is_valid():
      dbN=Scholar.objects.get(regno=MyUseForm.cleaned_data['regno'])
-     request.session['regno']=dbN.regno
-     return HttpResponseRedirect('/scholar1')
+     if dbN.approved==True:
+       request.session['regno']=dbN.regno
+       return HttpResponseRedirect('/scholar1')
+     else:
+       return render(request,"login.html",{"message":"Your account is yet to be approved","col":"orange"})  
     else:
      return render(request,"login.html",{"message":"Invalid Username or Password","col":"red"})
   else:
@@ -202,8 +205,11 @@ def loginsu(request):
     MyUseForm=LoginSu(request.POST)
     if MyUseForm.is_valid():
       dbN=Supervisor.objects.get(mid=MyUseForm.cleaned_data['mid'])
-      request.session['mid']=dbN.mid
-      return HttpResponseRedirect('/supervisor1')
+      if dbN.approved==True:
+        request.session['mid']=dbN.mid
+        return HttpResponseRedirect('/supervisor1')
+      else:
+        return render(request,"login.html",{"message":"Your account is yet to be approved","col":"orange"})
     else:
       return render(request,"login.html",{"message":"Invalid Username or Password","col":"red"})
   else:
@@ -226,7 +232,7 @@ def scholar1(request):
   dbLatest=dbCompleted[0]
   dbOthers=dbCompleted[1:]
   dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
-  reports=Reports.objects.filter(scholar__regno=rno).values()
+  reports=""
   DCguys=DCMembers.objects.filter(scholar__regno=rno)
   current=dbCompleted[0].name
   return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers})
@@ -259,30 +265,46 @@ def suinfo(request):
      return render(request,"home.html",{})
 
 def dschinfo(request):
-  if request.session.has_key('mid') or request.session.has_key('regno'):
+  if request.session.has_key('mid'):
     logg="Logout"
   else:
-    logg="Login"
+    return HttpResponseRedirect('/profile')
   status1=""
-  if request.POST:
-    IForm=infof(request.POST)
-    if IForm.is_valid():
-      rdata=IForm.cleaned_data['regno']
-      spos=rdata.find(' ')
-      rno=rdata[:spos]
+  if request.session.has_key('stored'):
+    mdid=request.session['mid']
+    dbDean=Supervisor.objects.get(mid=mdid)
+    if dbDean.dean:
+      rno=request.session['stored']
       dbP=Personal_Det.objects.get(scholar__regno=rno)
       dbPu=Publications.objects.filter(scholars__regno=rno)
       dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
-      dbst=DC_Meeting.objects.filter(scholar__regno=rno,Completed=False,Started=True)
-      dbsp=DC_Meeting.objects.filter(scholar__regno=rno)
-      dcms=DC_Meeting.objects.filter(scholar__regno=rno,progress="B")
-      reports=Reports.objects.filter(scholar__regno=rno).values()
-      if dbst.exists():
-        status=DC_Meeting.objects.get(scholar__regno=rno,Completed=False,Started=True)
-        status1=status.get_progress_display()
-      return render(request,"schinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"email":dbP.email,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"dbsp":dbsp,"levels":levels,"dcm":dcms})
+      dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+      current=dbCompleted[0].name
+      return render(request,"dschinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":current})
     else:
       return render(request,"home.html",{})
+  else:
+    return render(request,"home.html",{})
+
+def dschprog(request):
+  if request.session.has_key('mid'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  if request.session.has_key('stored'):
+    mdid=request.session['mid']
+    dbDean=Supervisor.objects.get(mid=mdid)
+    if dbDean.dean:
+      rno=request.session['stored']
+      dbP=Personal_Det.objects.get(scholar__regno=rno)
+      dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
+      dbNext=dbUpcoming[0]
+      dbRest=dbUpcoming[1:]
+      dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+      DCguys=DCMembers.objects.filter(scholar__regno=rno)
+      return render(request,"dschprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest})
+    else:
+      return HttpResponseRedirect('/profile')
   else:
     return render(request,"home.html",{})
 
@@ -292,7 +314,12 @@ def storesch(request):
     if IForm.is_valid():
       rno=IForm.cleaned_data['regno']
       request.session['stored']=rno
-      return HttpResponseRedirect('/schinfo')
+      mdid=request.session['mid']
+      dbDean=Supervisor.objects.get(mid=mdid)
+      if dbDean.dean:
+        return HttpResponseRedirect('/dschinfo')
+      else: 
+        return HttpResponseRedirect('/schinfo')
   else:
     return render(request,"home.html",{})
 
@@ -331,23 +358,23 @@ def schprog(request):
   else:
     return render(request,"home.html",{})
 
-def schedit(request):
+def dschedit(request):
+  return render(request,"dschedit.html",{})
+
+def dsched(request):
   if request.POST:
-    EForm=editform(request.POST)
-    if EForm.is_valid():
-      dbS=DC_Meeting.objects.get(scholar__regno=EForm.cleaned_data['regno'],progress=EForm.cleaned_data['progress'])
-      dbS.status=EForm.cleaned_data['status']
-      dbS.remarks=EForm.cleaned_data['remarks']
-      dbS.cdate=EForm.cleaned_data['date']
-      if dbS.status=="Pass":
-         dbS.Completed=True
-      dbS.save()
-      return HttpResponseRedirect('/supervisor1')
-    else:
-      errmess=EForm.errors
-      return render(request,"login.html",{"message":errmess})
+    IForm=infof(request.POST)
+    if IForm.is_valid():
+      rno=IForm.cleaned_data['regno']
+      request.session['stored']=rno
+      mdid=request.session['mid']
+      dbDean=Supervisor.objects.get(mid=mdid)
+      if dbDean.dean:
+        return HttpResponseRedirect('/plusdc')
+      else: 
+        return HttpResponseRedirect('/schinfo')
   else:
-      return render(request,"home.html",{})
+    return render(request,"home.html",{})
 
 def schstart(request):
   if request.POST:
@@ -467,16 +494,6 @@ def schreg(request):
     return render(request,"home.html",{})
 
 def adup(request):
-  if request.POST:
-   Adup=repupForm(request.POST)
-   if Adup.is_valid():
-     schobj=Scholar.objects.get(regno=Adup.cleaned_data['regno'])
-     UpdObj=Reports(head=Adup.cleaned_data['head'],body=Adup.cleaned_data['body'],scholar=schobj)
-     UpdObj.save()
-     return HttpResponseRedirect('/supervisor1')
-   else:
-     return render(request,"home.html",{})
-  else:
    return render(reqeust,"home.html",{})
 
 def login1(request):
@@ -503,6 +520,9 @@ def super3(request):
 
 def super4(request):
    return render(request,"super4.html",{})
+
+def schedit(request):
+   return render(request,"schedit.html",{})
 
 def support(request):
    if request.session.has_key('mid'):

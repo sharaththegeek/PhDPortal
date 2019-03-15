@@ -9,12 +9,14 @@ import datetime
 class Scholar(models.Model):
    regno=models.CharField(max_length=17,primary_key=True)
    password=models.CharField(max_length=30)
+   approved=models.BooleanField(default=False)
 
 class Supervisor(models.Model):
    mid=models.CharField(max_length=15,primary_key=True)
    password=models.CharField(max_length=30)
    dean=models.BooleanField(default=False)
    external=models.BooleanField(default=False)
+   approved=models.BooleanField(default=False)
 
 class Personal_Det(models.Model):
    name=models.CharField(max_length=50)
@@ -35,7 +37,7 @@ class Personal_Det(models.Model):
 
 class Su_Personal_Det(models.Model):
    supervisor=models.OneToOneField(Supervisor)
-   name=models.CharField(max_length=30)
+   name=models.CharField(max_length=50)
    phno=models.PositiveIntegerField()
    email=models.EmailField()
    pemail=models.EmailField()
@@ -87,10 +89,16 @@ class Announcement(models.Model):
   body=models.CharField(max_length=1000)
   adate=models.DateField(null=True,blank=True)
 
-class Reports(models.Model):
+class Message(models.Model):
   head=models.CharField(max_length=100)
   body=models.CharField(max_length=1000)
   scholar=models.ForeignKey(Scholar)
+  supervisorText=models.ForeignKey(Supervisor,related_name='supervisorText')
+  deanText=models.ForeignKey(Supervisor,related_name='deanText')
+
+class Comments(models.Model):
+  content=models.CharField(max_length=500)
+  message=models.ForeignKey(Message)
 
 class SupMess(models.Model):
   head=models.CharField(max_length=100)
@@ -99,8 +107,8 @@ class SupMess(models.Model):
   mid=models.CharField(max_length=15)
 
 class Subject(models.Model):
-   name=models.CharField(max_length=100)
-   code=models.CharField(max_length=20)
+  name=models.CharField(max_length=100)
+  code=models.CharField(max_length=20)
 
 class Subjected(Subject):
    datePassed=models.DateField(null=True)

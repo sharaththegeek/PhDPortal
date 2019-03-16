@@ -5,15 +5,23 @@ from django.shortcuts import render
 import json
 from django.core import serializers
 from Research.forms import LoginS
+from Research.forms import medit
 from Research.forms import LoginSu
 from Research.forms import LoginD
 from Research.models import Scholar
+from Research.forms import Passed
+from Research.forms import NextPass
 from Research.models import Personal_Det
+from Research.forms import oEdit
 from Research.models import Su_Personal_Det
 from Research.models import Supervisor
 from Research.models import Publications
 from Research.models import DCMembers
 from Research.models import Progress
+from Research.forms import hForm
+from Research.forms import Schedule
+from Research.forms import dcComment
+from Research.forms import ZerothF
 from Research.models import DC
 from Research.models import Coursework
 from Research.models import Others
@@ -189,7 +197,7 @@ def logout(request):
     return render(request,"login.html",{"message":"Logged out successfully!","col":"green"})
   except:
     pass
-    return render(request,"scholar1.html",{})
+    return render(request,"login.html",{})
 
 def logoutsu(request):
   try:
@@ -228,6 +236,7 @@ def scholar1(request):
   dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
   dbNext=dbUpcoming[0]
   dbRest=dbUpcoming[1:]
+  dbMessages=Message.objects.filter(scholar__regno=rno)
   dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
   dbLatest=dbCompleted[0]
   dbOthers=dbCompleted[1:]
@@ -235,7 +244,7 @@ def scholar1(request):
   reports=""
   DCguys=DCMembers.objects.filter(scholar__regno=rno)
   current=dbCompleted[0].name
-  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers})
+  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers,"dbMessage":dbMessage})
 
 def supervisor1(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
@@ -312,13 +321,16 @@ def storesch(request):
   if request.POST:
     IForm=infof(request.POST)
     if IForm.is_valid():
-      rno=IForm.cleaned_data['regno']
-      request.session['stored']=rno
       mdid=request.session['mid']
       dbDean=Supervisor.objects.get(mid=mdid)
       if dbDean.dean:
+        rdata=IForm.cleaned_data['regno']
+        rno=rdata.split()[0]
+        request.session['stored']=rno
         return HttpResponseRedirect('/dschinfo')
       else: 
+        rno=IForm.cleaned_data['regno']
+        request.session['stored']=rno
         return HttpResponseRedirect('/schinfo')
   else:
     return render(request,"home.html",{})
@@ -352,20 +364,61 @@ def schprog(request):
     dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
     dbNext=dbUpcoming[0]
     dbRest=dbUpcoming[1:]
+    today=datetime.datetime.today().strftime('%d-%b-%Y')
     dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
     DCguys=DCMembers.objects.filter(scholar__regno=rno)
-    return render(request,"schprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest})
+    return render(request,"schprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"today":today})
   else:
     return render(request,"home.html",{})
 
-def dschedit(request):
-  return render(request,"dschedit.html",{})
+def dmake(request):
+  if request.POST:
+    edited=medit(request.POST)
+    if edited.is_valid():
+      rno=request.session['stored']
+      dlevel=edited.cleaned_data['level']
+      move=edited.cleaned_data['move']
+      level=Progress.objects.get(scholar__regno=rno,level=dlevel)
+      name=Personal_Det.objects.get(scholar__regno=rno).name
+      return render(request,"dschedit.html",{"move":move,"name":name,"level":level})
+  else:
+    return HttpResponseRedirect('/profile')
+
+def makedit(request):
+  if request.POST:
+    edited=medit(request.POST)
+    if edited.is_valid():
+      rno=request.session['stored']
+      dlevel=edited.cleaned_data['level']
+      move=edited.cleaned_data['move']
+      level=Progress.objects.get(scholar__regno=rno,level=dlevel)
+      name=Personal_Det.objects.get(scholar__regno=rno).name
+      return render(request,"schedit.html",{"move":move,"name":name,"level":level})
+  else:
+    return HttpResponseRedirect('/profile')
+
+def schedule(request):
+  if request.POST:
+    sForm=Schedule(request.POST)
+    if sForm.is_valid():
+      date=sForm.cleaned_data['date']
+      time=sForm.cleaned_data['time']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        current=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")[0]
+        current.date=date
+        current.time=time
+        current.save()
+        return HttpResponseRedirect('/schprog')
+  else:
+    return HttpResponseRedirect('/profile')
 
 def dsched(request):
   if request.POST:
     IForm=infof(request.POST)
     if IForm.is_valid():
-      rno=IForm.cleaned_data['regno']
+      rdata=IForm.cleaned_data['regno']
+      rno=rdata.split()[0]
       request.session['stored']=rno
       mdid=request.session['mid']
       dbDean=Supervisor.objects.get(mid=mdid)
@@ -375,6 +428,20 @@ def dsched(request):
         return HttpResponseRedirect('/schinfo')
   else:
     return render(request,"home.html",{})
+
+def plusdc(request):
+  if request.session.has_key('mid'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  if request.session.has_key('stored'):
+    rno=request.session['stored']
+  else:
+    return HttpResponseRedirect('/profile')
+  dbPersonal=Personal_Det.objects.get(scholar__regno=rno)
+  dbProgress=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")[0]
+  name=dbPersonal.name
+  return render(request,"plusdc.html",{"name":name,"dcLevel":dbProgress})
 
 def schstart(request):
   if request.POST:
@@ -521,9 +588,6 @@ def super3(request):
 def super4(request):
    return render(request,"super4.html",{})
 
-def schedit(request):
-   return render(request,"schedit.html",{})
-
 def support(request):
    if request.session.has_key('mid'):
      logg="Logout"
@@ -563,4 +627,126 @@ def supmes(request):
     return HttpResponseRedirect('/login1')
 
 
+def zeroth(request):
+  if request.POST:
+    zero=ZerothF(request.POST)
+    if zero.is_valid():
+      fee=zero.cleaned_data['fees']
+      if fee == "Yes":
+        date=zero.cleaned_data['date']
+        if request.session.has_key('stored'):
+          rno=request.session['stored']
+          dProg=Progress.objects.get(scholar__regno=rno,level=1)
+          dProg.date=date
+          dProg.fees="Paid"
+          dProg.save()
+          return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
 
+def dcComments(request):
+  if request.POST:
+    cData=dcComment(request.POST)
+    if cData.is_valid():
+      comments=cData.cleaned_data['comments']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        level=request.session['level']
+        dProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dProg.comments=comments
+        dProg.save()
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+      return HttpResponseRedirect('/profile')
+  
+def fail(request):
+  if request.POST:
+    cData=hForm(request.POST)
+    if cData.is_valid():
+      date=cData.cleaned_data['date']
+      level=cData.cleaned_data['level']
+      hComment=cData.cleaned_data['hComment']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dbProg.date=date
+        dbProg.comments=hComment
+        dbProg.save()
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+
+def passed(request):
+  if request.POST:
+    pData=Passed(request.POST)
+    if pData.is_valid():
+      hComment=pData.cleaned_data['hComment']
+      level=pData.cleaned_data['level']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dbProg.comments=hComment
+        dbProg.result="pass"
+        dbProg.save()
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def nextPass(request):
+  if request.POST:
+    pData=NextPass(request.POST)
+    if pData.is_valid():
+      hComment=pData.cleaned_data['hComment']
+      level=pData.cleaned_data['level']
+      date=pData.cleaned_data['date']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dbNext=Progress.objects.get(scholar__regno=rno,level=level+1)
+        dbProg.comments=hComment
+        dbProg.result="pass"
+        dbProg.save()
+        dbNext.date=date
+        dbNext.save()
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def otherEdit(request):
+  if request.POST:
+    oData=oEdit(request.POST)
+    if oData.is_valid():
+      date=oData.cleaned_data['date']
+      level=oData.cleaned_data['level']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dbProg.date=date
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+  
+def dcFail(request):
+  if request.POST:
+    dData=Passed(request.POST)
+    if dData.is_valid():
+      comment=dData.cleaned_data['hComment']
+      level=dData.cleaned_data['level']
+      if request.session.has_key('stored'):
+        rno=request.session['stored']
+        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
+        dbProg.comment=comment
+        dbProg.save()
+        return HttpResponseRedirect('/schprog')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')

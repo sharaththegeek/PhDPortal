@@ -118,7 +118,7 @@
 					  <h3>Scholars</h3>
 						<a href="http://127.0.0.1:8000/reg/"><p>Create new Scholar</p></a><br>
 						                              <h5>Search for a Scholar:</h5><br>
-                                          <form method="POST" action="http://127.0.0.1:8000/dschinfo/">{%csrf_token%}
+                                          <form method="POST" action="http://127.0.0.1:8000/storesch/">{%csrf_token%}
 											<input class="awesomplete" name="regno" list="mylist"/>
 											<datalist id="mylist">
 												{% for student in dbA %}

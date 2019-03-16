@@ -73,7 +73,6 @@ body{
 											<div class="collapsible-body">
 												{% if others.level == 1%}
                                                  <p>Presented on: {{others.presented}} </p>
-                                                 <a href="/schedit"><button>Edit</button></a>
 												 {%ifequal others.fees "paid"%}
 												 <p>Provisionally Admitted: Yes </p>
 												 {%else%}
@@ -85,12 +84,22 @@ body{
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 9%}
 												<p>Date: {{others.date}}</p>
-												<p>Comments: {{others.comments}}</p>
+                                                <p>Comments: {{others.comments}}</p>
+                                                <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
+                                                    <input type="hidden" name="level" value="{{others.level}}"/>
+                                                    <input type="hidden" name="move" value="edit"/>
+                                                    <button type="submit">Edit</button>
+                                                </form>
 												{% elif others.level == 4 or others.level == 7 or others.level == 8 or others.level == 10%}
 												<p>Date: {{others.date}}</p>
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 3%}
-												<p>Subjects:</p>
+                                                <p>Subjects:</p>
+                                                <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
+                                                    <input type="hidden" name="level" value="{{others.level}}"/>
+                                                    <input type="hidden" name="move" value="edit"/>
+                                                    <button type="submit">Edit</button>
+                                                </form>
 												{%endif%}
 											</div>
 										</li>
@@ -105,22 +114,45 @@ body{
                             <li class="active">
                                 <div class="collapsible-header">{{dbNext.name}}</div>
                                 <div class="collapsible-body">
-                                        {% if dbNext.level == 1%}
-                                         <p>Presented on: {{dbNext.presented}} </p>
-                                         {%ifequal dbNext.fees "paid"%}
-                                         <p>Provisionally Admitted: Yes </p>
-                                         {%else%}
-                                         <p>Provisionally Admitted: No </p>
-                                         {%endifequal%}
-                                        {% elif dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
+                                        {% if dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
+                                        {% if dbNext.date %}
+                                         <a href="/plusdc">Schedule Date for the meeting</a>
+                                         <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+                                         <input type="hidden" name="level" value="{{dbNext.level}}"/>
+                                         <input type="hidden" name="move" value="umem"/>
+                                         <button type="submit">Add DC Members</button>
+                                        </form>
+                                        {% else %}
                                         <p>To be held on: {{dbNext.date}}</p>
                                         <p>DC Members:</p>
+                                        <a href="/plusdc">Reschedule Date</a>
+                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
+                                            <input type="hidden" name="move" value="emem"/>
+                                            <button type="submit">Edit DC Members</button>
+                                        </form>
+                                        {% endif %}
                                         {% elif dbNext.level == 9%}
                                         <p>To be submitted before: {{dbNext.date}}</p>
+                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
+                                            <input type="hidden" name="move" value="edit"/>
+                                            <button type="submit">Change Date of Submission</button>
+                                        </form>
+                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
+                                            <input type="hidden" name="move" value="update"/>
+                                            <button type="submit">Update Result</button>
+                                        </form>
                                         {% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
                                         <p>Date: {{dbNext.date}}</p>
                                         {% elif dbNext.level == 3%}
                                         <p>Subjects:</p>
+                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
+                                            <input type="hidden" name="move" value="update"/>
+                                            <button type="submit">Update Result</button>
+                                        </form>
                                         {%endif%}
                                     </div>
                             </li>
@@ -137,10 +169,11 @@ body{
                 <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
         </div>
         <script>
-            	document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.collapsible');
-             var instances = M.Collapsible.init(elems, {});
+            var instances = M.Collapsible.init(elems, {});
           });
 
         </script>
         </body>
+        </html>

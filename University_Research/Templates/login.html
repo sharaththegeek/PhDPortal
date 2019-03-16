@@ -20,7 +20,6 @@
 <body oncontextmenu="return false" >
 			
     <div id="navbar">
-        <a href="/logq" class="buttons">{{logg}}</a>
         <a href="javascript:void(0)" class="buttons">Downloads</a>
           <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
           <p class="main">PhD Portal</p>
@@ -46,27 +45,27 @@
 
               <br>
               <div class="card">
-                <div class="card-title">Login</div>
+                <div class="card-title"><center><b>Login</b></center></div>
                 <p style="color:{{col}}">{{message}}</p>
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#scholar">Scholar</a></li>
-                    <li class="tab"><a href="#supervisor">Supervisor</a></li>
-                    <li class="tab"><a href="#dean">Dean</a></li>
+                    <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
+                    <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
+                    <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
                   </ul>
                 </div>
                 <div class="card-content">
                   <div id="scholar">
                       <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
-                    <div class="input-field">
+                    <div class="input-field ">
                     <input id='regno' type="text" name='regno' required/>
-                    <label for="regno">Register Number</label>
+                    <label for="regno"><span class="blue-text text-darken-3">Register Number</span></label>
                   </div>
                   <div class="input-field">
                     <input id="password" type="password" name="password" required/>
-                    <label for="password">Password</label>
+                    <label for="password"><span class="blue-text text-darken-3">Password</span></label>
                   </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                    <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                         <i class="material-icons right">send</i>
                     </button>  
                     </form>
@@ -75,13 +74,13 @@
                       <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
-                      <label for="regno">User ID</label>
+                      <label for="regno"><span class="blue-text text-darken-3">User ID</span></label>
                     </div>
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
-                      <label for="password">Password</label>
+                      <label for="password"><span class="blue-text text-darken-3">Password</span></label>
                     </div>
-                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                      <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
                       </button>  
                       </form>
@@ -90,13 +89,13 @@
                       <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
-                      <label for="regno">Dean ID</label>
+                      <label for="regno"><span class="blue-text text-darken-3">Dean ID</span></label>
                     </div>
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
-                      <label for="password">Password</label>
+                      <label for="password"><span class="blue-text text-darken-3">Password</span></label>
                     </div>
-                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                      <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
                       </button>  
                       </form>
@@ -125,6 +124,10 @@
 .box_size{
   margin-left: 38%;
   margin-right: 38%;
+}
+.card{
+  width: 80%;
+  margin-left: 10%;
 }
 body{
   font-size: 100%;
@@ -168,108 +171,14 @@ h2{
   margin-top:-4%;
   margin-bottom:0%;
 }
-.loginhead{
-  text-align: center;
-  margin-left: 1%;
-}
-.headd{
-  font-size:300%;
-  margin-top:-9%;
-  margin-left:40%;
-}
-li{
-  font-size: 0.8em;
-}
-li a{
-  text-decoration: none;
-  color: black;
-}
-li a.active{
-  font-weight: bolder;
-}
-li a:hover{
-  font-weight: bold;
-}
+
 .Top{
   margin-left: auto;
   margin-right: auto;
   width: 600px;
   text-align: center;
 }
-.login{
-  border-style: solid;
-  border-width: thin;
-  height: 251px;
-  width:599px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  border-top: none;
-  border-right: solid;
-  border-width: thin;
-  position: relative;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 5px 5px 5px grey;
-}
-.bor-top{
 
-  border-top: solid;
-  border-width: thin;
-  width: 240px;
-  margin-left: 360px;
-  margin-top: -1px;
-}
-.scholar-box{
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-left: solid;
-  border-right: solid;
-  border-bottom: none;
-  border-width: thin;
-  height:30px;
-  width: 120px;
-  text-align: center;
-  font-weight: bold;
-  margin-left: 0px;
-}
-.supervisor-box{
-  height: 5px;
-  width:10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-left: none;
-
-  border-right: solid;
-  border-bottom: solid;
-  border-width: thin;
-  height:30px;
-  width:120px;
-  margin-left: 120px;
-  margin-top: -32px;
-  text-align: center;
-  font-weight: normal;
-
-}
-.dean-box{
-  height: 5px;
-  width:10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-left: none;
-  border-right: solid;
-  border-bottom: solid;
-  border-width: thin;
-  height:30px;
-  width:120px;
-  margin-left: 240px;
-  margin-top: -32px;
-  text-align: center;
-  font-weight: normal;
-}
 .footer{
 	width:100%;
 	background-color: #3C5EC1;
@@ -278,25 +187,6 @@ li a:hover{
     text-align: center;
 }
 
-
-.dean-box:hover{
-  cursor: pointer;
-}
-.supervisor-box:hover{
-  cursor: pointer;
-}
-.scholar-box:hover{
-  cursor: pointer;
-}
-.scholar{
-  display: block;
-}
-.supervisor{
-  display:none;
-}
-.dean{
-  display: none;
-}
 </style>
 <script>
   	var element=document.querySelector('.tabs');

@@ -9,6 +9,8 @@
 			<!--Materialize CSS-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type = "text/javascript"
+    src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 
 	<!-- Compiled and minified JavaScript for Materialize -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -19,7 +21,7 @@
 </head>
 <body oncontextmenu="return false" >
         <style>
-            	.footer{
+    .footer{
 	width:100%;
 	background-color: #3C5EC1;
 	color:white;
@@ -29,6 +31,15 @@
 body{
 	margin:0;
 	padding:0;
+}
+.failed{
+    display: none;
+}
+.passed{
+    display: none;
+}
+.checker{
+    display:block;
 }
         </style>
         	<div id="navbar">
@@ -63,40 +74,265 @@ body{
                 </div>
             </nav>
         <h2>{{level.name}}</h2>
-        <form name="edit-zeroth">
+        {% if level.level == 1 %}
+        <form name="edit-zeroth" method="POST" action="/zeroth/">{%csrf_token%}
            <label>
-               <span>Date Presented:</span>
-               <input type="text" class="datepicker">
-           </label>
-           <label>
-               <input type="checkbox"/>
-               <span>Provisionally Admitted?</span>
-           </label>
-           <label>
-                <input type="checkbox"/>
+                <input type="checkbox" name="fees" value="Yes"/>
                 <span>Fees Paid</span>
            </label>
            <label>
                <span>Date of Fee Payment:</span>
-               <input type="text" class="datepicker">
+               <input type="text" class="datepicker" name="date">
            </label>
+           <button type="submit">Submit</button>
         </form>
-        <form name="edit-others">
-
+        {% elif level.level == 4 or level.level == 7 or level.level == 8 or level.level == 10 %}
+        {% if move == "edit" %}
+        <form name="edit-others" action="/dcComments/" method="POST">{%csrf_token%}
+         <span>Edit Comments...</span>
+         <textarea placeholder="Comments..." class="materialize-textarea" name="comments"></textarea>
+         <input type="hidden" name="level" value="{{level.level}}"/>
+         <button type="submit">Make Changes</button>
         </form>
-        <form name="edit-thesis">
-
+        {% elif move == "update" %}
+        <div id="main">
+        <div id="checker">
+         <span>Enter status</span> 
+         <label>
+                <input name="result" id="passed" type="radio" value="Pass" />
+                <span>Pass</span>
+        </label>
+        <label>
+                <input name="result" id="passed" type="radio" value="Fail" />
+                <span>Fail</span>
+        </label>      
+        <span>Enter Comments</span>
+        <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
+        <button onclick="checkPass()">Next</button>
+    </div>
+        <div class="failed" id="failed">
+          <span>Enter date of re-appearance</span>
+          <form method="POST" action="/fail">{%csrf_token%}
+          <input type="text" class="datepicker1" name="date">
+          <input type="hidden" name="hComment" id="fComment"/>
+          <input type="hidden" name="level" value="{{level.level}}">
+          <button type="submit">Submit</button>
         </form>
-        <form name="edit-coursework">
-
+        <button><a href="/schprog/">Cancel</a></button>
+        </div>
+        <div class="passed" id="passed">
+            {% if level.level == 4 or level.level == 10 %}
+            <span>You entered the following information:</span>
+            <form name="passed" method="POST" action="/passed/">{%csrf_token%}
+                <input type="hidden" name="hComment" id="hCommentary"/>
+                <input type="hidden" name="level" value="{{level.level}}">
+                <button type="submit">Confirm</button>
+            </form> 
+            <button><a href="/schprog/">Cancel</a></button>
+            {% elif level.level == 7 %}
+            <span>Enter date for RAC</span>
+            <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
+                <input type="text" class="datepicker2" name="date">
+                <input type="hidden" name="hComment" id="hCommentary"/>
+                <input type="hidden" name="level" value="{{level.level}}">
+                <button type="submit">Confirm</button>
+            </form>
+                <button><a href="/schprog/">Cancel</a></button>
+            {% elif level.level == 10 %}
+            <span>Enter date for Thesis Submission</span>
+            <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
+                <input type="text" class="datepicker3" name="date">
+                <input type="hidden" name="hComment" id="hCommentary"/>
+                <input type="hidden" name="level" value="{{level.level}}">
+                <button type="submit">Confirm</button>
+            </form>
+            <button><a href="/schprog/">Cancel</a></button>
+            {% endif %}
+        </div>
+    </div>
+        {% elif move == "dedit" %}
+        <form name="edit" method="POST" action="/otherEdit/">{%csrf_token%}
+            <span>Enter date:</span>
+            <input type="text" class="datepicker4" name="date">
+            <input type="hidden" name="level" value="{{level.level}}">
+            <button type="submit">Submit</button>
         </form>
-        <form name="update-others">
-
-        </form>
-        <form name="update-thesis">
-
-        </form>
-        <form name="update-coursework">
-        </form>
+        {% endif %}
+        {% elif level.level == 2 %}
+        <div>
+                <div id="first">
+                <span>Enter Status</span>
+                <label>
+                        <input name="result" type="radio" id="state"/>
+                        <span>Pass</span>
+                </label>
+                <label>
+                        <input name="result" type="radio" id="state"/>
+                        <span>Fail</span>
+                </label>
+                <span>Enter Comments</span>
+                <textarea placeholder="Comments..." class="materialize-textarea" name="comments" id="thatcomment"></textarea>
+                <button onclick="thatfirst()">Next</button>
+                </div>
+                <div id="second">
+                <span>Enter list of recommended courses:</span>
+                <input type="text" name="course" id="myInput" placeholder="Enter course"/>
+                <span onclick="newElement()" class="addBtn">Add</span>
+                <form name="update-1-dc-pass">
+                <ul id="selectedCourses">
+    
+                </ul>
+                <input type="hidden" name="hComment" id="thoseComment">
+                    <buttont type="submit">Submit</buttont>
+                </form>        
+                </div>
+                <div id="third">
+                   <span>The status uploaded by you is:</span>
+                   <p>Fail</p>
+                   <span>A new date for re-appearance will be decided by the Dean</span>
+                   <form method="POST" action="/dcFail/">
+                   <input type="hidden" name="hComment" id="thoseComment">
+                   <input type="hidden" name="level" value="{{level.level}}">
+                   <button type="submit">Confirm</button>
+                </form>
+                   <button>Cancel</button>
+                </div>
+            </div>
+            {% elif level.level == 5 %}
+            <div class="update-2-dc">
+                <div id="sMain">
+                    <span>Enter Status</span>
+                    <label>
+                        <input name="result" type="radio" id="sFate"/>
+                        <span>Pass</span>
+                    </label>
+                    <label>
+                        <input name="result" type="radio" id="sFate" />
+                        <span>Fail</span>
+                        </label>
+                    <span>Enter Comments</span>
+                    <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="sCom"></textarea>
+                    <button onclick="sHandle()">Next</button>
+                </div>
+                    <div id="sPass">
+                    <form method="POST" action="/passed/">
+                    <input type="hidden" name="hComment" id="sComment">
+                    <input type="hidden" name="level" value="{{level.level}}">
+                    <button type="submit">Submit</button>
+                     </form>
+                    </div>
+                    <div id="sFail">
+                            <form method="POST" action="/dcFail/">
+                                <input type="hidden" name="hComment" id="sComment">
+                                <input type="hidden" name="level" value="{{level.level}}">
+                                <button type="submit">Submit</button>
+                                 </form>
+                    </div>
+               
+            </div>
+            {% elif level.level == 6 %}
+            <div class="update-3-dc">
+                    <div id="first-t">
+                            <span>Enter Status</span>
+                    <label>
+                        <input name="result" type="radio" id="tFate"/>
+                        <span>Pass</span>
+                    </label>
+                    <label>
+                        <input name="result" type="radio" id="tFate" />
+                        <span>Fail</span>
+                        </label>
+                    <span>Enter Comments</span>
+                    <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="tCom"></textarea>
+                    <button onclick="tHandle()">Next</button>
+                    </div>
+                    <div id="second-t">
+                        <span>Enter date for synopsis submission</span>
+                    <form method="POST" action="/nextPass">
+                        <input type="text" name="date" class="datepicker5"/> 
+                        <input type="hidden" name="hComment" id="tComment"/>
+                        <input type="hidden" name="level" value="{{level.level}}">
+                        <button type="submit">Submit</button>
+                    </form>
+                    </div>
+                    <div id="third-t">
+                            <form method="POST" action="/dcFail/">
+                                <input type="hidden" name="hComment" id="tComment">
+                                <input type="hidden" name="level" value="{{level.level}}">
+                                <button type="submit">Submit</button>
+                            </form>
+                    </div>
+                </div>
+            {% elif level.level == 3 %}
+            <div id="second">
+                    <span>Enter list of recommended courses:</span>
+                    <input type="text" name="course" id="myInput" placeholder="Enter course"/>
+                    <span onclick="newElement()" class="addBtn">Add</span>
+                    <form name="update-1-dc-pass">
+                    <ul id="selectedCourses">
+        
+                    </ul>
+                        <buttont type="submit">Submit</buttont>
+                    </form>        
+            </div>
+            {% endif %}
+        <script>
+        function checkPass(){
+            var passed=document.getElementsById('passed').value;
+            var comment=document.getElementById('comments').value;
+            if (passed == "Pass"){
+                document.getElementById('passed').display="block";
+                document.getElementById('checker').display="none";
+                document.getElementById('hCommentary').value=comment;
+            }
+            else if(passed == "Fail"){
+                document.getElementById('failed').display="block";
+                document.getElementById('checker').display="none";
+                document.getElementById('fComment').value=comment;
+            }
+        }
+        function thatfirst(){
+            var passed=document.getElementById('state').value;
+            var comment=document.getElementById('thatcomment').value;
+            if (passed=="Pass"){
+                document.getElementById('first').display="none";
+                document.getElementById('second').display="block";
+                document.getElementById('thoseComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('first').display="none";
+                document.getElementById('third').display="block";
+                document.getElementById('thoseComment').value=comment;
+            }
+        }
+        function sHandle(){
+            var passed=document.getElementById('sFate').value;
+            var comment=document.getElementById('sCom').value;
+            if (passed=="Pass"){
+                document.getElementById('sMain').display="none";
+                document.getElementById('sPass').display="block";
+                document.getElementById('sComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('sMain').display="none";
+                document.getElementById('sFail').display="block";
+                document.getElementById('sComment').value=comment;
+            }
+        }
+        function tHandle(){
+            var passed=document.getElementById('tFate').value;
+            var comment=document.getElementById('tCom').value;
+            if (passed=="Pass"){
+                document.getElementById('tMain').display="none";
+                document.getElementById('tPass').display="block";
+                document.getElementById('tComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('tMain').display="none";
+                document.getElementById('tFail').display="block";
+                document.getElementById('tComment').value=comment;
+            }
+        }
+        </script>
         </body>
         </html>

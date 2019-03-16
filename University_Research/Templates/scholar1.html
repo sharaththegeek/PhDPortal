@@ -89,9 +89,9 @@
           <div class="hold">
 						<div class="holding s-12">
 							<ul class="tabs">
-								<li class="tab"><a class="tabbed" href="#profile">Profile</a></li>
-								<li class="tab"><a class="tabbed" href="#progress">Progress</a></li>
-								<li class="tab"><a class="tabbed" href="#messages">Messages</a></li>
+								<li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Profile</span></a></li>
+								<li class="tab"><a class="tabbed" href="#progress"><span class="blue-text text-darken-2">Progress</span></a></li>
+								<li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Messages</span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -141,8 +141,8 @@
 	
             <div id="publications">
 							  <div class="card">
-								<h3>Current Status: {{status1}} Completed</h3>
-								<h3>Supervisor: Dr. {{supervisor}} </h3>
+								<h2>Current Status: {{status1}} Completed</h2>
+								<h2>Supervisor: Dr. {{supervisor}} </h2>
 								<h2>Publication Details</h2>
 								<table border="1">
 									<tr>
@@ -164,7 +164,7 @@
 						</div>
 					</div>
 					</div>
-          <div id="progress">
+          <div id="progress" >
 						
 						<div class="divided">
 							<div class="done">
@@ -241,8 +241,12 @@
 												 <p>Provisionally Admitted: No </p>
 												 {%endifequal%}
 												{% elif dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
+												{% if dbNext.date %}
 												<p>To be held on: {{dbNext.date}}</p>
 												<p>DC Members:</p>
+												{% else %}
+												<p>To be held on: TBA</p>
+												{% endif %}
 												{% elif dbNext.level == 9%}
 												<p>To be submitted before: {{dbNext.date}}</p>
 												{% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
@@ -258,18 +262,20 @@
 							   	</li>
 									{%endfor%}
 								</ul>	
+								
 							</div>
 						</div>
 						</div>
+						<br><br>
 					</div>
 					<div id="messages">
 						<div class="card">
-							<h3>Reports</h3>
+							<h2><center>Reports</center></h2>
 							<p>No reports to show currently!</p>
 						</div>
 						<div class="message">
 							<div class="card">
-							<h3>Messages</h3>
+							<h2><center>Messages</center></h2>
 							<p>No messages to show currently!</p>
 						</div>
 						</div>
@@ -287,6 +293,7 @@
 
 					</script>
 					<style>
+						
 					.button {
 					    background-color:#003399; /* Green */
 					    border: bold;

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from polymorphic.models import PolymorphicModel
-import datetime
+from datetime import datetime
 # Create your models here.
 class Scholar(models.Model):
    regno=models.CharField(max_length=17,primary_key=True)
@@ -55,7 +55,8 @@ class Progress(PolymorphicModel):
    result=models.CharField(max_length=5)
    
 class DC(Progress):
-   date=models.DateTimeField(null=True)
+   date=models.DateField(null=True)
+   time=models.TimeField()
    comments=models.CharField(max_length=500)
 
 class Coursework(Progress):
@@ -92,12 +93,18 @@ class Announcement(models.Model):
 class Message(models.Model):
   head=models.CharField(max_length=100)
   body=models.CharField(max_length=1000)
+  date=models.DateTimeField(default=datetime.now)
   scholar=models.ForeignKey(Scholar)
+  unread=models.BooleanField(default=False)
   supervisorText=models.ForeignKey(Supervisor,related_name='supervisorText')
   deanText=models.ForeignKey(Supervisor,related_name='deanText')
 
 class Comments(models.Model):
   content=models.CharField(max_length=500)
+  date=models.DateTimeField(default=datetime.now)
+  scholar=models.ForeignKey(Scholar)
+  supervisorText=models.ForeignKey(Supervisor,related_name='supervisorComment')
+  deanText=models.ForeignKey(Supervisor,related_name='deanComment')
   message=models.ForeignKey(Message)
 
 class SupMess(models.Model):

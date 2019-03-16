@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 from Research.views import logins
 from Research.views import ann
 from Research.views import login1
+from Research.views import plusdc
 from Research.views import login
 from Research.views import loginsu
 from Research.views import logind
@@ -30,16 +31,15 @@ from Research.views import super2
 from Research.views import super3
 from Research.views import super4
 from Research.views import support
-from Research.views import schedit
 from Research.views import scholar1
 from Research.views import dean1
-from Research.views import schedit
 from Research.views import schstart
 from Research.views import schinfo
 from Research.views import suinfo
 from Research.views import supervisor1
 from Research.views import adett
 from Research.views import reg
+from Research.views import zeroth
 from Research.views import schreg
 from Research.views import chnpwd
 from Research.views import newann
@@ -50,7 +50,10 @@ from Research.views import profile
 from Research.views import annd
 from Research.views import logout
 from Research.views import logq
+from Research.views import dschprog
+from Research.views import dmake
 from Research.views import supmes
+from Research.views import makedit
 from Research.views import readj
 from Research.views import storesch
 from Research.views import logoutsu
@@ -62,15 +65,19 @@ urlpatterns = [
     url(r'^logq/', logq),
     url(r'^login/',login),
     url(r'^schprog/',schprog),
+    url(r'^dschprog/',dschprog),
     url(r'^storesch/',storesch),
     url(r'^login1/',login1),
     url(r'^chnpwd/',chnpwd),
     url(r'^login1/',login1),
     url(r'^ann/',ann),
+    url(r'^makedit',makedit),
     url(r'^logind/',logind),
     url(r'^logins/',logins),
     url(r'^loginsu/',loginsu),
     url(r'^annd/',annd),
+    url(r'^zeroth/',zeroth),
+    url(r'^dmake/',dmake),
     url(r'^superm/',superm),
     url(r'^super1/',super1),
     url(r'^super2/',super2),
@@ -85,12 +92,11 @@ urlpatterns = [
     url(r'^dean1/',dean1),
     url(r'^support/',support),
     url(r'^supervisor1',supervisor1),
-    url(r'^schedit',schedit),
     url(r'^schstart',schstart),
-    url(r'^schedit',schedit),
     url(r'^schinfo',schinfo),
     url(r'^dschinfo',dschinfo),
     url(r'^reg',reg),
+    url(r'^plusdc',plusdc),
     url(r'^adett',adett),
     url(r'^schreg',schreg),
     url(r'^adup',adup),

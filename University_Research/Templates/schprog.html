@@ -26,9 +26,9 @@
 	height: 5%;
     text-align: center;
 }
-body{
-	margin:0;
-	padding:0;
+.card{
+    width:80%;
+    margin-left: 10%;
 }
         </style>
         	<div id="navbar">
@@ -52,16 +52,16 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
-        <nav>
+        <nav><div class="white">
                 <div class="nav-wrapper">
                     <div class="col s12">
-                        <a href="/profile" class="breadcrumb">Scholars</a>
-                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="#!" class="breadcrumb">{{name}} - Progress</a>
+                        <a href="/profile" class="breadcrumb"><span class="grey-text text-darken-2">Scholars</span></a>
+                        <a href="/schinfo" class="breadcrumb"><span class="grey-text text-darken-2">{{name}}</span></a>
+                        <a href="#!" class="breadcrumb"><span class="grey-text text-darken-2">{{name}} - Progress</span></a>
                     </div>
-                </div>
+                </div></div>
             </nav>
-        <h2>Scholar Progress - {{name}}</h2>
+        <h4>Scholar Progress - {{name}}</h4>
         <div id="divided">
             <div id="divide">
                 <div class="card">

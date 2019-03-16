@@ -46,7 +46,7 @@
               <br>
               <div class="card">
                 <div class="card-title"><center><b>Login</b></center></div>
-                <p style="color:{{col}}">{{message}}</p>
+                <center><p style="color:{{col}}">{{message}}</p></centre>
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
@@ -57,13 +57,13 @@
                 <div class="card-content">
                   <div id="scholar">
                       <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
-                    <div class="input-field ">
+                    <div class="input-field">
                     <input id='regno' type="text" name='regno' required/>
-                    <label for="regno"><span class="blue-text text-darken-3">Register Number</span></label>
+                    <label for="regno">Register Number</label>
                   </div>
                   <div class="input-field">
                     <input id="password" type="password" name="password" required/>
-                    <label for="password"><span class="blue-text text-darken-3">Password</span></label>
+                    <label for="password">Password</label>
                   </div>
                     <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                         <i class="material-icons right">send</i>
@@ -74,11 +74,11 @@
                       <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
-                      <label for="regno"><span class="blue-text text-darken-3">User ID</span></label>
+                      <label for="regno">User ID</label>
                     </div>
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
-                      <label for="password"><span class="blue-text text-darken-3">Password</span></label>
+                      <label for="password">Password</label>
                     </div>
                       <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
@@ -89,11 +89,11 @@
                       <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
-                      <label for="regno"><span class="blue-text text-darken-3">Dean ID</span></label>
+                      <label for="regno">Dean ID</label>
                     </div>
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
-                      <label for="password"><span class="blue-text text-darken-3">Password</span></label>
+                      <label for="password">Password</label>
                     </div>
                       <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
@@ -105,6 +105,27 @@
             
                 
                 <style>
+                  .input-field label {
+     color: grey;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #regno:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
+   #password:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+   }
+   .password input[type=text]:focus + label {
+     color:grey;
+   }
+  
                     @media only screen and (max-width:800px) {
                     /* For tablets: */
                     .mainmenu {

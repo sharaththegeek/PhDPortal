@@ -44,10 +44,7 @@
 			<!---------------- Mid content ----------------------------------->
 					<div class="clearpad"><div class="item-page">
 						<style>
-					body {font-family: Arial;}
-
-					/* Style the tab */
-				
+					body {font-family: Arial;}				
 					.dropdown{
 						display:none;
 					}
@@ -96,8 +93,8 @@
 						</div>
 					</div>
 				<br>
-					<div id="profile">
-						<div id="info">
+							<div class="divided">
+							<div class="done">
 							<div class="card">
 							  <div class="card-title">Personal Details</div>
 								<table>
@@ -126,7 +123,7 @@
 											<td style="text-align:center">{{school}}</td>
 										</tr>
 									</table>
-									<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button></p>
+									<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
 						Old Password: <input type="password" name="old"><br><br>
@@ -139,11 +136,12 @@
 						</div>
 					</div>
 	
-            <div id="publications">
-							  <div class="card">
-								<h2>Current Status: {{status1}} Completed</h2>
-								<h2>Supervisor: Dr. {{supervisor}} </h2>
-								<h2>Publication Details</h2>
+					<div class="done">
+							<div class="card">
+								  <br>
+							<center><h5>Current Status: {{status1}} Completed</h5></center>	
+								<h5>Supervisor: Dr. {{supervisor}} </h5>
+								<h5>Publication Details</h5>
 								<table border="1">
 									<tr>
 										<th>Title of the Publication</th>
@@ -163,7 +161,7 @@
 								</table>
 						</div>
 					</div>
-					</div>
+				</div>
           <div id="progress" >
 						
 						<div class="divided">
@@ -266,12 +264,12 @@
 					</div>
 					<div id="messages">
 						<div class="card">
-							<h2><center>Reports</center></h2>
+							<h5><center>Reports</center></h5>
 							<p>No reports to show currently!</p>
 						</div>
 						<div class="message">
 							<div class="card">
-							<h2><center>Messages</center></h2>
+							<h5><center>Messages</center></h5>
 							<p>No messages to show currently!</p>
 						</div>
 						</div>
@@ -279,7 +277,7 @@
 					<script>
 						var element=document.querySelector('.tabs');
 						var instance=M.Tabs.init(element,{
-							swipeable: true,
+							swipeable: false	,
 						});
 						document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.collapsible');
@@ -289,9 +287,8 @@
 
 					</script>
 					<style>
-						
 					.button {
-					    background-color:#003399; /* Green */
+					    background-color:#003399; 
 					    border: bold;
 					    color: white;
 					    padding: 15px 32px;
@@ -300,11 +297,7 @@
 					    display: inline-block;
 					    font-size: 15px;
 					}
-					.tab {
-  float: left;
-  width: 16%;
-  height: 300px;
-}
+				
 					.buttonlog {
 					    background-color:darkblue;
 					    border: solid;
@@ -328,52 +321,6 @@
 					.pwd{
 						display: none;
 					}
-.accordion1 {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    height: 8%;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-}
-
-.active1,.accordion1:hover{
-    background-color: #ccc;
-}
-
-
-.righta{
-   	margin-left: 20%;
-	width: 80%;   
-}
-
-
-.accordion1:after{
-    content: '\002B';
-    color: #777;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-}
-
-.active1:after{
-    content: "\2212";
-}
-body{
-	margin:0;
-	padding:0;
-}
-.panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
 </style>
 </div>
 </div>
@@ -393,15 +340,19 @@ body{
 		</div>
 	</div>
 <style>
+	body{
+		height:75%;
+	}
 .footer{
 	width:100%;
 	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
-    text-align: center;
+	text-align: center;
+	z-index: 999;
 }
 </style>
-<br><br><br>
+<br>
 <div class="footer">
 	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 </div>

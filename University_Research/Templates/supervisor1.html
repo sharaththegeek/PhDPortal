@@ -79,11 +79,6 @@
   width: 16%;
   height: 300px;
 }
-body{
-	margin:0;
-	padding:0;
-}
-
 					/* Style the tab content */
 					.tabcontent {
 					    display: none;
@@ -99,7 +94,13 @@ body{
 	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
-    text-align: center;
+	text-align: center;
+	z-index: 999;
+
+}
+table {
+  width: 80%;
+  margin-left: 13%;
 }
 					</style>
 					</head>
@@ -116,7 +117,8 @@ body{
 								</div>
                       <div id="scholars">
 						  <div class="card">
-					  <h3>List of Scholars: </h3>
+					  <h4><center>List of Scholars: </center></h4>
+					  <br>
 						<table>
 							<tr>
 								<th>Register Number</th>
@@ -144,8 +146,9 @@ body{
 
 					<div id="profile">
 					  <div id="divided">
-					  <div id="divide">
-						  <div class="card">
+						<div class="done">
+							<div class="card">
+								<div class="card-title">Personal Details</div>
 									<table>
 									<tr>
 										<th style="text-align:center">Name:</th>
@@ -172,10 +175,9 @@ body{
 										<td style="text-align:center">{{aoi}}</td>
 									</tr>
 								</table>
-							</div>
-						</div>
-						<div id="divide">
-						<div class="card">
+							</div></div>
+							<div class="done">
+								<div class="card">
 						<h3>Publication Details :</h3>
 						<table>
 							<tr>
@@ -194,13 +196,15 @@ body{
 							{%endfor%}
 						</table>
 					</div>
-					   </div> 
+					   
+					</div>
 					</div>
 					</div>
 					<div id="messages">
-						<h3><center>Messages</center></h3>
+						<div class="card">
+						<h5><center>Messages</center></h5>
 						<p>No messages to show right now!</p>
-					</div>
+					</div></div>
 
 		<script>
 			var element=document.querySelector('.tabs');

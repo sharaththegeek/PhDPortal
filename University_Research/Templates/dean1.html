@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 	<link rel="stylesheet" href="{%static 'header.css' %}">
+	<link rel="stylesheet" href="{%static 'scholar.css' %}">
 	<link rel="stylesheet" href="{%static 'awesomplete.css'%}" />
 	<!--Materialize CSS-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -22,13 +23,13 @@
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
-			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="javascript:void(0)" class="buttons">Downloads</a>
-			<a href="/profile" class="buttons">Profile</a>
-		    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-	    	<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+		<div id="navbar">
+				<a href="/logq" class="buttons">{{logg}}</a>
+				<a href="javascript:void(0)" class="buttons">Downloads</a>
+					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+					<p class="main">Research Portal</p>
+				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -45,7 +46,6 @@
 	</div> 	
 	<br><br>
 			<!---------------- Mid content ----------------------------------->
-					<div class="clearpad"><div class="item-page">
 						<style>
 					body {font-family: Arial;}
 
@@ -78,12 +78,6 @@
 					.tab button:hover {
 					    background-color: #ddd;
 					}
-					body{
-	margin:0;
-	padding:0;
-	width: 80%;
-	margin-left: 10%;
-}
 					/* Create an active/current tablink class */
 					.tab button.active {
 					    background-color: #ccc;
@@ -101,20 +95,21 @@
   height: 300px;
 }
 					</style>
-					</head>
-					<body>
 
 							<h6><p class="welcome">Welcome {{name}}</p></h6>	
 							<div class="hold">
 								<div class="holding s-12">
 									<ul class="tabs">
-										<li class="tab"><a class="tabbed" href="#profile">Members</a></li>
-										<li class="tab"><a class="tabbed" href="#messages">Messages</a></li>
-										<li class="tab"><a class="tabbed" href="#schedule">Schedule</a></li>
+										<li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Members</span></a></li>
+										<li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Messages</span></a></li>
+										<li class="tab"><a class="tabbed" href="#schedule"><span class="blue-text text-darken-2">Schedule</span></a></li>
 									</ul>
 								</div>
 							</div>
 					<div id="profile">
+							<div class="divided">
+									<div class="done">
+									<div class="card">
 					  <h3>Scholars</h3>
 						<a href="http://127.0.0.1:8000/reg/"><p>Create new Scholar</p></a><br>
 						                              <h5>Search for a Scholar:</h5><br>
@@ -127,7 +122,9 @@
 											</datalist>
                       <input type="submit" value="Search">
 									      </form><br>
-</div>
+</div></div>
+<div class="done">
+		<div class="card">
 						<h3>Supervisors</h3>
 						<a href="http://127.0.0.1:8000/sureg/"><p>Create new Supervisor</p></a><br>
 						                              <h5>Search for a Supervisor</h5><br>
@@ -140,6 +137,7 @@
 														</datalist>
 													  <input type="submit" value="Search">
 													  </form><br>
+													</div></div></div></div>
 				
 					<div id="messages">
 					  <h3>Total No of Scholars: {{sch}}</h3>
@@ -160,7 +158,6 @@
 						</form><br>
 						<iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 					</div>
-</center>
 					<script>
 					function openCity(evt, cityName) {
 					    var i, tabcontent, tablinks;
@@ -178,10 +175,7 @@
 					document.getElementById("defaultOpen").click();
 
 					</script>
-</div>
-</div>
- </div>
-				</div>
+
 		<div id="bottom">
 			<div style="<!--border:1px outset #eee;-->">
 				<div id="bottom-1">
@@ -192,15 +186,11 @@
 				</div>
 			</div>
 		</div>
-		</div><div class="clear"></div>
-		</div>
-	</div>
 	<br><br><br><br><br><br><br><br>
 
 	<div class="footer">
 		<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 	</div>
-</div>
 <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

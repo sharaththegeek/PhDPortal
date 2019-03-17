@@ -42,7 +42,7 @@
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
 			<!---------------- Mid content ----------------------------------->
-					<div class="clearpad"><div class="item-page">
+					
 						<style>
 					body {font-family: Arial;}
 
@@ -103,8 +103,7 @@ table {
   margin-left: 13%;
 }
 					</style>
-					</head>
-					<body>
+					
 							<h4><p class="welcome">Welcome Dr. {{name}}</p></h4>		
 							<div class="hold">
 									<div class="holding s-12">
@@ -203,7 +202,8 @@ table {
 					<div id="messages">
 							<div class="card">
 									<h5><center>Messages</center></h5>
-									<a class="btn-floating tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+									<a class="btn-floating right tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+									<br>
 									{% if dbMessages %}
 									{% for message in dbMessages %}
 									{% if message.schunread == True %}
@@ -236,10 +236,6 @@ table {
 							swipeable: true,
 						});
 		</script>
-</div>
-</div>
- </div>
-				</div>
 		<div id="bottom">
 			<div style="<!--border:1px outset #eee;-->">
 				<div id="bottom-1">
@@ -250,15 +246,12 @@ table {
 				</div>
 			</div>
 		</div>
-		</div><div class="clear"></div>
-		</div>
-	</div>
+
 	<br><br><br><br><br><br><br><br><br><br><br>
 	<div class="footer">
 			<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 		</div>
-		
-</div>
+
 <script>
 							document.getElementById("defaultOpen").click();
 

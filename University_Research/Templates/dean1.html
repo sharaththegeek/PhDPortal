@@ -49,55 +49,22 @@
 						<style>
 					body {font-family: Arial;}
 
-					/* Style the tab */
-					.tab {
-					    overflow: hidden;
-					    background-color: #f1f1f1;
-					}
-
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 17px;
-					}
+					
 					.footer{
 	width:100%;
 	background-color: #0D2C5F;
 	color:white;
 	height: 5%;
-    text-align: center;
+	text-align: center;
+	z-index: 9990;
 }
-
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #ddd;
-					}
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #ccc;
-					}
-
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 6px 12px;
-					    border-top: none;
-					}
-					.tab {
-  float: left;
-  width: 16%;
-  height: 300px;
+.main{
+	margin-right: 20%;
 }
 					</style>
 
 							<h6><p class="welcome">Welcome {{name}}</p></h6>	
-							<div class="hold">
+							<center><div class="hold">
 								<div class="holding s-12">
 									<ul class="tabs">
 										<li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Members</span></a></li>
@@ -105,7 +72,7 @@
 										<li class="tab"><a class="tabbed" href="#schedule"><span class="blue-text text-darken-2">Schedule</span></a></li>
 									</ul>
 								</div>
-							</div>
+							</div></center>
 					<div id="profile">
 							<div class="divided">
 									<div class="done">
@@ -140,11 +107,12 @@
 													</div></div></div></div>
 				
 					<div id="messages">
-					  <h3>Total No of Scholars: {{sch}}</h3>
-					  <h3>Total No of Supervisors: {{sup}}</h3>
+					  <center><h5>Total No of Scholars: {{sch}}</h5>
+					  <h5>Total No of Supervisors: {{sup}}</h5>
 						<h2>Messages:</h2>
-				    <p>No messages to show right now!</p>
-					</div>
+						<div class="card">
+				    <p>No messages to show right now!</p></div>
+					</div></center>
 					<div id="schedule">
 						  Schedule a DC Meeting:
 							<form method="POST" action="http://127.0.0.1:8000/dsched/">{%csrf_token%}
@@ -156,7 +124,7 @@
 							</datalist>
 							<input type="submit" value="Search">
 						</form><br>
-						<iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+						<center><iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe></center>
 					</div>
 					<script>
 					function openCity(evt, cityName) {

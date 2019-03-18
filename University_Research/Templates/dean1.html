@@ -63,7 +63,6 @@
 }
 					</style>
 
-							<h6><p class="welcome">Welcome {{name}}</p></h6>	
 							<center><div class="hold">
 								<div class="holding s-12">
 									<ul class="tabs">
@@ -127,21 +126,11 @@
 						<center><iframe src="https://calendar.google.com/calendar/b/1/embed?mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=120003287%40sastra.ac.in&amp;color=%231B887A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe></center>
 					</div>
 					<script>
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
-					document.getElementById("defaultOpen").click();
-
+							var element=document.querySelector('.tabs');
+		    var instance=M.Tabs.init(element,{
+							swipeable: true,
+						});
+				
 					</script>
 
 		<div id="bottom">

@@ -13,10 +13,7 @@ from Research.forms import newMessage
 from Research.forms import snewMessage
 from Research.models import Scholar
 from Research.forms import Passed
-<<<<<<< HEAD
 from Research.models import Subjected
-=======
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 from Research.forms import NextPass
 from Research.models import Personal_Det
 from Research.forms import oEdit
@@ -398,17 +395,11 @@ def dmake(request):
       rno=request.session['stored']
       dlevel=edited.cleaned_data['level']
       move=edited.cleaned_data['move']
-<<<<<<< HEAD
       dbC=Progress.objects.get(scholar__regno=rno,level=3)
       courses=dbC.subjected_set.all()
       level=Progress.objects.get(scholar__regno=rno,level=dlevel)
       name=Personal_Det.objects.get(scholar__regno=rno).name
       return render(request,"dschedit.html",{"move":move,"name":name,"level":level,"courses":courses})
-=======
-      level=Progress.objects.get(scholar__regno=rno,level=dlevel)
-      name=Personal_Det.objects.get(scholar__regno=rno).name
-      return render(request,"dschedit.html",{"move":move,"name":name,"level":level})
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
   else:
     return HttpResponseRedirect('/profile')
 
@@ -686,7 +677,6 @@ def zeroth(request):
     else:
       print form.errors
       return HttpResponseRedirect('/profile')
-<<<<<<< HEAD
 
 def dcComments(request):
   if request.POST:
@@ -882,203 +872,6 @@ def Mview(request):
   else:
     return HttpResponseRedirect('/profile')
 
-=======
-
-def dcComments(request):
-  if request.POST:
-    cData=dcComment(request.POST)
-    if cData.is_valid():
-      comments=cData.cleaned_data['comments']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        level=request.session['level']
-        dProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dProg.comments=comments
-        dProg.save()
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-      return HttpResponseRedirect('/profile')
-  
-def fail(request):
-  if request.POST:
-    cData=hForm(request.POST)
-    if cData.is_valid():
-      date=cData.cleaned_data['date']
-      level=cData.cleaned_data['level']
-      hComment=cData.cleaned_data['hComment']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dbProg.date=date
-        dbProg.comments=hComment
-        dbProg.save()
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-
-def passed(request):
-  if request.POST:
-    pData=Passed(request.POST)
-    if pData.is_valid():
-      hComment=pData.cleaned_data['hComment']
-      level=pData.cleaned_data['level']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dbProg.comments=hComment
-        dbProg.result="pass"
-        dbProg.save()
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-
-def nextPass(request):
-  if request.POST:
-    pData=NextPass(request.POST)
-    if pData.is_valid():
-      hComment=pData.cleaned_data['hComment']
-      level=pData.cleaned_data['level']
-      date=pData.cleaned_data['date']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dbNext=Progress.objects.get(scholar__regno=rno,level=level+1)
-        dbProg.comments=hComment
-        dbProg.result="pass"
-        dbProg.save()
-        dbNext.date=date
-        dbNext.save()
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-
-def otherEdit(request):
-  if request.POST:
-    oData=oEdit(request.POST)
-    if oData.is_valid():
-      date=oData.cleaned_data['date']
-      level=oData.cleaned_data['level']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dbProg.date=date
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-  
-def dcFail(request):
-  if request.POST:
-    dData=Passed(request.POST)
-    if dData.is_valid():
-      comment=dData.cleaned_data['hComment']
-      level=dData.cleaned_data['level']
-      if request.session.has_key('stored'):
-        rno=request.session['stored']
-        dbProg=Progress.objects.get(scholar__regno=rno,level=level)
-        dbProg.comment=comment
-        dbProg.save()
-        return HttpResponseRedirect('/schprog')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-  
-def newText(request):
-  if request.POST:
-    mData=newMessage(request.POST)
-    if mData.is_valid():
-      receiver=mData.cleaned_data['receiver']
-      title=mData.cleaned_data['title']
-      content=mData.cleaned_data['content']
-      rno=request.session['regno']
-      sObj=Personal_Det.objects.get(scholar__regno=rno)
-      mObj=Message(head=title,body=content,scholar=sObj.scholar,sender=sObj.name)
-      if receiver == '1':
-        suObj=sObj.supervisor
-        mObj.supervisorText=suObj
-        mObj.supunread=True
-      elif receiver == '2':
-        suObj=Supervisor.objects.get(mid='ES0000')
-        mObj.deanText=suObj
-        mObj.deanunread=True
-      elif receiver == '3':
-        suObj=sObj.supervisor
-        suObj1=Supervisor.objects.get(mid='ES0000')
-        mObj.supervisorText=suObj
-        mObj.deanText=suObj1
-        mObj.supunread=True
-        mObj.deanunread=True
-      mObj.save()
-      return HttpResponseRedirect('/profile')
-    else:
-      print form.errors
-      return HttpResponseRedirect('/profile')
-  else:
-    print form.errors
-    return HttpResponseRedirect('/profile')
-
-def superText(request):
-  if request.POST:
-    mData=snewMessage(request.POST)
-    if mData.is_valid():
-      receiver=mData.cleaned_data['receiver']
-      scholar=mData.cleaned_data['scholar']
-      title=mData.cleaned_data['title']
-      content=mData.cleaned_data['content']
-      mObj=Message(head=title,body=content)
-      mObj.sender=Su_Personal_Det.objects.get(mid=request.session['mid']).name
-      if receiver == '1':
-        rno=scholar.split(' ')[0]
-        mObj.scholar=Scholar.objects.get(regno=rno)
-        mObj.schunread=True
-      elif receiver == '2':
-        mObj.dean=Supervisor.objects.get(mid='ES0000')
-        mObj.deanunread=True
-      else:
-        rno=scholar.split(' ')[0]
-        mObj.scholar=Scholar.objects.get(regno=rno)
-        mObj.dean=Supervisor.objects.get(mid='ES0000')
-        mObj.deanunread=True
-      mObj.save()
-      return HttpResponseRedirect('/profile')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-  
-def texted(request):
-  if request.session.has_key('regno'):
-    return render(request,"newText.html",{})
-  else:
-    return HttpResponseRedirect('/profile')
-
-def stexted(request):
-  if request.session.has_key('mid'):
-    return render(request,"snewText.html",{})
-  else:
-    return HttpResponseRedirect('/profile')
-
-def Mview(request):
-  if request.POST:
-    vData=viewM(request.POST)
-    if vData.is_valid():
-      tid=vData.cleaned_data['tid']
-      request.session['tid']=tid
-      return HttpResponseRedirect('/viewText')
-    else:
-      return HttpResponseRedirect('/profile')
-  else:
-    return HttpResponseRedirect('/profile')
-
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 def viewText(request):
   if request.session.has_key('tid'):
     tid=request.session['tid']
@@ -1111,7 +904,6 @@ def addComment(request):
 
 def dcPass(request):
   if request.POST:
-<<<<<<< HEAD
     dcObj=request.POST.getlist('course[]')
     hComment=request.POST.get('hComment')
     level=request.POST.get('level')
@@ -1164,14 +956,4 @@ def marked(request):
       dbProg.save()
     return HttpResponseRedirect('/dschprog')
   else:
-=======
-    dcObj=dcp(request.POST)
-    if dcObj.is_valid():
-      return HttpResponseRedirect('/schprog')
-    else:
-      print form.errors
-      return HttpResponseRedirect('/profile')
-  else:
-    print form.errors
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
     return HttpResponseRedirect('/profile')

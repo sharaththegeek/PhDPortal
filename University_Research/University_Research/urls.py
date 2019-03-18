@@ -19,20 +19,14 @@ from Research.views import home
 from django.views.generic import TemplateView
 from Research.views import logins
 from Research.views import spreg
-<<<<<<< HEAD
 from Research.views import nextPass
-=======
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 from Research.views import schedule
 from Research.views import stexted
 from Research.views import ann
 from Research.views import courseEdit
 from Research.views import login1
 from Research.views import plusdc
-<<<<<<< HEAD
 from Research.views import marked
-=======
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 from Research.views import login
 from Research.views import loginsu
 from Research.views import logind
@@ -91,10 +85,7 @@ urlpatterns = [
     url(r'^login1/',login1),
     url(r'^ann/',ann),
     url(r'^makedit',makedit),
-<<<<<<< HEAD
     url(r'^nextPass/',nextPass),
-=======
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
     url(r'^logind/',logind),
     url(r'^logins/',logins),
     url(r'^loginsu/',loginsu),
@@ -106,10 +97,7 @@ urlpatterns = [
     url(r'^super2/',super2),
     url(r'^dcFail/',dcFail),
     url(r'^passed/',passed),
-<<<<<<< HEAD
     url(r'^marked/',marked),
-=======
->>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
     url(r'^fail/',fail),
     url(r'^newText/',newText),
     url(r'^newann/',newann),

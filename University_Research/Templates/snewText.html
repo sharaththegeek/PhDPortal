@@ -35,12 +35,19 @@ body{
 #scholar-box{
     display: none;
 }
+.body1{
+    width: 80%;
+    margin-left: 10%;
+}
+.main{
+    margin-right: 24%;
+}
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
                     <a href="javascript:void(0)" class="buttons">Downloads</a>
                         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">PhD Portal</p>
+                        <p class="main">Research Portal</p>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
             </div>
         <div id="navbar-mobile">
@@ -57,7 +64,10 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 
+        <div class="body1">
+            <br><br>
         <span>New Message</span>
+        <br><br>
         <div class="input-field col s12">
             <form method="POST" action="/newText/">{%csrf_token%}
                 <select name="receiver" onchange="eScholar(this.value)">
@@ -82,6 +92,7 @@ body{
                 <button type="submit">Send</button>
             </form>
         </div>
+    </div>
         <script>
 function eScholar(value){
     if (value=='1' || value=='3'){
@@ -102,5 +113,9 @@ function eScholar(value){
     $('input#input_text, textarea#textarea2').characterCounter();
   });
   </script>
+  <br><br> <br><br>
+  <div class="footer">
+        <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+    </div>
         </body>
         </html>

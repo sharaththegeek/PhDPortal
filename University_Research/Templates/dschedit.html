@@ -95,15 +95,14 @@ body{
             <input type="text" name="marks[]"/>
             <span>Enter the result</span>
             <label>
-                    <input name="result" type="radio" value="Pass"/>
+                    <input name="result[]" type="radio" value="Pass"/>
                     <span>Pass</span>
             </label>
             <label>
-                    <input name="result" type="radio" value="Fail" />
+                    <input name="result[]" type="radio" value="Fail" />
                     <span>Fail</span>
             </label>
             {% endfor %}
-            <button type="submit">Submit</button>
        </form>
        {% endif %}
        {% elif level.level == 2 or level.level == 5 or level.level == 6 %}

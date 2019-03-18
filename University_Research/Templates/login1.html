@@ -20,7 +20,7 @@
 <body oncontextmenu="return false" >
 			
     <div id="navbar">
-        <a href="/logq" class="buttons">{{logg}}</a>
+        
         <a href="javascript:void(0)" class="buttons">Downloads</a>
           <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
           <p class="main">PhD Portal</p>
@@ -46,13 +46,13 @@
 
               <br>
               <div class="card">
-                <div class="card-title">Login</div>
+                <div class="card-title"><center><b>Login</b></center></div>
                 <p style="color:{{col}}">{{message}}</p>
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#scholar">Scholar</a></li>
-                    <li class="tab"><a href="#supervisor">Supervisor</a></li>
-                    <li class="tab"><a href="#dean">Dean</a></li>
+                      <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
+                      <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
+                      <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
                   </ul>
                 </div>
                 <div class="card-content">
@@ -66,9 +66,9 @@
                     <input id="password" type="password" name="password" required/>
                     <label for="password">Password</label>
                   </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                        <i class="material-icons right">send</i>
-                    </button>  
+                  <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
+                      <i class="material-icons right">send</i>
+                  </button></center>
                     </form>
                   </div>
                   <div id="supervisor">
@@ -81,9 +81,9 @@
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
                     </div>
-                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                      <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
-                      </button>  
+                      </button></center>
                       </form>
                   </div>
                   <div id="dean">
@@ -96,9 +96,9 @@
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
                     </div>
-                      <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                          <i class="material-icons right">send</i>
-                      </button>  
+                    <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button></center>
                       </form>
                   </div>
                 </div>
@@ -131,28 +131,17 @@ body{
   margin: 0;
   padding: 0;
 }
+.main{
+	margin-right: 27%
+}
 h3{
  text-align:center;
 }
-.buttonlog {
-    background-color:darkblue;
-    border: solid;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    border-radius: 15px;
-  box-shadow: 0 4px #999;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
+.card{
+  width: 80%;
+  margin-left: 10%;
 }
-.buttonlog:hover {background-color: darkblue}
 
-.buttonlog:active {
-  background-color: black;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
 h1{
   text-align: left;
   font-size: 2em;
@@ -168,8 +157,13 @@ h2{
   margin-top:-4%;
   margin-bottom:0%;
 }
-.loginhead{
+
+.Top{
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
   text-align: center;
+<<<<<<< HEAD
   margin-left: 1%;
 }
 .headd{
@@ -281,16 +275,24 @@ li a:hover{
 	color:white;
 	height: 5%;
     text-align: center;
+=======
+>>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 }
+
 .footer{
 	width:100%;
+<<<<<<< HEAD
 	background-color: #0D2C5F;
 >>>>>>> 35df5cd730adb1d9ae6a220d308c5f4e21caa62e
+=======
+	background-color: #3C5EC1;
+>>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 	color:white;
 	height: 5%;
     text-align: center;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 .dean-box:hover{
@@ -313,6 +315,9 @@ li a:hover{
 }
 =======
 >>>>>>> 35df5cd730adb1d9ae6a220d308c5f4e21caa62e
+=======
+
+>>>>>>> b568d3e33aee036162f101ced6ad9d2965df6bdb
 </style>
 <script>
   var Ti=setTimeout(me1(),100)

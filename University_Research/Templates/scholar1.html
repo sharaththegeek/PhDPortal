@@ -73,6 +73,9 @@
 						text-decoration: none;
 						
 					}
+					.main{
+	margin-right: 20%
+}
 					.tabbed{
 						color: white;
 						text-decoration: none;
@@ -276,7 +279,8 @@
 						<div class="message">
 							<div class="card">
 							<h5><center>Messages</center></h5>
-							<a class="btn-floating tooltipped waves-effect waves-light blue darken-3" href="/texted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+							<a class="right btn-floating tooltipped waves-effect waves-light blue darken-3" href="/texted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+							<br>
 							{% if dbMessages %}
 							{% for message in dbMessages %}
 							{% if message.schunread == True %}

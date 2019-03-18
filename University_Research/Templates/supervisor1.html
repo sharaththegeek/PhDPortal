@@ -23,12 +23,12 @@
 				<a href="/logq" class="buttons">{{logg}}</a>
 				<a href="javascript:void(0)" class="buttons">Downloads</a>
 					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-					<p class="main">PhD Portal</p>
+					<p class="main">Research Portal</p>
 				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-		<p class="main">PhD Portal</p>
+		<p class="main">Research Portal</p>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
 					<i class="fas fa-bars"></i>
 		</a>
@@ -42,44 +42,11 @@
 		<a href="#" onclick="sideClose()">SASTRA Home</a>
 	</div> 	
 			<!---------------- Mid content ----------------------------------->
-					<div class="clearpad"><div class="item-page">
+					
 						<style>
 					body {font-family: Arial;}
 
 					
-
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 17px;
-					}
-
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #ddd;
-					}
-
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #ccc;
-					}
-					.tab {
-  float: left;
-  width: 16%;
-  height: 300px;
-}
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 6px 12px;
-					    border-top: none;
-					}
 					.welcome{
 						float:right;
 						margin-right: 2%;
@@ -93,15 +60,22 @@
 	z-index: 999;
 
 }
+.main{
+	margin-right: 20%;
+}
 table {
   width: 80%;
   margin-left: 13%;
 }
+.twos{
+	width: 100%;
+	margin-left: 50%;
+	margin-top: -24.9%;
+}
 					</style>
-					</head>
-					<body>
+					
 							<h4><p class="welcome">Welcome Dr. {{name}}</p></h4>		
-							<div class="hold">
+							<center><div class="hold">
 									<div class="holding s-12">
 										<ul class="tabs">
 											<li class="tab"><a class="tabbed" href="#scholars"> <span class="blue-text text-darken-2">List of Scholars</span></a></li>
@@ -109,7 +83,7 @@ table {
 											<li class="tab"><a class="tabbed" href="#messages"> <span class="blue-text text-darken-2">Messages</span></a></li>
 										</ul>
 									</div>
-								</div>
+								</div></center>
                       <div id="scholars">
 						  <div class="card">
 					  <h4><center>List of Scholars: </center></h4>
@@ -171,9 +145,11 @@ table {
 									</tr>
 								</table>
 							</div></div>
+							<div class="twos">
 							<div class="done">
 								<div class="card">
-						<h3>Publication Details :</h3>
+									
+						<h4>Publication Details :</h4>
 						<table>
 							<tr>
 								<th style="width:30%">Title of Publication</th>
@@ -192,13 +168,14 @@ table {
 						</table>
 					</div>
 					   
-					</div>
+					</div></div>
 					</div>
 					</div>
 					<div id="messages">
 							<div class="card">
 									<h5><center>Messages</center></h5>
-									<a class="btn-floating tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+									<a class="btn-floating right tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+									<br>
 									{% if dbMessages %}
 									{% for message in dbMessages %}
 									{% if message.schunread == True %}
@@ -231,10 +208,6 @@ table {
 							swipeable: true,
 						});
 		</script>
-</div>
-</div>
- </div>
-				</div>
 		<div id="bottom">
 			<div style="<!--border:1px outset #eee;-->">
 				<div id="bottom-1">
@@ -245,15 +218,12 @@ table {
 				</div>
 			</div>
 		</div>
-		</div><div class="clear"></div>
-		</div>
-	</div>
+
 	<br><br><br><br><br><br><br><br><br><br><br>
 	<div class="footer">
 			<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 		</div>
-		
-</div>
+
 <script>
 							document.getElementById("defaultOpen").click();
 

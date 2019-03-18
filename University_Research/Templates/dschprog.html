@@ -26,16 +26,19 @@
 	height: 5%;
     text-align: center;
 }
-body{
-	margin:0;
-	padding:0;
+.main{
+    margin-right: 21%;
+}
+.card{
+    width: 80%;
+    margin-left: 10%;
 }
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
                     <a href="javascript:void(0)" class="buttons">Downloads</a>
                         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">PhD Portal</p>
+                        <p class="main">Research Portal</p>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
             </div>
         <div id="navbar-mobile">
@@ -53,7 +56,7 @@ body{
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
         <nav>
-                <div class="nav-wrapper">
+                <div class="indigo accent-1">
                     <div class="col s12">
                         <a href="/profile" class="breadcrumb">Scholars</a>
                         <a href="/dschinfo" class="breadcrumb">{{name}}</a>
@@ -61,7 +64,7 @@ body{
                     </div>
                 </div>
             </nav>
-        <h2>Scholar Progress - {{name}}</h2>
+        <center><h4>Scholar Progress - {{name}}</h4></center>
         <div id="divided">
             <div id="divide">
                 <div class="card">

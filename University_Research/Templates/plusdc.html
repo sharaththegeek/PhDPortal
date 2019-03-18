@@ -25,17 +25,17 @@
 	color:white;
 	height: 5%;
     text-align: center;
+    margin-top: 40%;
 }
-body{
-	margin:0;
-	padding:0;
+.main{
+    margin-right: 22%;
 }
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
                     <a href="javascript:void(0)" class="buttons">Downloads</a>
                         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">PhD Portal</p>
+                        <p class="main">Research Portal</p>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
             </div>
         <div id="navbar-mobile">
@@ -62,8 +62,8 @@ body{
         <button type="submit">Schedule</button>
         </form>
         {% else %}
-        <p>{{name}} is still working on {{dcLevel.name}}</p>
-        <p>No DC Meeting to be allocated!</p>
+       <center><h4>{{name}} is still working on {{dcLevel.name}}</h4></center> 
+       <center><h4>No DC Meeting to be allocated!</h4></center> 
         {% endif %}
         <script>
             document.addEventListener('DOMContentLoaded',function(){
@@ -77,5 +77,9 @@ body{
                 });
             });
         </script>
+
+         <div class="footer">
+                <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+        </div>
         </body>
         </html>

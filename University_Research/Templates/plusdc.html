@@ -54,7 +54,7 @@ body{
         </div> 	
         {% if dcLevel.level == 2 or dcLevel.level == 5 or dcLevel.level == 6 %}
         <p>Schedule {{dcLevel.name}} for {{name}}</p>
-        <form name="schedule" method="POST" action="/schedule/">
+        <form name="schedule" method="POST" action="/schedule/">{%csrf_token%}
         <span>Choose Date: </span>
         <input type="text" name="date" class="datepicker">
         <span>Choose Time: </span>
@@ -65,5 +65,17 @@ body{
         <p>{{name}} is still working on {{dcLevel.name}}</p>
         <p>No DC Meeting to be allocated!</p>
         {% endif %}
+        <script>
+            document.addEventListener('DOMContentLoaded',function(){
+                var elems=document.querySelectorAll('.datepicker');
+                var instances=M.Datepicker.init(elems,{
+                    format:'dd mmm yyyy'
+                });
+                var telem=document.querySelectorAll('.timepicker');
+                var instance1=M.Timepicker.init(telem,{
+                    twelveHour:false
+                });
+            });
+        </script>
         </body>
         </html>

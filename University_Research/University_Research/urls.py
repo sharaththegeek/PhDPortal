@@ -18,13 +18,21 @@ from django.contrib import admin
 from Research.views import home 
 from django.views.generic import TemplateView
 from Research.views import logins
+from Research.views import spreg
+from Research.views import nextPass
+from Research.views import schedule
+from Research.views import stexted
 from Research.views import ann
+from Research.views import courseEdit
 from Research.views import login1
 from Research.views import plusdc
+from Research.views import marked
 from Research.views import login
 from Research.views import loginsu
 from Research.views import logind
+from Research.views import texted
 from Research.views import schprog
+from Research.views import newText
 from Research.views import superm
 from Research.views import super1
 from Research.views import super2
@@ -33,6 +41,7 @@ from Research.views import super4
 from Research.views import support
 from Research.views import scholar1
 from Research.views import dean1
+from Research.views import dcPass
 from Research.views import schstart
 from Research.views import schinfo
 from Research.views import suinfo
@@ -55,6 +64,9 @@ from Research.views import dmake
 from Research.views import supmes
 from Research.views import makedit
 from Research.views import readj
+from Research.views import dcFail
+from Research.views import passed
+from Research.views import fail
 from Research.views import storesch
 from Research.views import logoutsu
 
@@ -67,11 +79,13 @@ urlpatterns = [
     url(r'^schprog/',schprog),
     url(r'^dschprog/',dschprog),
     url(r'^storesch/',storesch),
+    url(r'^schedule/',schedule),
     url(r'^login1/',login1),
     url(r'^chnpwd/',chnpwd),
     url(r'^login1/',login1),
     url(r'^ann/',ann),
     url(r'^makedit',makedit),
+    url(r'^nextPass/',nextPass),
     url(r'^logind/',logind),
     url(r'^logins/',logins),
     url(r'^loginsu/',loginsu),
@@ -81,6 +95,11 @@ urlpatterns = [
     url(r'^superm/',superm),
     url(r'^super1/',super1),
     url(r'^super2/',super2),
+    url(r'^dcFail/',dcFail),
+    url(r'^passed/',passed),
+    url(r'^marked/',marked),
+    url(r'^fail/',fail),
+    url(r'^newText/',newText),
     url(r'^newann/',newann),
     url(r'^suinfo/',suinfo),
     url(r'^logout/',logout),
@@ -98,8 +117,13 @@ urlpatterns = [
     url(r'^reg',reg),
     url(r'^plusdc',plusdc),
     url(r'^adett',adett),
-    url(r'^schreg',schreg),
+    url(r'^dcPass/',dcPass),
+    url(r'^schreg/',schreg),
+    url(r'^texted/',texted),
+    url(r'^stexted/',stexted),
     url(r'^adup',adup),
+    url(r'^courseEdit/',courseEdit),
     url(r'^sureg',sureg),
+    url(r'^spreg',spreg),
     url(r'^supmes',supmes),
 ]

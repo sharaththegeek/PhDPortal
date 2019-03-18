@@ -1,9 +1,25 @@
+
+    #info{
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+        text-align: center;
+    }
+    #publications{
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
 #divided{
     display: flex;
 }
-#done{
+.done{
     width: 50%;
     padding-left: 15px;
     padding-right: 15px;
     text-align: center;
+}
+#progress{
+    padding: 15px;
 }

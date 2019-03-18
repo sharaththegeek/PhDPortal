@@ -56,7 +56,7 @@ class Progress(PolymorphicModel):
    
 class DC(Progress):
    date=models.DateField(null=True)
-   time=models.TimeField()
+   time=models.TimeField(null=True)
    comments=models.CharField(max_length=500)
 
 class Coursework(Progress):
@@ -95,16 +95,17 @@ class Message(models.Model):
   body=models.CharField(max_length=1000)
   date=models.DateTimeField(default=datetime.now)
   scholar=models.ForeignKey(Scholar)
-  unread=models.BooleanField(default=False)
-  supervisorText=models.ForeignKey(Supervisor,related_name='supervisorText')
-  deanText=models.ForeignKey(Supervisor,related_name='deanText')
+  sender=models.CharField(max_length=100)
+  schunread=models.BooleanField(default=False)
+  supunread=models.BooleanField(default=False)
+  deanunread=models.BooleanField(default=False)
+  supervisorText=models.ForeignKey(Supervisor,related_name='supervisorText',null=True)
+  deanText=models.ForeignKey(Supervisor,related_name='deanText',null=True)
 
 class Comments(models.Model):
   content=models.CharField(max_length=500)
   date=models.DateTimeField(default=datetime.now)
-  scholar=models.ForeignKey(Scholar)
-  supervisorText=models.ForeignKey(Supervisor,related_name='supervisorComment')
-  deanText=models.ForeignKey(Supervisor,related_name='deanComment')
+  sender=models.CharField(max_length=100)
   message=models.ForeignKey(Message)
 
 class SupMess(models.Model):
@@ -119,7 +120,7 @@ class Subject(models.Model):
 
 class Subjected(Subject):
    datePassed=models.DateField(null=True)
-   marks=models.IntegerField()
+   marks=models.IntegerField(null=True)
    status=models.CharField(max_length=10)
    course=models.ForeignKey(Coursework)
 

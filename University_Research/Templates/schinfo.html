@@ -136,17 +136,23 @@
     text-align: center;
 }
 					</style>
-							<nav>
+							<nav><div class="white">
 									<div class="nav-wrapper">
 										<div class="col s12">
-											<a href="/profile" class="breadcrumb">Scholars</a>
-											<a href="#!" class="breadcrumb">{{name}}</a>
+											<a href="/profile" class="breadcrumb"><span class="grey-text text-darken-2">Scholars</span></a>
+											<a href="#!" class="breadcrumb"><span class="grey-text text-darken-2">{{name}}</span></a>
 										</div>
 									</div>
+								</div>
 								</nav>
 							
+<<<<<<< HEAD
 					<h1>Scholar Information - {{name}}</h1>
 					<button><a href="/schprog">View Progress</a></button>
+=======
+					<h4>Scholar Information - {{name}}</h4>
+					<button><a href="/schprog">Edit Progress</a></button>
+>>>>>>> 35df5cd730adb1d9ae6a220d308c5f4e21caa62e
 					<div class="divided">
           <div class="card" id="done">
 					<table>
@@ -181,9 +187,9 @@
 					</table>
 				</div>
 				 <div class="card" id="done">
-					  <h3>Current Status: {{status1}} Completed</h3>
-						<h3>Supervisor: Dr. {{supervisor}}</h3>
-						<br><h3>Publication Details</h3><br>
+					  <h5>Current Status: {{status1}} Completed</h5>
+						<h5>Supervisor: Dr. {{supervisor}}</h5>
+						<h5>Publication Details</h5><br>
 						<table>
 							<tr>
 								<th>Title of the Publication</th>

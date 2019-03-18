@@ -9,6 +9,8 @@
 			<!--Materialize CSS-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type = "text/javascript"
+    src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 
 	<!-- Compiled and minified JavaScript for Materialize -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -29,6 +31,9 @@
 body{
 	margin:0;
 	padding:0;
+}
+#scholar-box{
+    display: none;
 }
         </style>
         	<div id="navbar">
@@ -51,67 +56,51 @@ body{
             <a href="#about" onclick="sideClose()">{{logg}}</a>
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
-        </div> 	
-        <nav>
-                <div class="nav-wrapper">
-                    <div class="col s12">
-                        <a href="/profile" class="breadcrumb">Scholars</a>
-                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="/schprog" class="breadcrumb">Progress</a>
-                        <a href="#!" class="breadcrumb">Edit/Update</a>
-                    </div>
+        </div> 
+        <span>New Message</span>
+        <div class="input-field col s12">
+            <form method="POST" action="/newText/">{%csrf_token%}
+                <select name="receiver" onchange="eScholar(this.value)">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option name="receiver" value="1">Scholar</option>
+                  <option name="receiver" value="2">Dean</option>
+                  <option name="receiver" value="3">Dean & Scholar</option>
+                </select>
+                <label>Choose recepients</label>
+                <div id="scholar-box" class="input-field col s6">
+                    <input id="scholar" type="text" name="scholar" value="0" class="validate">
+                    <label for="scholar">Choose Scholar</label>          
                 </div>
-        </nav>
-        <h2>{{level.name}}</h2>
-       {% if level.level == 9 %}
-       {% if move == "edit" %}
-       <form name="edit-thesis">
-           <span>Reupload new comments</span>
-       </form>
-       {% elif move == "update" %}
-       <form name="update-thesis">
-           <span>Upload new comments</span>
-       </form>
-       {% elif move == "dated" %}
-       <form name="date-thesis" action="/otherEdit/" method="POST">
-           <span>Schedule Date of Thesis Submission</span>
-           <input type="text" class="datepicker" name="date"/>
-           <input type="hidden" name="level" value="{{level.level}}">
-           <button type="submit">Submit</button>
-       </form>
-       {% endif %}
-       {% elif level.level == 3%}
-       {% if move == "edit" %}
-       <form name="edit-course">
+                <div class="input-field col s6">
+                        <input id="input_text" type="text" name="title" data-length="50">
+                        <label for="input_text">Title</label>
+                </div>
+                <div class="input-field col s12">
+                        <textarea id="textarea2" class="materialize-textarea" name="content" data-length="500"></textarea>
+                        <label for="textarea2">Content</label>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <script>
+function eScholar(value){
+    if (value=='1' || value=='3'){
+    document.getElementById('scholar-box').style.display="block";
+    document.getElementById('scholar').value="";
+    }
+    if (value=='2'){
+        document.getElementById('scholar-box').style.display="none";
+    document.getElementById('scholar').value="0";
+    }
+}
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
 
-       </form>
-       {% elif move == "update" %}
-       <form name="update-course" method="POST" action="/marked/">{%csrf_token%}
-            {% for i in courses %}
-            <span>Course Name: {{i.name}}</span>
-            <span>Enter date of completion</span>
-            <input type="text" name="date[]" class="datepicker"/>
-            <span>Enter the marks obtained</span>
-            <input type="text" name="marks[]"/>
-            <span>Enter the result</span>
-            <label>
-                    <input name="result" type="radio" value="Pass"/>
-                    <span>Pass</span>
-            </label>
-            <label>
-                    <input name="result" type="radio" value="Fail" />
-                    <span>Fail</span>
-            </label>
-            {% endfor %}
-            <button type="submit">Submit</button>
-       </form>
-       {% endif %}
-       {% elif level.level == 2 or level.level == 5 or level.level == 6 %}
-       {% if move == "emem" %}
-       <div class="edit-members"></div>
-       {% elif move == "umem" %}
-       <div class="add-members"></div>
-       {% endif %}
-       {% endif %}
-    </body>
-    </html>
+         $(document).ready(function() {
+    $('input#input_text, textarea#textarea2').characterCounter();
+  });
+  </script>
+        </body>
+        </html>

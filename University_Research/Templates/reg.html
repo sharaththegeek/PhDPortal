@@ -68,11 +68,11 @@
               <span>Category</span>
               <select name="category">
                   <option value="" disabled selected>Choose your option</option>
-                  <option value="OC">OC</option>
-                  <option value="BC">BC</option>
-                  <option value="MBC">MBC</option>
-                  <option value="SC">SC</option>
-                  <option value="ST">ST</option>
+                  <option name="category" value="OC">OC</option>
+                  <option name="category" value="BC">BC</option>
+                  <option name="category" value="MBC">MBC</option>
+                  <option name="category" value="SC">SC</option>
+                  <option name="category" value="ST">ST</option>
               </select>
               <div class="input-field col s6">
                   <input placeholder="Register Number" id="regno" name="regno" type="text" class="validate">
@@ -124,17 +124,15 @@
               </label>
               <div class="external" id="external">
                   <div class="input-field col s6">
-                      <input id="inst" name="institution" type="text" class="validate">
-                      <label for="inst">Institution Name:</label>
+                      <input id="inst" name="institution" type="text" value="Institution Name" class="validate">
                   </div>
                   <div class="input-field col s6">
-                      <input id="inst_ad" name="institution_ad" type="text" class="validate">
-                      <label for="inst_ad">Institution Address:</label>
+                      <input id="inst_ad" name="institution_ad" type="text" value="Institution Address" class="validate">
                   </div>
               </div>
+              <button type="submit">Submit</button>
             </form>
             </div>
-
 <style>
 input{
   padding-right: 5%;
@@ -309,14 +307,20 @@ input{
 	</div>
 </div>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+
+
 $(function(){
   $("#datepicker").datepicker({
-  dateFormat: "dd-mm-yy",
+  dateFormat: "dd mmm yy",
   changeYear: true,
   changeMonth: true,
 });
   $("#datepicker1").datepicker({
-  dateFormat: "dd-mm-yy"
+  dateFormat: "dd mmm yy"
 });
 });
 

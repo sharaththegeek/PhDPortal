@@ -52,66 +52,7 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
-        <nav>
-                <div class="nav-wrapper">
-                    <div class="col s12">
-                        <a href="/profile" class="breadcrumb">Scholars</a>
-                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="/schprog" class="breadcrumb">Progress</a>
-                        <a href="#!" class="breadcrumb">Edit/Update</a>
-                    </div>
-                </div>
-        </nav>
-        <h2>{{level.name}}</h2>
-       {% if level.level == 9 %}
-       {% if move == "edit" %}
-       <form name="edit-thesis">
-           <span>Reupload new comments</span>
-       </form>
-       {% elif move == "update" %}
-       <form name="update-thesis">
-           <span>Upload new comments</span>
-       </form>
-       {% elif move == "dated" %}
-       <form name="date-thesis" action="/otherEdit/" method="POST">
-           <span>Schedule Date of Thesis Submission</span>
-           <input type="text" class="datepicker" name="date"/>
-           <input type="hidden" name="level" value="{{level.level}}">
-           <button type="submit">Submit</button>
-       </form>
-       {% endif %}
-       {% elif level.level == 3%}
-       {% if move == "edit" %}
-       <form name="edit-course">
-
-       </form>
-       {% elif move == "update" %}
-       <form name="update-course" method="POST" action="/marked/">{%csrf_token%}
-            {% for i in courses %}
-            <span>Course Name: {{i.name}}</span>
-            <span>Enter date of completion</span>
-            <input type="text" name="date[]" class="datepicker"/>
-            <span>Enter the marks obtained</span>
-            <input type="text" name="marks[]"/>
-            <span>Enter the result</span>
-            <label>
-                    <input name="result" type="radio" value="Pass"/>
-                    <span>Pass</span>
-            </label>
-            <label>
-                    <input name="result" type="radio" value="Fail" />
-                    <span>Fail</span>
-            </label>
-            {% endfor %}
-            <button type="submit">Submit</button>
-       </form>
-       {% endif %}
-       {% elif level.level == 2 or level.level == 5 or level.level == 6 %}
-       {% if move == "emem" %}
-       <div class="edit-members"></div>
-       {% elif move == "umem" %}
-       <div class="add-members"></div>
-       {% endif %}
-       {% endif %}
-    </body>
-    </html>
+        
+        </body>
+        </html>
+        

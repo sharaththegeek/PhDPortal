@@ -26,9 +26,9 @@
 	height: 5%;
     text-align: center;
 }
-body{
-	margin:0;
-	padding:0;
+.card{
+    width:80%;
+    margin-left: 10%;
 }
         </style>
         	<div id="navbar">
@@ -52,16 +52,16 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
-        <nav>
+        <nav><div class="white">
                 <div class="nav-wrapper">
                     <div class="col s12">
-                        <a href="/profile" class="breadcrumb">Scholars</a>
-                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="#!" class="breadcrumb">Progress</a>
+                        <a href="/profile" class="breadcrumb"><span class="grey-text text-darken-2">Scholars</span></a>
+                        <a href="/schinfo" class="breadcrumb"><span class="grey-text text-darken-2">{{name}}</span></a>
+                        <a href="#!" class="breadcrumb"><span class="grey-text text-darken-2">{{name}} - Progress</span></a>
                     </div>
-                </div>
+                </div></div>
             </nav>
-        <h2>Scholar Progress - {{name}}</h2>
+        <h4>Scholar Progress - {{name}}</h4>
         <div id="divided">
             <div id="divide">
                 <div class="card">
@@ -78,7 +78,7 @@ body{
                                                   <input type="hidden" name="move" value="edit"/>
                                                   <button type="submit">Edit</button>
                                                 </form>
-												 {%ifequal others.fees "paid"%}
+												 {%ifequal others.fees "Paid"%}
 												 <p>Provisionally Admitted: Yes </p>
 												 {%else%}
 												 <p>Provisionally Admitted: No </p>
@@ -123,8 +123,8 @@ body{
                                         {% else %}
                                         <p>Held on: {{dbNext.date}}</p>
                                         <p>DC Members:</p>
-                                        <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{others.level}}'/>
+                                        <form method="POST" name="makedit" action="/makedit/">{%csrf_token%}
+                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
                                             <button type="submit">Update Comments</button>
                                         </form>
@@ -137,19 +137,19 @@ body{
                                         {% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
                                         <p>Date: {{dbNext.date}}</p>
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{others.level}}'/>
+                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="dedit"/>
                                             <button type="submit">Edit</button>
                                         </form>
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{others.level}}'/>
+                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
                                             <button type="submit">Update Status</button>
                                         </form>
                                         {% elif dbNext.level == 3%}
                                         <p>Subjects:</p>
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{others.level}}'/>
+                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
                                             <button type="submit">Edit Courses</button>
                                         </form>

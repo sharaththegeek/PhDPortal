@@ -164,8 +164,8 @@ class schregForm(forms.Form):
    institution_ad=forms.CharField(max_length=500)
 
 class Schedule(forms.Form):
-  date=forms.DateField(input_formats='%d-%b-%Y')
-  time=forms.TimeField(input_formats="%I:%M %p")
+  date=forms.DateField()
+  time=forms.TimeField()
 
 class AnForm(forms.Form):
    title=forms.CharField(max_length=200)
@@ -187,12 +187,12 @@ class supForm(forms.Form):
    body=forms.CharField(max_length=1000)
 
 class medit(forms.Form):
-   level=forms.CharField(max_length=30)
+   level=forms.IntegerField()
    move=forms.CharField(max_length=10)
 
 class ZerothF(forms.Form):
   fees=forms.CharField(max_length=10)
-  date=forms.DateField(input_formats='%d-%b-%Y')
+  date=forms.DateField()
 
 class dcComment(forms.Form):
   comments=forms.CharField(max_length=500)
@@ -216,3 +216,21 @@ class oEdit(forms.Form):
   date=forms.DateField()
   level=forms.IntegerField()
 
+class newMessage(forms.Form):
+  receiver=forms.CharField(max_length=25)
+  title=forms.CharField(max_length=50)
+  content=forms.CharField(max_length=500)
+
+class viewM(forms.Form):
+  tid=forms.IntegerField()
+
+class snewMessage(forms.Form):
+  receiver=forms.CharField(max_length=25)
+  scholar=forms.CharField(max_length=15)
+  title=forms.CharField(max_length=50)
+  content=forms.CharField(max_length=500)
+
+class dcp(forms.Form):
+  course=forms.CharField(max_length=30)
+  hComment=forms.CharField(max_length=30)
+  level=forms.IntegerField()

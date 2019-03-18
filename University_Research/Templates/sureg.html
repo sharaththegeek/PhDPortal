@@ -98,15 +98,19 @@
               </label>
               <div class="external" id="external">
                   <div class="input-field col s6">
-                      <input id="inst" name="institution" type="text" class="validate">
-                      <label for="inst">Institution Name:</label>
+                      <input id="inst" name="institution" type="text" value="Institution Name" class="validate">
                   </div>
                   <div class="input-field col s6">
-                      <input id="desig" name="designation" type="text" class="validate">
-                      <label for="desig">Designation</label>
+                      <input id="desig" name="designation" type="text" value="Designation" class="validate">
                   </div>
               </div>
+              <button type="submit">Submit</button>
             </form>
             </div>
+            <style>
+                .external{
+                    display: none;
+                }
+            </style>
         </body>
         </html>

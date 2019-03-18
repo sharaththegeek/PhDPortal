@@ -41,6 +41,24 @@ body{
 .checker{
     display:block;
 }
+#second{
+    display: none;
+}
+#third{
+    display: none;
+}
+#sPass{
+    display:none;
+}
+#sFail{
+    display:none;
+}
+#second-t{
+    display: none;
+}
+#third-t{
+    display: none;
+}
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
@@ -82,7 +100,7 @@ body{
            </label>
            <label>
                <span>Date of Fee Payment:</span>
-               <input type="text" class="datepicker" name="date">
+               <input type="text" class="datepicker" id="date_1" name="date">
            </label>
            <button type="submit">Submit</button>
         </form>
@@ -99,11 +117,11 @@ body{
         <div id="checker">
          <span>Enter status</span> 
          <label>
-                <input name="result" id="passed" type="radio" value="Pass" />
+                <input name="result" id="passer" type="radio" value="Pass" />
                 <span>Pass</span>
         </label>
         <label>
-                <input name="result" id="passed" type="radio" value="Fail" />
+                <input name="result" id="passer" type="radio" value="Fail" />
                 <span>Fail</span>
         </label>      
         <span>Enter Comments</span>
@@ -113,7 +131,7 @@ body{
         <div class="failed" id="failed">
           <span>Enter date of re-appearance</span>
           <form method="POST" action="/fail">{%csrf_token%}
-          <input type="text" class="datepicker1" name="date">
+          <input type="text" class="datepicker1" id="date_2" name="date">
           <input type="hidden" name="hComment" id="fComment"/>
           <input type="hidden" name="level" value="{{level.level}}">
           <button type="submit">Submit</button>
@@ -132,7 +150,7 @@ body{
             {% elif level.level == 7 %}
             <span>Enter date for RAC</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
-                <input type="text" class="datepicker2" name="date">
+                <input type="text" class="datepicker2" id="date_3" name="date">
                 <input type="hidden" name="hComment" id="hCommentary"/>
                 <input type="hidden" name="level" value="{{level.level}}">
                 <button type="submit">Confirm</button>
@@ -141,7 +159,7 @@ body{
             {% elif level.level == 10 %}
             <span>Enter date for Thesis Submission</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
-                <input type="text" class="datepicker3" name="date">
+                <input type="text" class="datepicker3" id="date_4" name="date">
                 <input type="hidden" name="hComment" id="hCommentary"/>
                 <input type="hidden" name="level" value="{{level.level}}">
                 <button type="submit">Confirm</button>
@@ -153,7 +171,7 @@ body{
         {% elif move == "dedit" %}
         <form name="edit" method="POST" action="/otherEdit/">{%csrf_token%}
             <span>Enter date:</span>
-            <input type="text" class="datepicker4" name="date">
+            <input type="text" class="datepicker4" id="date_5" name="date">
             <input type="hidden" name="level" value="{{level.level}}">
             <button type="submit">Submit</button>
         </form>
@@ -163,11 +181,11 @@ body{
                 <div id="first">
                 <span>Enter Status</span>
                 <label>
-                        <input name="result" type="radio" id="state"/>
+                        <input name="result" type="radio" value="Pass" id="state"/>
                         <span>Pass</span>
                 </label>
                 <label>
-                        <input name="result" type="radio" id="state"/>
+                        <input name="result" type="radio" value="Fail" id="state"/>
                         <span>Fail</span>
                 </label>
                 <span>Enter Comments</span>
@@ -176,14 +194,14 @@ body{
                 </div>
                 <div id="second">
                 <span>Enter list of recommended courses:</span>
-                <input type="text" name="course" id="myInput" placeholder="Enter course"/>
-                <span onclick="newElement()" class="addBtn">Add</span>
-                <form name="update-1-dc-pass">
-                <ul id="selectedCourses">
-    
-                </ul>
+                <form name="update-1-dc-pass" method="POST" action="/dcPass/">{%csrf_token%}
+                <input type='text' name="course[]" placeholder="Enter course">
+                <input type='text' name="course[]" placeholder="Enter course">
+                <input type='text' name="course[]" placeholder="Enter course">
+                <input type='text' name="course[]" placeholder="Enter course">
                 <input type="hidden" name="hComment" id="thoseComment">
-                    <buttont type="submit">Submit</buttont>
+                <input type="hidden" name="level" value="{{level.level}}">
+                <button type="submit">Submit</button>
                 </form>        
                 </div>
                 <div id="third">
@@ -203,11 +221,11 @@ body{
                 <div id="sMain">
                     <span>Enter Status</span>
                     <label>
-                        <input name="result" type="radio" id="sFate"/>
+                        <input name="result" type="radio" value="Pass" id="sFate"/>
                         <span>Pass</span>
                     </label>
                     <label>
-                        <input name="result" type="radio" id="sFate" />
+                        <input name="result" type="radio" value="Fail" id="sFate" />
                         <span>Fail</span>
                         </label>
                     <span>Enter Comments</span>
@@ -215,14 +233,14 @@ body{
                     <button onclick="sHandle()">Next</button>
                 </div>
                     <div id="sPass">
-                    <form method="POST" action="/passed/">
+                    <form method="POST" action="/passed/">{%csrf_token%}
                     <input type="hidden" name="hComment" id="sComment">
                     <input type="hidden" name="level" value="{{level.level}}">
                     <button type="submit">Submit</button>
                      </form>
                     </div>
                     <div id="sFail">
-                            <form method="POST" action="/dcFail/">
+                            <form method="POST" action="/dcFail/">{%csrf_token%}
                                 <input type="hidden" name="hComment" id="sComment">
                                 <input type="hidden" name="level" value="{{level.level}}">
                                 <button type="submit">Submit</button>
@@ -235,11 +253,11 @@ body{
                     <div id="first-t">
                             <span>Enter Status</span>
                     <label>
-                        <input name="result" type="radio" id="tFate"/>
+                        <input name="result" type="radio" value="Pass" id="tFate"/>
                         <span>Pass</span>
                     </label>
                     <label>
-                        <input name="result" type="radio" id="tFate" />
+                        <input name="result" type="radio" value="Fail" id="tFate" />
                         <span>Fail</span>
                         </label>
                     <span>Enter Comments</span>
@@ -248,15 +266,15 @@ body{
                     </div>
                     <div id="second-t">
                         <span>Enter date for synopsis submission</span>
-                    <form method="POST" action="/nextPass">
-                        <input type="text" name="date" class="datepicker5"/> 
+                    <form method="POST" action="/nextPass/">{%csrf_token%}
+                        <input type="text" name="date" class="datepicker5" id="date_6"/> 
                         <input type="hidden" name="hComment" id="tComment"/>
                         <input type="hidden" name="level" value="{{level.level}}">
                         <button type="submit">Submit</button>
                     </form>
                     </div>
                     <div id="third-t">
-                            <form method="POST" action="/dcFail/">
+                            <form method="POST" action="/dcFail/">{%csrf_token%}
                                 <input type="hidden" name="hComment" id="tComment">
                                 <input type="hidden" name="level" value="{{level.level}}">
                                 <button type="submit">Submit</button>
@@ -264,30 +282,38 @@ body{
                     </div>
                 </div>
             {% elif level.level == 3 %}
-            <div id="second">
+            <div>
+                    <form name="update-1-dc-pass" method="POST" action="/courseEdit/">{%csrf_token%}
                     <span>Enter list of recommended courses:</span>
-                    <input type="text" name="course" id="myInput" placeholder="Enter course"/>
-                    <span onclick="newElement()" class="addBtn">Add</span>
-                    <form name="update-1-dc-pass">
-                    <ul id="selectedCourses">
-        
-                    </ul>
-                        <buttont type="submit">Submit</buttont>
+                    <input type='text' name="course[]" placeholder="Enter course">
+                    <input type='text' name="course[]" placeholder="Enter course">
+                    <input type='text' name="course[]" placeholder="Enter course">
+                    <input type='text' name="course[]" placeholder="Enter course">
+                    <input type="hidden" name="level" value="{{level.level}}">
+                    <button type="submit">Submit</button>
                     </form>        
             </div>
             {% endif %}
         <script>
+         document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        format:'dd mmm yyyy',
+        autoClose: true,
+    });
+  });
+  
         function checkPass(){
-            var passed=document.getElementsById('passed').value;
+            var passed=document.getElementById('passer').value;
             var comment=document.getElementById('comments').value;
             if (passed == "Pass"){
-                document.getElementById('passed').display="block";
-                document.getElementById('checker').display="none";
+                document.getElementById('passed').style.display="block";
+                document.getElementById('checker').style.display="none";
                 document.getElementById('hCommentary').value=comment;
             }
             else if(passed == "Fail"){
-                document.getElementById('failed').display="block";
-                document.getElementById('checker').display="none";
+                document.getElementById('failed').style.display="block";
+                document.getElementById('checker').style.display="none";
                 document.getElementById('fComment').value=comment;
             }
         }
@@ -295,13 +321,13 @@ body{
             var passed=document.getElementById('state').value;
             var comment=document.getElementById('thatcomment').value;
             if (passed=="Pass"){
-                document.getElementById('first').display="none";
-                document.getElementById('second').display="block";
+                document.getElementById('first').style.display="none";
+                document.getElementById('second').style.display="block";
                 document.getElementById('thoseComment').value=comment;
             }
             else if(passed=="Fail"){
-                document.getElementById('first').display="none";
-                document.getElementById('third').display="block";
+                document.getElementById('first').style.display="none";
+                document.getElementById('third').style.display="block";
                 document.getElementById('thoseComment').value=comment;
             }
         }
@@ -309,13 +335,13 @@ body{
             var passed=document.getElementById('sFate').value;
             var comment=document.getElementById('sCom').value;
             if (passed=="Pass"){
-                document.getElementById('sMain').display="none";
-                document.getElementById('sPass').display="block";
+                document.getElementById('sMain').style.display="none";
+                document.getElementById('sPass').style.display="block";
                 document.getElementById('sComment').value=comment;
             }
             else if(passed=="Fail"){
-                document.getElementById('sMain').display="none";
-                document.getElementById('sFail').display="block";
+                document.getElementById('sMain').style.display="none";
+                document.getElementById('sFail').style.display="block";
                 document.getElementById('sComment').value=comment;
             }
         }
@@ -323,13 +349,13 @@ body{
             var passed=document.getElementById('tFate').value;
             var comment=document.getElementById('tCom').value;
             if (passed=="Pass"){
-                document.getElementById('tMain').display="none";
-                document.getElementById('tPass').display="block";
+                document.getElementById('first-t').style.display="none";
+                document.getElementById('second-t').style.display="block";
                 document.getElementById('tComment').value=comment;
             }
             else if(passed=="Fail"){
-                document.getElementById('tMain').display="none";
-                document.getElementById('tFail').display="block";
+                document.getElementById('first-t').style.display="none";
+                document.getElementById('third-t').style.display="block";
                 document.getElementById('tComment').value=comment;
             }
         }

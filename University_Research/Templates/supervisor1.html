@@ -99,7 +99,8 @@ table {
 								<form method="POST" action="http://127.0.0.1:8000/storesch/">
 									{%csrf_token%}
 									<input type="hidden" name="regno" value={{s.scholar.regno}}>
-									<input style="width:40%" type="submit" name="Info" value="Info">
+									<button class="btn waves-effect waves-light blue" type="submit" name="Info">Info
+										  </button>
 								</form>
 							</td>
 						</tr>
@@ -166,7 +167,7 @@ table {
 					</div>
 					</div>
 					<div id="messages">
-							<div class="card">
+							<div class="card" style="width:80%; margin-left:10%">
 									<h5><center>Messages</center></h5>
 									<a class="btn-floating right tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
 									<br>

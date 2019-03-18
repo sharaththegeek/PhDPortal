@@ -68,11 +68,12 @@
 					<h4>Supervisor:</h4>
 					<div class="hold">
 							<div class="holding s-12">
+								<center>
 								<ul class="tabs">
 									<li class="tab"><a class="tabbed" href="#prog"><span class="blue-text text-darken-2">Personal Details</span></a></li>
 									<li class="tab"><a class="tabbed" href="#regde"><span class="blue-text text-darken-2">Scholar Details</span></a></li>
 									<li class="tab"><a class="tabbed" href="#resde"><span class="blue-text text-darken-2">Research Details</span></a></li>
-								</ul>
+								</ul></center>
 							</div>
 						</div>
 					<div id="regde">
@@ -124,13 +125,10 @@
 					<div id="prog" class="tabcontent">
 						<center><table>
 						<tr>
-							<th>First Name:</th>
+							<th>Name:</th>
 							<td>{{name}}</td>
 						</tr>
-						<tr>
-							<th>Last Name:</th>
-							<td>{{lname}}</td>
-						</tr>
+					
 						<tr>
 							<th>Sex:</th>
 							<td>{{sex}}</td>
@@ -156,19 +154,11 @@
 					</div>
 
 					<script>
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
+							var element=document.querySelector('.tabs');
+		    var instance=M.Tabs.init(element,{
+							swipeable: false,
+						});
+				
 					</script>
 </div>
 </div>

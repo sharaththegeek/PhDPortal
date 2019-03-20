@@ -91,10 +91,11 @@ class Announcement(models.Model):
   adate=models.DateField(null=True,blank=True)
 
 class Message(models.Model):
+  tid=models.IntegerField(primary_key=True)
   head=models.CharField(max_length=100)
   body=models.CharField(max_length=1000)
   date=models.DateTimeField(default=datetime.now)
-  scholar=models.ForeignKey(Scholar)
+  scholar=models.ForeignKey(Scholar,null=True)
   sender=models.CharField(max_length=100)
   schunread=models.BooleanField(default=False)
   supunread=models.BooleanField(default=False)

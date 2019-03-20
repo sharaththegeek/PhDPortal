@@ -95,6 +95,24 @@ body{
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 3%}
                                                 <p>Subjects:</p>
+                                                <table>
+                                                    <tr>
+                                                    <th>Course Code</th>
+                                                    <th>Course Name</th>
+                                                    <th>Date</th>
+                                                    <th>Marks</th>
+                                                    <th>Status</th>
+                                                    </tr>
+                                                    {%for subject in subjects%}
+                                                    <tr>
+                                                        <td>{{subject.code}}</td>
+                                                        <td>{{subject.name}}</td>
+                                                        <td>{{subject.datePassed}}</td>
+                                                        <td>{{subject.marks}}</td>
+                                                        <td>{{subject.status}}</td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </table>
                                                 <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
                                                     <input type="hidden" name="level" value="{{others.level}}"/>
                                                     <input type="hidden" name="move" value="edit"/>
@@ -147,7 +165,19 @@ body{
                                         {% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
                                         <p>Date: {{dbNext.date}}</p>
                                         {% elif dbNext.level == 3%}
-                                        <p>Subjects:</p>
+                                        <p>Suggested Coursework:</p>
+												<table>
+												<tr>
+													<td>Course Code</td>
+													<td>Course Name</td>
+												</tr>
+												{%for subject in subjects %}
+												<tr>
+													<td>{{subject.code}}</td>
+													<td>{{subject.name}}</td>
+												</tr>
+												{%endfor%}
+											</table>
                                         <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
                                             <input type="hidden" name="level" value="{{dbNext.level}}"/>
                                             <input type="hidden" name="move" value="update"/>

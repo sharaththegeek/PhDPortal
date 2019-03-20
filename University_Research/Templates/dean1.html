@@ -92,7 +92,7 @@
 <div class="done">
 		<div class="card">
 						<h3>Supervisors</h3>
-						<a href="http://127.0.0.1:8000/sureg/"><p>Create new Supervisor</p></a><br>
+						<a href="http://127.0.0.1:8000/spreg/"><p>Create new Supervisor</p></a><br>
 						                              <h5>Search for a Supervisor</h5><br>
 													  <form method="POST" action="http://127.0.0.1:8000/suinfo/">{%csrf_token%}
 														<input class="awesomplete" name="mid" list="mylist1"/>
@@ -110,8 +110,46 @@
 					  <h5>Total No of Supervisors: {{sup}}</h5>
 						<h2>Messages:</h2>
 						<div class="card">
-				    <p>No messages to show right now!</p></div>
-					</div></center>
+								{% if dbMessages %}
+								{% for message in dbMessages %}
+								{% if message.deanunread == True %}
+								{% if message.sender == 'scholar' %}
+								<b>
+									<form action="/schApprove/" method="POST">{%csrf_token%}
+									<input type="hidden" name="tid" value="{{message.tid}}">
+									<button type="submit">{{message.head}}</button>
+									</form>
+								</b>
+								{% elif message.sender == 'supervisor' %}
+								<b>
+										<form action="/supApprove/" method="POST">{%csrf_token%}
+											<input type="hidden" name="tid" value="{{message.tid}}">
+											<button type="submit">{{message.head}}</button>
+										</form>
+								</b>
+								{% else %}
+								<b>
+								<form action="/Mview/" method="POST">{%csrf_token%}
+								<input type="hidden" name="tid" value="{{message.tid}}">
+								<button type="submit">
+								{{message.head}}
+							</button>
+								 </form> 
+								</b>
+								{%endif%}
+								{% else %}
+								<form action="/Mview/" method="POST">{%csrf_token%}
+									<input type="hidden" name="tid" value="{{message.tid}}">
+									<button type="submit">
+									{{message.head}}
+								</button>
+								</form> 
+								{% endif %}
+								{% endfor %}
+								{% else %}
+								<p>No messages to show currently!</p>
+								{% endif %}
+						</div></center>
 					<div id="schedule">
 						  Schedule a DC Meeting:
 							<form method="POST" action="http://127.0.0.1:8000/dsched/">{%csrf_token%}

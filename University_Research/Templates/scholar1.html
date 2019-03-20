@@ -21,7 +21,7 @@
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar">
+	<div id="navbar" style="z-index:999">
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
 				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
@@ -73,6 +73,11 @@
 						text-decoration: none;
 						
 					}
+					.tab .active{
+						border-bottom: 1px solid 	#3C5EC1;
+					
+					}
+
 					.main{
 	margin-right: 20%
 }
@@ -196,6 +201,24 @@
 											<p>Comments: {{dbLatest.comments}}</p>
 											{% elif dbLatest.level == 3%}
 											<p>Subjects:</p>
+											<table>
+													<tr>
+													<th>Course Code</th>
+													<th>Course Name</th>
+													<th>Date</th>
+													<th>Marks</th>
+													<th>Status</th>
+													</tr>
+													{%for subject in subjects%}
+													<tr>
+															<td>{{subject.code}}</td>
+															<td>{{subject.name}}</td>
+															<td>{{subject.datePassed}}</td>
+															<td>{{subject.marks}}</td>
+															<td>{{subject.status}}</td>
+													</tr>
+													{%endfor%}
+											</table>											
 											{% endif %}
 										</div>
 									</li>
@@ -222,6 +245,24 @@
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 3%}
 												<p>Subjects:</p>
+												<table>
+														<tr>
+														<th>Course Code</th>
+														<th>Course Name</th>
+														<th>Date</th>
+														<th>Marks</th>
+														<th>Status</th>
+														</tr>
+														{%for subject in subjects%}
+														<tr>
+																<td>{{subject.code}}</td>
+																<td>{{subject.name}}</td>
+																<td>{{subject.datePassed}}</td>
+																<td>{{subject.marks}}</td>
+																<td>{{subject.status}}</td>
+														</tr>
+														{%endfor%}
+												</table>								
 												{%endif%}
 											</div>
 										</li>
@@ -255,7 +296,19 @@
 												{% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
 												<p>Date: {{dbNext.date}}</p>
 												{% elif dbNext.level == 3%}
-												<p>Subjects:</p>
+												<p>Suggested Coursework:</p>
+												<table>
+												<tr>
+													<td>Course Code</td>
+													<td>Course Name</td>
+												</tr>
+												{%for subject in subjects %}
+												<tr>
+													<td>{{subject.code}}</td>
+													<td>{{subject.name}}</td>
+												</tr>
+												{%endfor%}
+											</table>
 												{%endif%}
 											</div>
 									</li>
@@ -285,15 +338,15 @@
 							{% for message in dbMessages %}
 							{% if message.schunread == True %}
 							<b>
-							<form action="/Mview/" method="POST">
-							<input type="hidden" value="{{message.id}}">
+							<form action="/Mview/" method="POST">{%csrf_token%}
+							<input type="hidden" name="tid" value="{{message.id}}">
 							<button type="submit">
 							{{message.head}}
 						</button>
 					   	</form> 
 							</b>
 							{% else %}
-							<form action="/Mview/" method="POST">
+							<form action="/Mview/" method="POST">{%csrf_token%}
 								<input type="hidden" name="tid" value="{{message.id}}">
 								<button type="submit">
 								{{message.head}}

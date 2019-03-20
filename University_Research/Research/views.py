@@ -241,6 +241,8 @@ def scholar1(request):
   dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
   dbNext=dbUpcoming[0]
   dbRest=dbUpcoming[1:]
+  dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
+  subjects=dbSubjects.subjected_set.all()
   dbMessages=Message.objects.filter(scholar__regno=rno)
   for message in dbMessages:
     if message.schunread==True:
@@ -254,7 +256,7 @@ def scholar1(request):
   current=dbCompleted[0].name
   if unread==0:
     unread=""
-  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers,"dbMessages":dbMessages,"unread":unread})
+  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers,"dbMessages":dbMessages,"unread":unread,"subjects":subjects})
 
 def supervisor1(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
@@ -267,7 +269,7 @@ def supervisor1(request):
   unread=0
   dbMessages=Message.objects.filter(supervisorText__mid=mid)
   for message in dbMessages:
-    if message.schunread==True:
+    if message.supunread==True:
       unread=unread+1
   dbP=Su_Personal_Det.objects.get(supervisor__mid=mid)
   dbPu=Publications.objects.filter(supervisors__mid=mid).values()
@@ -326,9 +328,11 @@ def dschprog(request):
       dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
       dbNext=dbUpcoming[0]
       dbRest=dbUpcoming[1:]
+      dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
+      subjects=dbSubjects.subjected_set.all()
       dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
       DCguys=DCMembers.objects.filter(scholar__regno=rno)
-      return render(request,"dschprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest})
+      return render(request,"dschprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"subjects":subjects})
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -381,10 +385,12 @@ def schprog(request):
     dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
     dbNext=dbUpcoming[0]
     dbRest=dbUpcoming[1:]
+    dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
+    subjects=dbSubjects.subjected_set.all()
     today=datetime.datetime.today().strftime('%d-%b-%Y')
     dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
     DCguys=DCMembers.objects.filter(scholar__regno=rno)
-    return render(request,"schprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"today":today})
+    return render(request,"schprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"today":today,"subjects":subjects})
   else:
     return render(request,"home.html",{})
 
@@ -504,7 +510,7 @@ def dean1(request):
     now=datetime.datetime.now()
     dbMessages=Message.objects.filter(deanText__mid='ES0000')
     for message in dbMessages:
-      if message.unread:
+      if message.deanunread:
         unread=unread+1
     if unread==0:
       unread=""
@@ -531,6 +537,10 @@ def sureg(request):
          SuObj.save()
          SuuObj.save()
          message="Registered Successfully! The Member ID is: "+str(mid)
+         head="Approval for Supervisor "+RegSu.cleaned_data['name']
+         dObj=Supervisor.objects.get(mid='ES0000')
+         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
+         mObj.save()
          return render(request,"login.html",{"message":message})
       else:
          SuuObj=Supervisor(mid=RegSu.cleaned_data['mid'],password=RegSu.cleaned_data['mid'])
@@ -541,6 +551,10 @@ def sureg(request):
          SuObj.supervisor=SuuObj
          SuObj.save()
          SuuObj.save()
+         head="Approval for Supervisor "+RegSu.cleaned_data['name']
+         dObj=Supervisor.objects.get(mid='ES0000')
+         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
+         mObj.save()
          return render(request,"login.html",{"message":"Registered Successfully!","col":"green"})
     else:
       return render(request,"login.html",{"message":"Couldn't register!","col":"red"})
@@ -582,6 +596,10 @@ def schreg(request):
         elif key == 9:
           thesis=Thesis(level=key,name=values,scholar=TObj,result="yet")
           thesis.save()
+      head="Approval for "+RegS.cleaned_data['name']
+      dObj=Supervisor.objects.get(mid='ES0000')
+      mObj=Message(head=head,sender='scholar',scholar=TObj,deanText=dObj,deanunread=True)
+      mObj.save()
       return render(request,"login.html",{"message":"Registered Successfully!","col":"green"})
     else:
       errmess=schregForm.errors
@@ -868,6 +886,7 @@ def Mview(request):
       request.session['tid']=tid
       return HttpResponseRedirect('/viewText')
     else:
+      print form.errors
       return HttpResponseRedirect('/profile')
   else:
     return HttpResponseRedirect('/profile')
@@ -875,7 +894,18 @@ def Mview(request):
 def viewText(request):
   if request.session.has_key('tid'):
     tid=request.session['tid']
-    tMObj=Messages.objects.get(tid=tid)
+    tMObj=Message.objects.get(tid=tid)
+    if request.session.has_key('regno'):
+      if tMObj.schunread==True:
+        tMObj.schunread=False
+    if request.session.has_key('mid'):
+      mmid=Supervisor.objects.get(mid=request.session['mid'])
+      if mmid.dean:
+        if tMObj.deanunread==True:
+          tMOBj.deanunread=False
+      else:
+        if tMObj.supunread==True:
+          tMObj.supunread=False
     return render(request,"viewText.html",{"tMObj":tMObj})
 
 def addComment(request):
@@ -946,8 +976,9 @@ def marked(request):
     res="pass"
     for subject in subjects:
       subject.marks=dcMarks[i]
-      subject.date=dcDate[i]
+      subject.datePassed=dcDate[i]
       subject.status=dcResult
+      subject.save()
       if dcResult=="fail":
         res="fail"
       i=i+1
@@ -955,5 +986,29 @@ def marked(request):
       dbProg.result="pass"
       dbProg.save()
     return HttpResponseRedirect('/dschprog')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def supApprove(request):
+  if request.POST:
+    tid=request.POST.get('tid')
+    mObj=Message.objects.get(tid=tid)
+    mid=mObj.supervisorText.mid
+    suObj=Su_Personal_Det.objects.get(supervisor__mid=mid)
+    return render(request,"supApprove.html",{"mObj":mObj,"suObj":suObj})
+  else:
+    return HttpResponseRedirect('/profile')
+
+def superApprove(request):
+  if request.POST:
+    approve=request.POST.get('approval')
+    if approve=='approved':
+      mid=request.POST.get('mid')
+      sObj=Supervisor.objects.get(mid=mid)
+      sObj.approved=True
+      sObj.save()
+      return HttpResponseRedirect('/profile')
+    else:
+      return HttpResponseRedirect('/profile')
   else:
     return HttpResponseRedirect('/profile')

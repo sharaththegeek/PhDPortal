@@ -66,56 +66,19 @@ body{
         </div> 
         <div class="body1">
             <br><br>
-        <span>New Message</span>
+        <span>Supervisor Approval- {{suObj.name}}</span>
         <br><br>
+        <span>Information:</span>
         <div class="input-field col s12">
-            <form method="POST" action="/superText/">{%csrf_token%}
-                <select name="receiver" onchange="eScholar(this.value)">
-                  <option value="" disabled selected>Choose your option</option>
-                  <option name="receiver" value="1">Scholar</option>
-                  <option name="receiver" value="2">Dean</option>
-                  <option name="receiver" value="3">Dean & Scholar</option>
-                </select>
-                <label>Choose recepients</label>
-                <div id="scholar-box" class="input-field col s6">
-                    <input id="scholar" type="text" name="scholar" value="0" class="validate">
-                    <label for="scholar">Choose Scholar</label>          
-                </div>
-                <div class="input-field col s6">
-                        <input id="input_text" type="text" name="title" data-length="50">
-                        <label for="input_text">Title</label>
-                </div>
-                <div class="input-field col s12">
-                        <textarea id="textarea2" class="materialize-textarea" name="content" data-length="500"></textarea>
-                        <label for="textarea2">Content</label>
-                </div>
-                <button type="submit">Send</button>
+            <form method="POST" action="/superApprove/">{%csrf_token%}
+                <label>
+                        <input type="checkbox" name="approval" value="approved" />    
+                        <span>Approve</span>
+                      </label>    
+                      <input type="hidden" name="mid" value="{{suObj.supervisor.mid}}">
+                      <button type="submit">Submit</button>            
             </form>
         </div>
     </div>
-        <script>
-function eScholar(value){
-    if (value=='1' || value=='3'){
-    document.getElementById('scholar-box').style.display="block";
-    document.getElementById('scholar').value="";
-    }
-    if (value=='2'){
-        document.getElementById('scholar-box').style.display="none";
-    document.getElementById('scholar').value="0";
-    }
-}
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
-
-         $(document).ready(function() {
-    $('input#input_text, textarea#textarea2').characterCounter();
-  });
-  </script>
-  <br><br> <br><br>
-  <div class="footer">
-        <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
-    </div>
-        </body>
-        </html>
+    </body>
+    </html>

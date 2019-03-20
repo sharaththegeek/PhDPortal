@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from Research.views import home 
+from Research.views import dsched
 from django.views.generic import TemplateView
 from Research.views import logins
 from Research.views import spreg
@@ -60,6 +61,7 @@ from Research.views import annd
 from Research.views import logout
 from Research.views import logq
 from Research.views import dschprog
+from Research.views import superApprove
 from Research.views import dmake
 from Research.views import supmes
 from Research.views import makedit
@@ -67,23 +69,31 @@ from Research.views import readj
 from Research.views import dcFail
 from Research.views import passed
 from Research.views import fail
+from Research.views import Mview
 from Research.views import storesch
+from Research.views import supApprove
 from Research.views import logoutsu
+from Research.views import viewText
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^readj/', readj),
     url(r'^home/', home),
     url(r'^logq/', logq),
+    url(r'^viewText/',viewText),
     url(r'^login/',login),
     url(r'^schprog/',schprog),
     url(r'^dschprog/',dschprog),
+    url(r'^Mview/',Mview),
     url(r'^storesch/',storesch),
     url(r'^schedule/',schedule),
     url(r'^login1/',login1),
     url(r'^chnpwd/',chnpwd),
     url(r'^login1/',login1),
+    url(r'^supApprove/',supApprove),
+    url(r'^superApprove/',superApprove),
     url(r'^ann/',ann),
+    url(r'^dsched',dsched),
     url(r'^makedit',makedit),
     url(r'^nextPass/',nextPass),
     url(r'^logind/',logind),

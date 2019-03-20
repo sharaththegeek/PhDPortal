@@ -34,7 +34,7 @@
     margin-right: 20%;
 }
         </style>
-        	<div id="navbar">
+        	<div id="navbar" style="z-index:999">
                     <a href="/logq" class="buttons">{{logg}}</a>
                     <a href="javascript:void(0)" class="buttons">Downloads</a>
                         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
@@ -58,13 +58,13 @@
         <nav><div class="indigo accent-1">
                 <div class="nav-wrapper">
                     <div class="col s12">
-                        <a href="/profile" class="breadcrumb"><span class="grey-text text-darken-2">Scholars</span></a>
-                        <a href="/schinfo" class="breadcrumb"><span class="grey-text text-darken-2">{{name}}</span></a>
-                        <a href="#!" class="breadcrumb"><span class="grey-text text-darken-2">{{name}} - Progress</span></a>
+                        <a href="/profile" class="breadcrumb">Scholars</a>
+                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
+                        <a href="#!" class="breadcrumb">{{name}} - Progress</a>
                     </div>
                 </div></div>
             </nav>
-        <h4>Scholar Progress - {{name}}</h4>
+        <center><h4>Scholar Progress - {{name}}</h4></center>
         <div id="divided">
             <div id="divide">
                 <div class="card">
@@ -79,8 +79,9 @@
                                                  <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
                                                   <input type="hidden" name="level" value='{{others.level}}'/>
                                                   <input type="hidden" name="move" value="edit"/>
-                                                  <button type="submit">Edit</button>
-                                                </form>
+                                                  <button class="btn waves-effect waves-light blue" type="submit" name="action">Edit
+                                                      </button>
+                                                  </form>  
 												 {%ifequal others.fees "Paid"%}
 												 <p>Provisionally Admitted: Yes </p>
 												 {%else%}
@@ -99,8 +100,8 @@
                                                 <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
                                                     <input type="hidden" name="level" value="{{others.level}}"/>
                                                     <input type="hidden" name="move" value="edit"/>
-                                                    <button type="submit">Edit</button>
-                                                </form>
+                                                    <button class="btn waves-effect waves-light blue" type="submit" name="Info">Edit
+                                                        </button>                                                </form>
 												{% elif others.level == 3%}
                                                 <p>Subjects:</p>
                                                 <table>
@@ -146,8 +147,8 @@
                                         <form method="POST" name="makedit" action="/makedit/">{%csrf_token%}
                                             <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
-                                            <button type="submit">Update Comments</button>
-                                        </form>
+                                            <button class="btn waves-effect waves-light blue" type="submit" name="Info">Update Comments
+                                                </button>                                        </form>
                                         {% endif %}
                                         {% else %}
                                         <p>To be held on: TBA </p>
@@ -159,13 +160,13 @@
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
                                             <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="dedit"/>
-                                            <button type="submit">Edit</button>
-                                        </form>
+                                            <button class="btn waves-effect waves-light blue" type="submit" name="Info">Edit
+                                                </button>                                        </form>
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
                                             <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
-                                            <button type="submit">Update Status</button>
-                                        </form>
+                                            <button class="btn waves-effect waves-light blue" type="submit" name="Info">Update Status
+                                                </button>                                        </form>
                                         {% elif dbNext.level == 3%}
                                         <p>Suggested Coursework:</p>
 												<table>
@@ -183,8 +184,8 @@
                                         <form method="POST" name="makedit" action="/makedit">{%csrf_token%}
                                             <input type="hidden" name="level" value='{{dbNext.level}}'/>
                                             <input type="hidden" name="move" value="update"/>
-                                            <button type="submit">Edit Courses</button>
-                                        </form>
+                                            <button class="btn waves-effect waves-light blue" type="submit" name="Info">Edit
+                                                </button>                                        </form>
                                         {%endif%}
                                     </div>
                             </li>

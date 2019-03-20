@@ -256,7 +256,7 @@ def scholar1(request):
   current=dbCompleted[0].name
   if unread==0:
     unread=""
-  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":status1,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers,"dbMessages":dbMessages,"unread":unread,"subjects":subjects})
+  return render(request,"scholar1.html",{"name":dbP.name,"current":current,"dob":dbP.dob,"sex":dbP.sex,"reports":reports,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"levels":levels,"logg":logg,"dbNext":dbNext,"dbRest":dbRest,"dbLatest":dbLatest,"dbOthers":dbOthers,"dbMessages":dbMessages,"unread":unread,"subjects":subjects})
 
 def supervisor1(request):
   if request.session.has_key('mid') or request.session.has_key('regno'):
@@ -1007,6 +1007,8 @@ def superApprove(request):
       sObj=Supervisor.objects.get(mid=mid)
       sObj.approved=True
       sObj.save()
+      MObj=Message(sender='supervisor',supervisorText=mid)
+      MObj.delete()
       return HttpResponseRedirect('/profile')
     else:
       return HttpResponseRedirect('/profile')

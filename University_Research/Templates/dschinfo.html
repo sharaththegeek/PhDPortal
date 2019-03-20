@@ -23,7 +23,7 @@
 				<a href="/logq" class="buttons">{{logg}}</a>
 				<a href="javascript:void(0)" class="buttons">Downloads</a>
 					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-					<p class="main">PhD Portal</p>
+					<p class="main">Research Portal</p>
 				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		</div>
 	<div id="navbar-mobile">
@@ -45,45 +45,11 @@
 						<style>
 					body {font-family: Arial;}
 
-					/* Style the tab */
-					.tab {
-					    overflow: hidden;
-					    background-color: #f1f1f1;
+				
+					.main{
+						margin-right: 21%;
 					}
 
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 17px;
-					}
-
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #ddd;
-					}
-
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #ccc;
-					}
-
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 6px 12px;
-					    border-top: none;
-					}
-					.tab {
-  float: left;
-  width: 16%;
-  height: 300px;
-}
 					.Start{
 						display: none;
 						z-index: 1;
@@ -92,36 +58,7 @@
 						overflow: auto;
 						padding-top: 50px;
 					}
-					.ed1{
-						display:block;
-					}
-					.ed2{
-						display:none;
-						z-index: 1;
-						overflow: auto;
-						width: 100%;
-					}
-					.no1{
-						display:block;
-						z-index: 1;
-						overflow: auto;
-						width: 100%;
-					}
-					.no2{
-						display:none;
-						z-index: 1;
-						overflow: auto;
-						width: 100%;
-					}
-					.dropdown{
-						display:none;
-					}
-					.dropdown1{
-						display: none;
-					}
-					.dropdown2{
-						display:none;
-					}
+					
 					body{
 	margin:0;
 	padding:0;
@@ -137,7 +74,7 @@
 }
 					</style>
 							<nav>
-									<div class="nav-wrapper">
+									<div class="indigo accent-1">
 										<div class="col s12">
 											<a href="/profile" class="breadcrumb">Scholars</a>
 											<a href="#!" class="breadcrumb">{{name}}</a>
@@ -145,7 +82,7 @@
 									</div>
 								</nav>
 							
-					<h1>Scholar Information - {{name}}</h1>
+					<h4>Scholar Information - {{name}}</h4>
 					<button><a href="/dschprog">View Progress</a></button>
 					<button><a href="/plusdc">Schedule DC Meeting</a></button>
 					<div class="divided">
@@ -182,9 +119,9 @@
 					</table>
 				</div>
 				 <div class="card" id="done">
-					  <h3>Current Status: {{status1}} Completed</h3>
-						<h3>Supervisor: Dr. {{supervisor}}</h3>
-						<br><h3>Publication Details</h3><br>
+					  <h5>Current Status: {{status1}} Completed</h5>
+						<h5>Supervisor: Dr. {{supervisor}}</h5>
+						<br><h5>Publication Details</h5><br>
 						<table>
 							<tr>
 								<th>Title of the Publication</th>
@@ -207,64 +144,8 @@
 					<div class="footer">
 						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 					</div>
-
-					<script>
-		
-
-					</script>
 					<style>
-					.choice{
-						margin-left: 100px;
-						margin-right: 500px;
-					}
-					.buttonl {
-					  display: inline-block;
-					  border-radius: 4px;
-						background-color: black;
-					  border: solid;
-						color: white;
-					  text-align: center;
-					  font-size: 10px;
-					  padding: 10px;
-					  width: 70px;
-					  transition: all 0.5s;
-					  cursor: pointer;
-					  margin: 5px;
-					}
-					.righta{
-   	margin-left: 20%;
-	width: 80%;   
-}
-
-					.accordion {
-					    background-color: #eee;
-					    color: #444;
-					    cursor: pointer;
-					    padding: 18px;
-					    width: 100%;
-					    border: none;
-					    text-align: left;
-					    outline: none;
-					    font-size: 15px;
-					    transition: 0.4s;
-					}
 				
-
-					.active1, .accordion:hover {
-					    background-color: #ccc;
-					}
-
-					.accordion:after1 {
-					    content: '\002B';
-					    color: #777;
-					    font-weight: bold;
-					    float: right;
-					    margin-left: 5px;
-					}
-
-					.active1:after1 {
-					    content: "\2212";
-					}
 					.footer{
 	width:100%;
 	background-color: #3C5EC1;
@@ -272,22 +153,6 @@
 	height: 5%;
     text-align: center;
 }
-					.panel {
-					    padding: 20 18px;
-					    background-color: white;
-					    max-height: 0;
-					    overflow: hidden;
-					    transition: max-height 0.2s ease-out;
-					}
-
-										.panel1 {
-										    padding: 0 18px
-										    background-color: white;
-										    max-height: 0;
-										    overflow: visible;
-										    transition: max-height 0.2s ease-out;
-										}
-
 </style>
 
 <script>

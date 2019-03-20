@@ -19,7 +19,7 @@
     <title>Research - SASTRA Deemed University</title>
 </head>
 <body oncontextmenu="return false" >		
-		<div id="navbar">
+		<div id="navbar" style="z-index:999">
 				<a href="/logq" class="buttons">{{logg}}</a>
 				<a href="javascript:void(0)" class="buttons">Downloads</a>
 					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
@@ -57,7 +57,7 @@
 	color:white;
 	height: 5%;
 	text-align: center;
-	z-index: 999;
+	z-index: 999%;
 
 }
 .main{
@@ -67,12 +67,7 @@ table {
   width: 80%;
   margin-left: 13%;
 }
-.twos{
-	width: 100%;
-	margin-left: 50%;
-	margin-top: -24.9%;
-}
-					</style>
+			</style>
 					
 							<h4><p class="welcome">Welcome Dr. {{name}}</p></h4>		
 							<center><div class="hold">
@@ -104,7 +99,8 @@ table {
 								<form method="POST" action="http://127.0.0.1:8000/storesch/">
 									{%csrf_token%}
 									<input type="hidden" name="regno" value={{s.scholar.regno}}>
-									<input style="width:40%" type="submit" name="Info" value="Info">
+									<button class="btn waves-effect waves-light blue" type="submit" name="Info">Info
+										  </button>
 								</form>
 							</td>
 						</tr>
@@ -145,9 +141,8 @@ table {
 									</tr>
 								</table>
 							</div></div>
-							<div class="twos">
 							<div class="done">
-								<div class="card">
+								<div class="card" style="margin-top:-2%">
 									
 						<h4>Publication Details :</h4>
 						<table>
@@ -168,11 +163,11 @@ table {
 						</table>
 					</div>
 					   
-					</div></div>
+					</div>
 					</div>
 					</div>
 					<div id="messages">
-							<div class="card">
+							<div class="card" style="width:80%; margin-left:10%">
 									<h5><center>Messages</center></h5>
 									<a class="btn-floating right tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
 									<br>

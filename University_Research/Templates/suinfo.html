@@ -5,9 +5,16 @@
 	<meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-	<link rel="stylesheet" href="{%static 'header.css' %}">
-	<script src="{% static 'header.js' %}"></script>
+	/>
+			<!--Materialize CSS-->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+			<!-- Compiled and minified JavaScript for Materialize -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+			<link rel="stylesheet" href="{%static 'header.css' %}">
+			<script src="{% static 'header.js' %}"></script>
+	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>Research - SASTRA Deemed University</title>
 </head>
@@ -17,7 +24,8 @@
 			<a href="/logq" class="buttons">{{logg}}</a>
 			<a href="/support" class="buttons">Support</a>
 			<a href="javascript:void(0)" class="buttons">Downloads</a>
-		    <a href="www.sastra.edu" class="buttons">SASTRA Home</a>
+			<a href="www.sastra.edu" class="buttons">SASTRA Home</a>
+			<p class="main">Research Portal</p>
 	    	<a href="www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 	</div>
 	<div id="navbar-mobile">
@@ -42,63 +50,34 @@
 					body {font-family: Arial;}
 
 					/* Style the tab */
-					.tab {
-					    overflow: hidden;
-					    border: 1px solid #ccc;
-					    background-color: #f1f1f1;
-					}
-
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 17px;
-					}
-
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #ddd;
-					}
 					.footer{
 	width:100%;
-	background-color: #0D2C5F;
+	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
     text-align: center;
+    margin-top: 20%;
 }
-
-
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #ccc;
-					}
-
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 6px 12px;
-					    border: 1px solid #ccc;
-					    border-top: none;
-					}
+.main{
+	margin-right: 21%
+}
 					</style>
 					</head>
 					<body>
 
-					<h1>Supervisor:</h1>
-
-					<div class="tab">
-					  <button class="tablinks" onclick="openCity(event, 'regde')">Scholar Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'resde')">Research Details</button>
-					  <button class="tablinks" onclick="openCity(event, 'prog')">Personal Details</button>
-					</div>
-
-					<div id="regde" class="tabcontent">
-					  <h3>List of Scholars: </h3>
+					<h4>Supervisor:</h4>
+					<div class="hold">
+							<div class="holding s-12">
+								<center>
+								<ul class="tabs">
+									<li class="tab"><a class="tabbed" href="#prog"><span class="blue-text text-darken-2">Personal Details</span></a></li>
+									<li class="tab"><a class="tabbed" href="#regde"><span class="blue-text text-darken-2">Scholar Details</span></a></li>
+									<li class="tab"><a class="tabbed" href="#resde"><span class="blue-text text-darken-2">Research Details</span></a></li>
+								</ul></center>
+							</div>
+						</div>
+					<div id="regde">
+					  <h4>List of Scholars: </h4>
 						<table>
 							<tr>
 								<th>Register Number</th>
@@ -123,8 +102,8 @@
 					</table>
 					</div>
 
-					<div id="resde" class="tabcontent">
-						<h3>Publication Details</h3>
+					<div id="resde">
+						<h4>Publication Details</h4>
 						<table>
 							<tr>
 								<th>Title of the Publication</th>
@@ -146,13 +125,10 @@
 					<div id="prog" class="tabcontent">
 						<center><table>
 						<tr>
-							<th>First Name:</th>
+							<th>Name:</th>
 							<td>{{name}}</td>
 						</tr>
-						<tr>
-							<th>Last Name:</th>
-							<td>{{lname}}</td>
-						</tr>
+					
 						<tr>
 							<th>Sex:</th>
 							<td>{{sex}}</td>
@@ -178,19 +154,11 @@
 					</div>
 
 					<script>
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
+							var element=document.querySelector('.tabs');
+		    var instance=M.Tabs.init(element,{
+							swipeable: false,
+						});
+				
 					</script>
 </div>
 </div>

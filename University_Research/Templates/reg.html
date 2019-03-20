@@ -24,7 +24,7 @@
 </head>
 <body oncontextmenu="return false" >
 			
-    <div id="navbar">
+    <div id="navbar" style="z-index: 999">
         <a href="javascript:void(0)" class="buttons">Downloads</a>
           <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
           <p class="main">Research Portal</p>
@@ -46,13 +46,12 @@
 	</div> 	
 			<!---------------- Mid content ----------------------------------->
           <div class="container">
-              <h1 class="item-page-title">Registration Form - Scholar</h1>
+              <h3 class="item-page-title">Registration Form - Scholar</h3>
             <div class="divider"></div>
             <form method="POST" action="http://127.0.0.1:8000/schreg/" name="logins">
               {%csrf_token%}
               <div class="input-field col s6">
                   <input placeholder="Name" id="name" name="name" type="text" class="validate">
-                  <label for="name">Name</label>
               </div>
               <span>Sex</span>
               <label>
@@ -63,9 +62,10 @@
                   <input name="sex" value="Female" type="radio">
                   <span>Female</span>
               </label>
+              <br><br>
               <span>Date of Birth</span>
               <input type="text" class="datepicker" name="dob">
-              <span>Category</span>
+              <span>Category:</span>
               <select name="category">
                   <option value="" disabled selected>Choose your option</option>
                   <option name="category" value="OC">OC</option>
@@ -76,27 +76,21 @@
               </select>
               <div class="input-field col s6">
                   <input placeholder="Register Number" id="regno" name="regno" type="text" class="validate">
-                  <label for="regno">Register Number</label>
               </div>
               <div class="input-field col s6">
                   <input placeholder="Department" id="school" name="school" type="text" class="validate">
-                  <label for="school">Department</label>
               </div>
               <div class="input-field col s6">
                   <input placeholder="Official E-mail ID" id="email" name="email" type="text" class="validate">
-                  <label for="email">Official E-mail</label>
               </div>
               <div class="input-field col s6">
                   <input placeholder="Personal E-mail ID" id="pemail" name="pemail" type="text" class="validate">
-                  <label for="pemail">Personal E-mail</label>
               </div>
               <div class="input-field col s6">
                   <input placeholder="Phone Number" id="phno" name="phno" type="text" class="validate">
-                  <label for="phno">Phone Number</label>
               </div>
               <div class="input-field col s6">
                   <input placeholder="Supervisor ID" id="sup" name="supervisor" type="text" class="validate">
-                  <label for="sup">Supervisor ID</label>
               </div>
               <span>Date of Registration</span>
               <input type="text" class="datepicker" name="regdate">
@@ -113,6 +107,7 @@
                   <input name="typet" value="Full-Time" type="radio">
                   <span>Full-Time Scholar</span>
               </label>
+              <br><br>
               <span>Institution:</span>
               <label>
                   <input name="exin" value="SASTRA" type="radio" onclick="document.getElementById('external').style.display='none'">
@@ -122,6 +117,7 @@
                   <input name="exin" value="Other" type="radio" onclick="document.getElementById('external').style.display='block'">
                   <span>Other</span>
               </label>
+              <br>
               <div class="external" id="external">
                   <div class="input-field col s6">
                       <input id="inst" name="institution" type="text" value="Institution Name" class="validate">
@@ -130,7 +126,9 @@
                       <input id="inst_ad" name="institution_ad" type="text" value="Institution Address" class="validate">
                   </div>
               </div>
-              <button type="submit">Submit</button>
+              <br><br><br><br>
+              <center><button class="btn waves-effect waves-light blue" type="submit" name="Info">submit
+                </button></center>
             </form>
             </div>
 <style>
@@ -146,139 +144,17 @@ input{
 	display:none;
 	width:100%;
 }
-.buttonlog {
-    background-color:darkblue;
-    border: solid;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    border-radius: 15px;
-  box-shadow: 0 4px #999;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-}
-.buttonlog:hover {background-color: darkblue}
-
-.buttonlog:active {
-  background-color: black;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-.loginhead{
-  text-align: center;
-  margin-left: 1%;
-}
-.reg4{
-  text-align: left;
-  font-size: 1.2em;
-	margin-top: -65.6px;
-	margin-left: 65%;
-	margin-right: 10%;
-}
-.reg3{
-  font-size: 1.2em;
-  text-align: left;
-	margin-top: 5%;
-	margin-left: 10%;
-	margin-right: 65%;
-}
-.reg2{
-  font-size: 1.2em;
-  text-align: left;
-	margin-top: -45px;
-	margin-left: 65%;
-	margin-right: 10%;
+.main{
+  margin-right: 24%;
 }
 
-.reg1{
-  font-size: 1.2em;
-  text-align: left;
-	margin-left: 5%;
-	margin-right: 5%;
-}
-.login{
-  border-style: solid;
-  border-width: thin;
-  height: 950px;
-  width:750px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  border-top: none;
-  border-right: solid;
-  border-width: thin;
-  position: relative;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 5px 5px 5px grey;
-}
-.scholar-box{
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-left: solid;
-  border-right: solid;
-  border-bottom: none;
-  border-width: thin;
-  height:30px;
-  width: 120px;
-  text-align: center;
-  font-weight: bold;
-  margin-left: -75px;
-}
-.supervisor-box{
-  height: 5px;
-  width:10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-left: none;
-
-  border-right: solid;
-  border-bottom: solid;
-  border-width: thin;
-  height:30px;
-  width:120px;
-  margin-left: 46px;
-  margin-top: -30px;
-  text-align: center;
-  font-weight: normal;
-
-}
-.supervisor-box:hover{
-  cursor: pointer;
-}
-.scholar-box:hover{
-  cursor: pointer;
-}
-.scholar{
-  display: block;
-}
-.supervisor{
-  display: none;
-}
-.bor-top{
-
-  border-top: solid;
-  border-width: thin;
-  width: 510px;
-  margin-left: 165px;
-	margin-right: -20px;
-  margin-top: -1px;
-}
-.Top{
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
-  text-align: center;
-}
 .footer{
 	width:100%;
 	background-color: #0D2C5F;
 	color:white;
 	height: 5%;
     text-align: center;
+    z-index: 999%;
 }
 
 

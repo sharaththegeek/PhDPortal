@@ -27,6 +27,8 @@ from Research.views import ann
 from Research.views import courseEdit
 from Research.views import login1
 from Research.views import plusdc
+from Research.views import schApprove
+from Research.views import sApprove
 from Research.views import marked
 from Research.views import login
 from Research.views import loginsu
@@ -127,6 +129,8 @@ urlpatterns = [
     url(r'^reg',reg),
     url(r'^plusdc',plusdc),
     url(r'^adett',adett),
+    url(r'^schApprove/',schApprove),
+    url(r'^sApprove/',sApprove),
     url(r'^dcPass/',dcPass),
     url(r'^schreg/',schreg),
     url(r'^texted/',texted),

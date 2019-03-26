@@ -184,11 +184,7 @@
 										<div class="collapsible-body">
 											{% if dbLatest.level == 1 %}
 											 <p>Presented on: {{dbLatest.presented}} </p>
-											 {%ifequal dbNext.fees "paid"%}
 											 <p>Provisionally Admitted: Yes </p>
-											 {%else%}
-											 <p>Provisionally Admitted: No </p>
-											 {%endifequal%}
 											{% elif dbLatest.level == 2 or dbLatest.level == 5 or dbLatest.level == 6 %}
 											<p>Held on: {{dbLatest.date}}</p>
 											<p>DC Members:</p>

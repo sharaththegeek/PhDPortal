@@ -596,7 +596,7 @@ def schreg(request):
         elif key == 9:
           thesis=Thesis(level=key,name=values,scholar=TObj,result="yet")
           thesis.save()
-      head="Approval for "+RegS.cleaned_data['name']
+      head="Approval for Scholar - "+RegS.cleaned_data['name']
       dObj=Supervisor.objects.get(mid='ES0000')
       mObj=Message(head=head,sender='scholar',scholar=TObj,deanText=dObj,deanunread=True)
       mObj.save()
@@ -1007,8 +1007,38 @@ def superApprove(request):
       sObj=Supervisor.objects.get(mid=mid)
       sObj.approved=True
       sObj.save()
-      MObj=Message(sender='supervisor',supervisorText=mid)
+      MObj=Message(sender='supervisor',supervisorText=sObj)
       MObj.delete()
+      return HttpResponseRedirect('/profile')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def schApprove(request):
+  if request.POST:
+    tid=request.POST.get('tid')
+    mObj=Message.objects.get(tid=tid)
+    regno=mObj.scholar.regno
+    name = Personal_Det.objects.get(scholar__regno=regno).name
+    return render(request,"schApprove.html",{"name":name,"mObj":mObj})
+  else:
+    return HttpResponseRedirect('/profile')
+
+def sApprove(request):
+  if request.POST:
+    approve = request.POST.get('approval')
+    date = request.POST.get('date')
+    regno = request.POST.get('regno')
+    if approve == 'approved':
+      sObj=Scholar.objects.get(regno=regno)
+      sObj.approved=True
+      sObj.save()
+      pObj=Progress.objects.get(level=1,scholar__regno=regno)
+      pObj.result='pass'
+      pObj.presented=date
+      pObj.save()
+      mObj=Message(sender="scholar",scholar=sObj).delete()
       return HttpResponseRedirect('/profile')
     else:
       return HttpResponseRedirect('/profile')

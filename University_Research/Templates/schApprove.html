@@ -69,27 +69,18 @@ body{
         <span>Scholar Approval- {{name}}</span>
         <br><br>
         <div class="input-field col s12">
-            <form method="POST" action="/superText/">{%csrf_token%}
-                <select name="receiver" onchange="eScholar(this.value)">
-                  <option value="" disabled selected>Choose your option</option>
-                  <option name="receiver" value="1">Scholar</option>
-                  <option name="receiver" value="2">Dean</option>
-                  <option name="receiver" value="3">Dean & Scholar</option>
-                </select>
-                <label>Choose recepients</label>
-                <div id="scholar-box" class="input-field col s6">
-                    <input id="scholar" type="text" name="scholar" value="0" class="validate">
-                    <label for="scholar">Choose Scholar</label>          
-                </div>
-                <div class="input-field col s6">
-                        <input id="input_text" type="text" name="title" data-length="50">
-                        <label for="input_text">Title</label>
-                </div>
-                <div class="input-field col s12">
-                        <textarea id="textarea2" class="materialize-textarea" name="content" data-length="500"></textarea>
-                        <label for="textarea2">Content</label>
-                </div>
-                <button type="submit">Send</button>
+                <form method="POST" action="/sApprove/">{%csrf_token%}
+                <label>
+                        <input type="checkbox" name="approval" value="approved" />    
+                        <span>Approve</span>
+                      </label>    
+                      <label>
+                          <input type="text" class="datepicker" name="date"/>
+                          <span>Date Presented - Zeroth Review</span>
+                      </label>
+                      <input type="hidden" name="regno" value="{{mObj.scholar.regno}}">
+                      <button type="submit">Submit</button>            
+            </form>
             </form>
         </div>
     </div>

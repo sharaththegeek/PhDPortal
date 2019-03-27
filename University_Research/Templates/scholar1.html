@@ -66,17 +66,19 @@
 						margin-right: 2%;
 					}
 					.holding{
-						margin-left: 41%;
+						margin-left: 15%;
             z-index: 0;
+					}
+					.tabs{ 
+						width: 50%;
 					}
 					.tab{
 						text-decoration: none;
 						
 					}
-					.tab .active{
-						border-bottom: 1px solid 	#3C5EC1;
-					
-					}
+					.tabs .indicator{
+  background-color: #3C5EC1;
+}
 
 					.main{
 	margin-right: 20%
@@ -94,7 +96,7 @@
 					<h6><p class="welcome">Welcome {{name}}</p></h6>	
           <div class="hold">
 						<div class="holding s-12">
-							<ul class="tabs">
+							<ul class="tabs tabs-fixed-width">
 								<li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Profile</span></a></li>
 								<li class="tab"><a class="tabbed" href="#progress"><span class="blue-text text-darken-2">Progress</span></a></li>
 								<li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Messages</span></a></li>
@@ -106,7 +108,8 @@
 							<div class="divided">
 							<div class="done">
 							<div class="card">
-							  <div class="card-title">Personal Details</div>
+								<div class="card-title">Personal Details</div>
+								<br/>
 								<table>
 										<tr>
 											<th class="tabtitle" style="width:30%">Name:</th>
@@ -132,15 +135,24 @@
 											<th class="tabtitle">School:</th>
 											<td style="text-align:center">{{school}}</td>
 										</tr>
-									</table>
-									<button class="buttonlog" onclick="document.getElementById('pwd').style.display='block'">Change Password:</button>
+									</table><br/>
+									<button class="btn-small waves-effect waves-light blue" onclick="toggled()">Change Password</button><br/><br/>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
-						Old Password: <input type="password" name="old"><br><br>
-						New Password: <input type="password" name="new"><br><br>
-						Re-enter New Password: <input type="password" name="newd"><br><br>
-						<button type="button" value="Cancel" onclick="document.getElementById('pwd').style.display='none'">Cancel</button>
-						<input type="submit" value="Submit">
+							<div class="input-field">
+								<input id='regno' type="password" name='old' required/>
+								<label for="regno">Old Password</label>
+							</div><br/>
+							<div class="input-field">
+								<input id='regno' type="password" name='new' required/>
+								<label for="regno">New Password</label>
+							</div><br/>
+							<div class="input-field">
+								<input id='regno' type="password" name='old' required/>
+								<label for="regno">Re-enter New Password</label>
+							</div><br/>
+						<button type="button" class="btn-small waves-effect waves-light blue" value="Cancel" onclick="document.getElementById('pwd').style.display='none'">Cancel</button>
+						<button type="submit" class="btn-small waves-effect waves-light blue" value="Submit">Submit</button><br/><br/>
 					</form>
 						</div>
 						</div>
@@ -322,20 +334,24 @@
 					</div>
 					<div id="messages">
 						<div class="card">
-							<h5><center>Reports</center></h5>
-							<p>No reports to show currently!</p>
+							<div class="headed">
+							<h5>Reports</h5></div><br/>
+							<p style="text-align: center">No reports to show currently!</p><br/>
 						</div>
 						<div class="message">
 							<div class="card">
-							<h5><center>Messages</center></h5>
-							<a class="right btn-floating tooltipped waves-effect waves-light blue darken-3" href="/texted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
-							<br>
+							<div class="headed">
+							<h5>Messages</h5>
+							<a class="messenger btn-floating tooltipped waves-effect waves-light blue darken-3" href="/texted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+							<br/>
+							<br/>
+						</div>
 							{% if dbMessages %}
 							{% for message in dbMessages %}
 							{% if message.schunread == True %}
 							<b>
 							<form action="/Mview/" method="POST">{%csrf_token%}
-							<input type="hidden" name="tid" value="{{message.id}}">
+							<input type="hidden" name="tid" value="{{message.tid}}">
 							<button type="submit">
 							{{message.head}}
 						</button>
@@ -343,7 +359,7 @@
 							</b>
 							{% else %}
 							<form action="/Mview/" method="POST">{%csrf_token%}
-								<input type="hidden" name="tid" value="{{message.id}}">
+								<input type="hidden" name="tid" value="{{message.tid}}">
 								<button type="submit">
 								{{message.head}}
 							</button>
@@ -351,7 +367,7 @@
 							{% endif %}
 							{% endfor %}
 							{% else %}
-							<p>No messages to show currently!</p>
+							<p style="text-align: center">No messages to show currently!</p>
 							{% endif %}
 						</div>
 						</div>
@@ -380,26 +396,7 @@
 					    font-size: 15px;
 					}
 				
-					.buttonlog {
-					    background-color:darkblue;
-					    border: solid;
-					    color: white;
-					    padding: 5px 10px;
-					    text-align: center;
-					    border-radius: 15px;
-					  box-shadow: 0 4px #999;
-					    text-decoration: none;
-					    display: inline-block;
-					    font-size: 15px;
-					}
-					
-					.buttonlog:hover {background-color: darkblue}
-
-					.buttonlog:active {
-					  background-color: black;
-					  box-shadow: 0 5px #666;
-					  transform: translateY(4px);
-					}
+				
 					.pwd{
 						display: none;
 					}
@@ -422,8 +419,16 @@
 		</div>
 	</div>
 <style>
+	.headed{
+		padding-top: 2px;
+		text-align: center;
+	}
 	body{
 		height:75%;
+	}
+	.messenger{
+		float: right;
+		margin-right: 1%;
 	}
 .footer{
 	width:100%;
@@ -433,6 +438,22 @@
 	text-align: center;
 	z-index: 999%;
 }
+.input-field label {
+     color: grey;
+   }
+   .input-field{
+		 width: 90%;
+		 margin: auto;
+	 }
+   .input-field #regno:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #regno:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
 </style>
 <br>
 <div class="footer">
@@ -441,6 +462,14 @@
 
 </div>
 <script>
+	function toggled(){
+		if(document.getElementById('pwd').style.display=='block'){
+         document.getElementById('pwd').style.display = "none";
+		}
+		else {
+			document.getElementById('pwd').style.display = "block"
+		}
+	}
 	document.addEventListener('DOMContentLoaded',function(){
     var elems=document.querySelectorAll('.tooltipped');
 		var instances=M.Tooltip.init(elems);

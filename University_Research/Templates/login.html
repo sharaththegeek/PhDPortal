@@ -19,7 +19,7 @@
 </head>
 <body oncontextmenu="return false" >
 			
-    <div id="navbar">
+    <div id="navbar" style="z-index: 999">
         <a href="javascript:void(0)" class="buttons">Downloads</a>
           <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
           <p class="main">Research Portal</p>
@@ -45,8 +45,8 @@
 
               <br>
               <div class="card">
-                <div class="card-title"><center><b>Login</b></center></div>
-                <center><p style="color:{{col}}">{{message}}</p></centre>
+                <div class="card-title"><b>Login</b></div>
+                <p class="card-message" style="color:{{col}}">{{message}}</p>
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
@@ -57,6 +57,7 @@
                 <div class="card-content">
                   <div id="scholar">
                       <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
+                      <br/><br/>
                     <div class="input-field">
                     <input id='regno' type="text" name='regno' required/>
                     <label for="regno">Register Number</label>
@@ -64,14 +65,17 @@
                   <div class="input-field">
                     <input id="password" type="password" name="password" required/>
                     <label for="password">Password</label>
-                  </div>
+                  </div><br/>
+                  <div class="submitted">
                     <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                         <i class="material-icons right">send</i>
                     </button>  
+                  </div>
                     </form>
                   </div>
                   <div id="supervisor">
                       <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
+                        <br/><br/>
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
                       <label for="regno">User ID</label>
@@ -79,14 +83,17 @@
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
-                    </div>
+                    </div><br/>
+                    <div class="submitted">
                       <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
                       </button>  
+                    </div>
                       </form>
                   </div>
                   <div id="dean">
                       <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
+                        <br/><br/>
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
                       <label for="regno">Dean ID</label>
@@ -94,10 +101,12 @@
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
-                    </div>
+                    </div><br/>
+                    <div class="submitted">
                       <button class="btn waves-effect waves-light blue" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
                       </button>  
+                    </div>
                       </form>
                   </div>
                 </div>
@@ -111,8 +120,12 @@
                   .input-field label {
      color: grey;
    }
+   
    /* label focus color */
-   .input-field input[type=text]:focus + label {
+   .input-field #regno:focus + label {
+     color: grey;
+   }
+   .input-field #password:focus + label {
      color: grey;
    }
    /* label underline focus color */
@@ -149,9 +162,15 @@
   margin-left: 38%;
   margin-right: 38%;
 }
+.input-field{
+  width: 70%;
+  padding-bottom: 30px;
+  margin: auto;
+}
 .card{
-  width: 80%;
-  margin-left: 10%;
+  width: 60%;
+  height: 60%;
+  margin: auto;
 }
 body{
   font-size: 100%;
@@ -180,22 +199,6 @@ h3{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-h1{
-  text-align: left;
-  font-size: 2em;
-  padding: 0;
-  margin-left: -15%;
-  margin-right: 0;
-  margin-top: 0%;
-  margin-bottom: 0;
-}
-h2{
-  font-size=100%;
-  text-align:center;
-  margin-top:-4%;
-  margin-bottom:0%;
-}
-
 .Top{
   margin-left: auto;
   margin-right: auto;
@@ -209,6 +212,23 @@ h2{
 	color:white;
 	height: 5%;
     text-align: center;
+}
+.tabs .indicator{
+  background-color: #3C5EC1;
+}
+.card-title{
+  margin: auto;
+  text-align: center;
+}
+.card-message{
+  text-align: center;
+  margin: auto;
+}
+.submitted{
+  text-align: center;
+}
+.btn{
+  margin: auto;
 }
 
 </style>

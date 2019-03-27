@@ -40,6 +40,29 @@ body{
     width: 80%;
     margin-left: 10%;
 }
+.input-field label {
+     color: grey;
+   }
+   .input-field #input_text:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #input_text:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
+   .input-field #textarea2:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #textarea2:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
+
+
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
@@ -62,9 +85,9 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 
-        <br><br><br><br>
+        <br><br>
         <div class="body1">
-        <span>New Message</span>
+        <h5>New Message</h5>
         <br><br><br>
         <div class="input-field col s12">
             <form method="POST" action="/newText/">{%csrf_token%}
@@ -83,7 +106,7 @@ body{
                         <textarea id="textarea2" class="materialize-textarea" name="content" data-length="500"></textarea>
                         <label for="textarea2">Content</label>
                 </div>
-                <button class="btn waves-effect waves-light blue" type="submit" name="action">Submit
+                <button class="btn waves-effect waves-light blue" type="submit" name="action">Send
                         <i class="material-icons right">send</i>
                       </button>            </form>
         </div></div>

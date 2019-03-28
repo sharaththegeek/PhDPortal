@@ -42,6 +42,8 @@ from Research.views import super2
 from Research.views import super3
 from Research.views import super4
 from Research.views import support
+from Research.views import deanText
+from Research.views import dtexted
 from Research.views import scholar1
 from Research.views import dean1
 from Research.views import dcPass
@@ -71,6 +73,7 @@ from Research.views import readj
 from Research.views import dcFail
 from Research.views import passed
 from Research.views import fail
+from Research.views import plusComment
 from Research.views import Mview
 from Research.views import storesch
 from Research.views import supApprove
@@ -98,6 +101,7 @@ urlpatterns = [
     url(r'^dsched',dsched),
     url(r'^makedit',makedit),
     url(r'^nextPass/',nextPass),
+    url(r'^plusComment/',plusComment),
     url(r'^logind/',logind),
     url(r'^logins/',logins),
     url(r'^loginsu/',loginsu),
@@ -111,6 +115,7 @@ urlpatterns = [
     url(r'^passed/',passed),
     url(r'^marked/',marked),
     url(r'^fail/',fail),
+    url(r'^deanText/',deanText),
     url(r'^newText/',newText),
     url(r'^newann/',newann),
     url(r'^suinfo/',suinfo),
@@ -133,6 +138,7 @@ urlpatterns = [
     url(r'^sApprove/',sApprove),
     url(r'^dcPass/',dcPass),
     url(r'^schreg/',schreg),
+    url(r'^dtexted/',dtexted),
     url(r'^texted/',texted),
     url(r'^stexted/',stexted),
     url(r'^adup',adup),

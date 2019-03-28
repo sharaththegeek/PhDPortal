@@ -49,7 +49,10 @@
 						<style>
 					body {font-family: Arial;}
 
-					
+					.messenger{
+		float: right;
+		margin-right: 1%;
+	}
 					.footer{
 	width:100%;
 	background-color:  #3C5EC1;
@@ -60,6 +63,33 @@
 }
 .main{
 	margin-right: 20%;
+}
+.tabs .indicator{
+	background-color: #3C5EC1;
+}
+#regno:focus{
+	border-bottom: 1px solid grey;
+	box-shadow: 0 1px 0 0 grey;
+}
+#mid:focus{
+	border-bottom: 1px solid grey;
+	box-shadow: 0 1px 0 0 grey;
+}
+h5{
+	padding-top: 10px;
+}
+
+#messages{
+	text-align: center;
+}
+.boss{
+	color: #757575;
+}
+.message-submit{
+	border: 0;
+	background-color: white;
+	width: 100%;
+	text-align: left;
 }
 					</style>
 
@@ -73,83 +103,129 @@
 								</div>
 							</div></center>
 					<div id="profile">
+						<h4 style="text-align: center">Members</h4>
 							<div class="divided">
 									<div class="done">
 									<div class="card">
-					  <h3>Scholars</h3>
+						<h5>Scholars</h5>
+						<h6>Total No of Scholars: {{sch}}</h6>
 						<a href="http://127.0.0.1:8000/reg/"><p>Create new Scholar</p></a><br>
-						                              <h5>Search for a Scholar:</h5><br>
+						                              <h6>Search for a Scholar</h6><br>
                                           <form method="POST" action="http://127.0.0.1:8000/storesch/">{%csrf_token%}
-											<input class="awesomplete" name="regno" list="mylist"/>
+											<input id="regno" class="awesomplete" name="regno" list="mylist"/>
 											<datalist id="mylist">
 												{% for student in dbA %}
 												<option>{{student.scholar.regno}} - {{student.name}}</option>
 												{% endfor %}
 											</datalist>
-											<button class="btn waves-effect waves-light blue" type="submit" name="Info">Search
+											<button class="btn-flat waves-effect waves-light" id="scholarButton" type="submit" name="Info" disabled>Search
 												</button>									      </form><br>
+											
 </div></div>
 <div class="done">
 		<div class="card">
-						<h3>Supervisors</h3>
+						<h5>Supervisors</h5>
+						<h6>Total No of Supervisors: {{sup}}</h6>
 						<a href="http://127.0.0.1:8000/spreg/"><p>Create new Supervisor</p></a><br>
-						                              <h5>Search for a Supervisor</h5><br>
+						                              <h6>Search for a Supervisor</h6><br>
 													  <form method="POST" action="http://127.0.0.1:8000/suinfo/">{%csrf_token%}
-														<input class="awesomplete" name="mid" list="mylist1"/>
+														<input id="mid" class="awesomplete" name="mid" list="mylist1"/>
 														<datalist id="mylist1">
 																{% for super in dbSList %}
 																<option>{{super.supervisor.mid}} - {{super.name}}</option>
 																{% endfor %}
 														</datalist>
-														<button class="btn waves-effect waves-light blue" type="submit" name="Info">Search
+														<button class="btn-flat waves-effect waves-light" id="superButton" type="submit" name="Info" disabled>Search
 															</button>													  </form><br>
+														
+															
 													</div></div></div></div>
 				
 					<div id="messages">
-					  <center><h5>Total No of Scholars: {{sch}}</h5>
-					  <h5>Total No of Supervisors: {{sup}}</h5>
-						<h2>Messages:</h2>
+						
+						<h4>Messages</h4>
 						<div class="card">
+							  <br/>
+								<a class="btn-floating messenger tooltipped waves-effect waves-light blue darken-3" href="/dtexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+								<br/>
+								<br/>
 								{% if dbMessages %}
+								<table>
+									<tr class="boss">
+										<th style="width: 90%;padding-left: 25px">Title</th>
+										<th>Date</th>
+									</tr>
 								{% for message in dbMessages %}
 								{% if message.deanunread == True %}
 								{% if message.sender == 'scholar' %}
 								<b>
-									<form action="/schApprove/" method="POST">{%csrf_token%}
-									<input type="hidden" name="tid" value="{{message.tid}}">
-									<button type="submit">{{message.head}}</button>
-									</form>
+										<tr>
+												<td>
+														<form action="/schApprove/" method="POST">{%csrf_token%}
+															<input type="hidden" name="tid" value="{{message.tid}}">
+															<button class="message-submit" type="submit">
+																 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+																</button>
+														</form> 
+												</td>
+												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+											</tr>
 								</b>
 								{% elif message.sender == 'supervisor' %}
 								<b>
-										<form action="/supApprove/" method="POST">{%csrf_token%}
-											<input type="hidden" name="tid" value="{{message.tid}}">
-											<button type="submit">{{message.head}}</button>
-										</form>
+										<tr>
+												<td>
+														<form action="/supApprove/" method="POST">{%csrf_token%}
+															<input type="hidden" name="tid" value="{{message.tid}}">
+															<button class="message-submit" type="submit">
+																 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+																</button>
+														</form> 
+												</td>
+												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+											</tr>
+			
 								</b>
 								{% else %}
 								<b>
-								<form action="/Mview/" method="POST">{%csrf_token%}
-								<input type="hidden" name="tid" value="{{message.tid}}">
-								<button type="submit">
-								{{message.head}}
-							</button>
-								 </form> 
+										<tr>
+												<td>
+														<form action="/Mview/" method="POST">{%csrf_token%}
+															<input type="hidden" name="tid" value="{{message.tid}}">
+															<button class="message-submit" type="submit">
+																 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+																</button>
+														</form> 
+														<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+												</td>
+												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+											</tr>
+			
 								</b>
 								{%endif%}
 								{% else %}
-								<form action="/Mview/" method="POST">{%csrf_token%}
-									<input type="hidden" name="tid" value="{{message.tid}}">
-									<button type="submit">
-									{{message.head}}
-								</button>
-								</form> 
+								<tr>
+									<td>
+											<form action="/Mview/" method="POST">{%csrf_token%}
+												<input type="hidden" name="tid" value="{{message.tid}}">
+												<button class="message-submit" type="submit">
+											     <span style="padding-left: 15px">{{message.head}}</span>
+													</button>
+											</form> 
+										  <span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+									</td>
+									<td><span style="font-size:0.90em">{{message.date}}</span></td>
+								</tr>
+
 								{% endif %}
 								{% endfor %}
+							</table>
 								{% else %}
+								<br/>
 								<p>No messages to show currently!</p>
+								<br/>
 								{% endif %}
-						</div></center>
+						</div>
 					<div id="schedule">
 						  Schedule a DC Meeting:
 							<form method="POST" action="http://127.0.0.1:8000/dsched/">{%csrf_token%}
@@ -169,7 +245,10 @@
 		    var instance=M.Tabs.init(element,{
 							swipeable: false,
 						});
-				
+						document.addEventListener('DOMContentLoaded',function(){
+    var elems=document.querySelectorAll('.tooltipped');
+		var instances=M.Tooltip.init(elems);
+	});
 					</script>
 
 		<div id="bottom">
@@ -188,6 +267,12 @@
 		<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 	</div>
 <script>
+	  document.getElementById('regno').addEventListener('awesomplete-selectcomplete',function(){
+			document.getElementById('scholarButton').disabled = false;
+		})
+		document.getElementById('mid').addEventListener('awesomplete-selectcomplete',function(){
+			document.getElementById('superButton').disabled = false;
+		})
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

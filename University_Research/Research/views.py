@@ -11,6 +11,7 @@ from Research.forms import LoginD
 from Research.forms import viewM
 from Research.forms import newMessage
 from Research.forms import snewMessage
+from Research.models import Comments
 from Research.models import Scholar
 from Research.forms import Passed
 from Research.models import Subjected
@@ -878,6 +879,12 @@ def stexted(request):
   else:
     return HttpResponseRedirect('/profile')
 
+def dtexted(request):
+  if request.session.has_key('mid'):
+    return render(request,"dnewText.html",{})
+  else:
+    return HttpResponseRedirect('/profile')
+
 def Mview(request):
   if request.POST:
     vData=viewM(request.POST)
@@ -898,15 +905,19 @@ def viewText(request):
     if request.session.has_key('regno'):
       if tMObj.schunread==True:
         tMObj.schunread=False
+        tMObj.save()
     if request.session.has_key('mid'):
       mmid=Supervisor.objects.get(mid=request.session['mid'])
       if mmid.dean:
         if tMObj.deanunread==True:
-          tMOBj.deanunread=False
+          tMObj.deanunread=False
+          tMObj.save()
       else:
         if tMObj.supunread==True:
           tMObj.supunread=False
-    return render(request,"viewText.html",{"tMObj":tMObj})
+          tMObj.save()
+    comments=Comments.objects.filter(message__tid=tid)
+    return render(request,"viewText.html",{"tMObj":tMObj,"comments":comments})
 
 def addComment(request):
   if request.POST:
@@ -1042,5 +1053,66 @@ def sApprove(request):
       return HttpResponseRedirect('/profile')
     else:
       return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def deanText(request):
+  if request.POST:
+    receiver=request.POST.get('receiver')
+    if receiver == '1':
+      regno = request.POST.get('scholar')
+      name = request.POST.get('title')
+      content = request.POST.get('content')
+      sObj=Scholar.objects.get(regno=regno)
+      dObj=Supervisor.objects.get(mid='ES0000')
+      mObj= Message(head=name,body=content,scholar=sObj,deanText=dObj,sender='Dean',schunread=True)
+      mObj.save()
+    elif receiver == '2':
+      mid = request.POST.get('supervisor')
+      name = request.POST.get('title')
+      content = request.POST.get('content')
+      sObj = Supervisor.objects.get(mid=mid)
+      dObj = Supervisor.objects.get(mid='ES0000')
+      mObj = Message(head=name,body=content,supervisorText=sObj,deanText=dObj,sender='Dean',supunread=True)
+      mObj.save()
+    elif receiver == '3':
+      mid = request.POST.get('supervisor')
+      regno = request.POST.get('scholar')
+      name = request.POST.get('title')
+      content = request.POST.get('content')
+      sObj = Scholar.objects.get(regno=regno)
+      suObj = Supervisor.objects.get(mid=mid)
+      dObj = Supervior.objects.get(mid='ES0000')
+      mObj = Message(head=name,body=content,scholar=sObj,supervisorText=suObj,deanText=dObj,sender='Dean',schunread=True,supunread=True)
+      mObj.save()
+    return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def plusComment(request):
+  if request.POST:
+    tid=request.POST.get('tid')
+    mObj=Message.objects.get(tid=tid)
+    content=request.POST.get('newcomment')
+    if request.session.has_key('regno'):
+      regno=request.session['regno']
+      name=Personal_Det.objects.get(scholar__regno=regno).name
+      mObj.supunread=True
+      mObj.deanunread=True
+    elif request.session.has_key('mid'):
+      mid=request.session['mid']
+      dObj=Supervisor.objects.get(mid=mid)
+      if dObj.dean:
+        name="Dean"
+        mObj.supunread=True
+        mObj.schunread=True
+      else:
+        name=Su_Personal_Det.objects.get(supervisor__mid=mid).name
+        mObj.schunread=True
+        mObj.deanunread=True
+    cObj=Comments(content=content,sender=name,message=mObj)
+    cObj.save()
+    mObj.save()
+    return HttpResponseRedirect('/viewText')
   else:
     return HttpResponseRedirect('/profile')

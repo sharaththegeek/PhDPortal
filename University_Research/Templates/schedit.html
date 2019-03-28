@@ -59,6 +59,12 @@ body{
 #third-t{
     display: none;
 }
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
@@ -82,8 +88,8 @@ body{
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
         <nav>
-                <div class="nav-wrapper">
-                    <div class="col s12">
+                <div class="nav-wrapper white">
+                    <div class="col s12" style="padding-left: 25px">
                         <a href="/profile" class="breadcrumb">Scholars</a>
                         <a href="/schinfo" class="breadcrumb">{{name}}</a>
                         <a href="/schprog" class="breadcrumb">Progress</a>

@@ -20,7 +20,15 @@
     padding-right: 15px;
     text-align: center;
 }
-
+#profile{
+   padding: 15px;
+}
 #progress{
+    padding: 15px;
+}
+#scholars{
+    padding: 45px;
+}
+#messages{
     padding: 15px;
 }

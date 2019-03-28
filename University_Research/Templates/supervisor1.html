@@ -60,46 +60,73 @@
 	z-index: 999%;
 
 }
+.holding{
+	margin-left: 17%;
+}
 .main{
 	margin-right: 20%;
 }
-table {
-  width: 80%;
-  margin-left: 13%;
+
+.tabs .indicator {
+  background-color: #3C5EC1;
+}
+.tabs{
+	width: 50%;
+}
+.card{
+	text-align: center;
+}
+.messenger{
+		float: right;
+		margin-right: 1%;
+	}
+	.boss{
+	color: #757575;
+}
+.message-submit{
+	border: 0;
+	background-color: white;
+	width: 100%;
+	text-align: left;
+}
+#card1{
+	height: 50%;
 }
 			</style>
 					
-							<h4><p class="welcome">Welcome Dr. {{name}}</p></h4>		
-							<center><div class="hold">
+							<h6><p class="welcome">Welcome Dr. {{name}}</p></h6>		
+							<div class="hold">
 									<div class="holding s-12">
-										<ul class="tabs">
-											<li class="tab"><a class="tabbed" href="#scholars"> <span class="blue-text text-darken-2">List of Scholars</span></a></li>
+										<ul class="tabs tabs-fixed-width">
+											<li class="tab"><a class="tabbed" href="#scholars"> <span class="blue-text text-darken-2">Scholars</span></a></li>
 											<li class="tab"><a class="tabbed" href="#profile"> <span class="blue-text text-darken-2">Profile</span></a></li>
 											<li class="tab"><a class="tabbed" href="#messages"> <span class="blue-text text-darken-2">Messages</span></a></li>
 										</ul>
 									</div>
-								</div></center>
+								</div>
                       <div id="scholars">
 						  <div class="card">
-					  <h4><center>List of Scholars: </center></h4>
+					  <h5 style="padding-top: 15px">Scholars </h5>
 					  <br>
-						<table>
+						<table style="width: 90%; margin: auto">
 							<tr>
-								<th>Register Number</th>
-								<th>Name</th>
-								<th>E-mail</th>
-								<th>Information</th>
+								<th style='width: 25%'>Register Number</th>
+								<th style='width: 25%'>Name</th>
+								<th style='width: 25%'>E-mail Address</th>
+							  <th style='width: 25%'>Registration Date</th>
+								<th style="float:right"></th>
 				      </tr>
             {%for s in sch%}
 						<tr>
-							<td >{{s.scholar.regno}}</td>
-							<td >{{s.name}}</td>
-							<td >{{s.email}}</td>
-							<td>
+							<td style='width: 25%'>{{s.scholar.regno}}</td>
+							<td style='width: 25%'>{{s.name}}</td>
+							<td style='width: 25%'>{{s.email}}</td>
+							<td style='width: 25%'>{{s.regdate}}</td>
+							<td style="float:right">
 								<form method="POST" action="http://127.0.0.1:8000/storesch/">
 									{%csrf_token%}
 									<input type="hidden" name="regno" value={{s.scholar.regno}}>
-									<button class="btn waves-effect waves-light blue" type="submit" name="Info">Info
+									<button style="float:right" class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">View
 										  </button>
 								</form>
 							</td>
@@ -112,46 +139,52 @@ table {
 					<div id="profile">
 					  <div id="divided">
 						<div class="done">
-							<div class="card">
-								<div class="card-title">Personal Details</div>
-									<table>
+							<div class="card" id="card1">
+								<div class="card-title" style="padding-top: 15px">Personal Details</div>
+									<table style="width: 80%;margin:auto">
 									<tr>
-										<th style="text-align:center">Name:</th>
-										<td style="text-align:center">{{name}} {{lname}}</td>
+										<th>Name:</th>
+										<td style="text-align:center">{{name}}</td>
 									</tr>
 									<tr>
-										<th style="text-align:center">Sex:</th>
+										<th>Sex:</th>
 										<td style="text-align:center">{{sex}}</td>
 									</tr>
 									<tr>
-										<th style="text-align:center">E-mail:</th>
+										<th >E-mail:</th>
 										<td style="text-align:center">{{email}}</td>
 									</tr>
 									<tr>
-										<th style="text-align:center">Employee ID:</th>
+										<th>Employee ID:</th>
 										<td style="text-align:center">{{mid}}</td>
 									</tr>
 									<tr>
-										<th style="text-align:center">School:</th>
+										<th>School:</th>
 										<td style="text-align:center">{{school}}</td>
 									</tr>
 									<tr>
-										<th style="text-align:center">Area of Interest:</th>
+										<th>Area of Interest:</th>
 										<td style="text-align:center">{{aoi}}</td>
 									</tr>
 								</table>
+								<br/>
 							</div></div>
 							<div class="done">
-								<div class="card" style="margin-top:-2%">
-									
-						<h4>Publication Details :</h4>
-						<table>
+								<div class="card" id="card1">			
+						<div class="card-title" style="padding-top: 15px">Publication Details </div>
+						<table style="width: 90%;margin:auto">
 							<tr>
-								<th style="width:30%">Title of Publication</th>
+								<th style="padding-left:20px">Title of Publication</th>
 								<th style="text-align:center">Name of the Journal</th>
 								<th style="text-align:center">Authors </th>
 								<th style="text-align:center">Year of Publication</th>
 							</tr>
+							<tr>
+									<td style="padding-left:20px">Sample Research</td>
+									<td style="text-align:center">Sample Title</td>
+									<td style="text-align:center">{{name}}</td>
+									<td style="text-align:center">12 Jan 2019</td>
+								</tr>
 							{%for p in pubs%}
 							  <tr>
 									<td style="text-align:center">{{p.title}}</td>
@@ -161,36 +194,56 @@ table {
 							  </tr>
 							{%endfor%}
 						</table>
+						<br/>
 					</div>
 					   
 					</div>
 					</div>
 					</div>
 					<div id="messages">
-							<div class="card" style="width:80%; margin-left:10%">
-									<h5><center>Messages</center></h5>
-									<a class="btn-floating right tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+							<div class="card">
+									<h5 style="padding-top: 15px"><center>Messages</center></h5>
+									<a class="btn-floating messenger tooltipped waves-effect waves-light blue darken-3" href="/stexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
 									<br>
 									{% if dbMessages %}
+									<table>
+											<tr class="boss">
+												<th style="width: 90%;padding-left: 25px">Title</th>
+												<th>Date</th>
+											</tr>
 									{% for message in dbMessages %}
-									{% if message.schunread == True %}
+									{% if message.supunread == True %}
 									<b>
-									<form action="/Mview/" method="POST">
-									<input type="hidden" value="{{message.id}}">
-									<button type="submit">
-									{{message.head}}
-								</button>
-									 </form> 
+											<tr>
+													<td>
+															<form action="/Mview/" method="POST">{%csrf_token%}
+																<input type="hidden" name="tid" value="{{message.tid}}">
+																<button class="message-submit" type="submit">
+																	 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+																	</button>
+															</form> 
+															<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+													</td>
+													<td><span style="font-size:0.90em">{{message.date}}</span></td>
+												</tr>
 									</b>
 									{% else %}
-									<form action="/Mview/" method="POST">
-										<input type="hidden" name="tid" value="{{message.id}}">
-										<button type="submit">
-										{{message.head}}
-									</button>
-									</form> 
+														<tr>
+												<td>
+														<form action="/Mview/" method="POST">{%csrf_token%}
+															<input type="hidden" name="tid" value="{{message.tid}}">
+															<button class="message-submit" type="submit">
+																 <span style="padding-left: 15px">{{message.head}}</span>
+																</button>
+														</form> 
+														<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+												</td>
+												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+											</tr>
+			
 									{% endif %}
 									{% endfor %}
+									</table>
 									{% else %}
 									<p>No messages to show currently!</p>
 									{% endif %}
@@ -200,8 +253,12 @@ table {
 		<script>
 			var element=document.querySelector('.tabs');
 		    var instance=M.Tabs.init(element,{
-							swipeable: true,
+							swipeable: false,
 						});
+						document.addEventListener('DOMContentLoaded',function(){
+    var elems=document.querySelectorAll('.tooltipped');
+		var instances=M.Tooltip.init(elems);
+	});
 		</script>
 		<div id="bottom">
 			<div style="<!--border:1px outset #eee;-->">

@@ -33,6 +33,13 @@
 .main{
     margin-right: 20%;
 }
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
+
         </style>
         	<div id="navbar" style="z-index:999">
                     <a href="/logq" class="buttons">{{logg}}</a>
@@ -55,12 +62,12 @@
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
-        <nav><div class="indigo accent-1">
+        <nav><div class="white">
                 <div class="nav-wrapper">
-                    <div class="col s12">
+                    <div class="col s12" style="padding-left: 25px">
                         <a href="/profile" class="breadcrumb">Scholars</a>
                         <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="#!" class="breadcrumb">{{name}} - Progress</a>
+                        <a href="#!" class="breadcrumb">Progress</a>
                     </div>
                 </div></div>
             </nav>

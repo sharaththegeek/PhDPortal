@@ -9,6 +9,8 @@
 			<!--Materialize CSS-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type = "text/javascript"
+    src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 
 	<!-- Compiled and minified JavaScript for Materialize -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -37,6 +39,9 @@ body{
 .main{
     margin-right: 24%;
 }
+#Commenter{
+    display: none;
+}
         </style>
         	<div id="navbar">
                     <a href="/logq" class="buttons">{{logg}}</a>
@@ -59,7 +64,46 @@ body{
             <a href="#" onclick="sideClose()">Downloads</a>
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
-        
+        <div style="width:85%;margin:auto">
+        <h4>{{tMObj.head}}</h4>
+        <hr/>
+        <h6 style="color:#757575">{{tMObj.sender}}</h6><br/>
+        <span>{{tMObj.body}}</span><br/><br/>
+        <span style="font-size: 0.80em;color:#757575">Posted on: {{tMObj.date}}</span>
+        <hr/>
+        {% for comment in comments %}
+        <h6 style="color:#757575">{{comment.sender}}</h6><br/>
+        <span>{{comment.content}}</span><br/><br/>
+        <span style="font-size: 0.80em;color:#757575">Posted on: {{comment.date}}</span>
+        <hr/>
+        {% endfor %}
+        <br/>
+        <button onclick="addComment()" class="btn-small waves-effect waves-light blue">Reply</button>
+        <div class="Commenter" id="Commenter">
+                <div class="input-field col s12">
+                    <form method="POST" action="/plusComment/">{%csrf_token%}
+                        <textarea id="textarea2" name="newcomment" placeholder="Add a Reply" class="materialize-textarea" data-length="500" required></textarea>
+                        <input type="hidden" name="tid" value="{{tMObj.tid}}"/>
+                        <button class="btn-flat waves-effect waves-light" type="submit">Post</button>
+                    </form>
+             </div>
+        </div>
+        </div>
+        <script>
+        function addComment(){
+            var element=document.getElementById('Commenter');
+            if (element.style.display == "block"){
+                element.style.display = "none";
+            }
+            else
+            {
+                element.style.display = "block";
+            }
+        }
+        $(document).ready(function() {
+    $('input#input_text, textarea#textarea2').characterCounter();
+  });
+  </script>
         </body>
         </html>
         

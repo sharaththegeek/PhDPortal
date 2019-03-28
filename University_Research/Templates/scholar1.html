@@ -81,12 +81,21 @@
 }
 
 					.main{
-	margin-right: 20%
+	margin-right: 18%
 }
 					.tabbed{
 						color: white;
 						text-decoration: none;
 					}
+					.boss{
+	color: #757575;
+}
+.message-submit{
+	border: 0;
+	background-color: white;
+	width: 100%;
+	text-align: left;
+}
 				
 					</style>
 					</head>
@@ -108,12 +117,12 @@
 							<div class="divided">
 							<div class="done">
 							<div class="card">
-								<div class="card-title">Personal Details</div>
+								<div class="card-title" style="padding-top: 15px">Personal Details</div>
 								<br/>
-								<table>
+								<table style="width:90%;margin:auto">
 										<tr>
 											<th class="tabtitle" style="width:30%">Name:</th>
-											<td style="text-align:center">{{name}} {{lname}}</td>
+											<td style="text-align:center">{{name}}</td>
 										</tr>
 										<tr>
 											<th class="tabtitle">Date of Birth:</th>
@@ -136,7 +145,7 @@
 											<td style="text-align:center">{{school}}</td>
 										</tr>
 									</table><br/>
-									<button class="btn-small waves-effect waves-light blue" onclick="toggled()">Change Password</button><br/><br/>
+									<button class="btn-small waves-effect waves-light blue darken-3" onclick="toggled()">Change Password</button><br/><br/>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
 							<div class="input-field">
@@ -151,8 +160,8 @@
 								<input id='regno' type="password" name='old' required/>
 								<label for="regno">Re-enter New Password</label>
 							</div><br/>
-						<button type="button" class="btn-small waves-effect waves-light blue" value="Cancel" onclick="document.getElementById('pwd').style.display='none'">Cancel</button>
-						<button type="submit" class="btn-small waves-effect waves-light blue" value="Submit">Submit</button><br/><br/>
+						<button type="button" class="btn-small waves-effect waves-light blue darken-3" value="Cancel" onclick="document.getElementById('pwd').style.display='none'">Cancel</button>
+						<button type="submit" class="btn-small waves-effect waves-light blue darken-3" value="Submit">Submit</button><br/><br/>
 					</form>
 						</div>
 						</div>
@@ -160,36 +169,71 @@
 	
 					<div class="done">
 							<div class="card">
-								  <br>
-							<center><h5>Current Status: {{dbLatest.name}} Completed</h5></center>	
-								<h5>Supervisor: Dr. {{supervisor}} </h5>
-								<h5>Publication Details</h5>
-								<table border="1">
+							<div class="card-title" style="padding-top: 15px">Research Details</div><br/>
+							<center><h6 style="padding-bottom:10px;">Current Status: {{dbLatest.name}} Completed</h6></center>
+								<h6>Supervisor: Dr. {{supervisor}} </h6>
+								<br/>
+								<h5>DC Members</h5>
+								<table style="width: 80%;margin: auto">
 									<tr>
-										<th>Title of the Publication</th>
-										<th>Name of the Journal</th>
-										<th>Authors </th>
-										<th>Year of Publication</th>
-									</tr>
-									{%for p in pubs%}
-										<tr>
-											<td>{{p.title}}</td>
-											<td>{{p.name}}</td>
-											<td>{{p.author}}</td>
-											<td>{{p.date}}</td>
-										</tr>
-									{%endfor%}
-		
+									<th>Name</th>
+									<th>Institution</th>
+									<th>Designation</th>
+									 </tr>
+									 <tr>
+										 <td>{{supervisor}}</td>
+										 <td>SASTRA</td>
+										 <td>Professor</td>
+									 </tr>
+									 <tr>
+										 <td>XYZ</td>
+										 <td>IIT</td>
+										 <td>Research Associate</td>
+									 </tr>
+									 <tr>
+										 <td>ABC</td>
+										 <td>SASTRA</td>
+										 <td>Dean</td>
+									 </tr>
 								</table>
+								<br/>
 						</div>
 					</div>
 				</div>
+				<div class="publication-holder" style="padding: 15px;margin:auto;text-align: center">
+				<div class="card">
+					<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
+					<table>
+						<tr>
+							<th style="padding-left:20px">Title of the Publication</th>
+							<th>Name of the Journal</th>
+							<th>Authors </th>
+							<th>Year of Publication</th>
+						</tr>
+						<tr>
+							<td style="padding-left:20px">Sample Research</td>
+							<td>Sample Title</td>
+							<td>{{name}}</td>
+							<td>12 Jan 2019</td>
+						</tr>
+						{%for p in pubs%}
+							<tr>
+								<td style="padding-left:20px">{{p.title}}</td>
+								<td>{{p.name}}</td>
+								<td>{{p.author}}</td>
+								<td>{{p.date}}</td>
+							</tr>
+						{%endfor%}
+
+					</table>
+				</div>
+			</div>
 			</div>
           <div id="progress" >
 						<div class="divided">
 							<div class="done">
 							<div class="card">
-								Completed:
+								<h6 style="padding-top:15px;font-weight:bold">Completed</h6>
 								<ul class="collapsible popout">
 									<li class="active">
 										<div class="collapsible-header">{{dbLatest.name}}</div>
@@ -280,7 +324,7 @@
 						</div>
 						<div class="done">
 							<div class="card">
-								Upcoming:
+								<h6 style="padding-top:15px;font-weight:bold">Upcoming</h6>
 								<ul class="collapsible popout">
 									<li class="active">
 										<div class="collapsible-header">{{dbNext.name}}</div>
@@ -347,23 +391,40 @@
 							<br/>
 						</div>
 							{% if dbMessages %}
+							<table>
+									<tr class="boss">
+										<th style="width: 90%;padding-left: 25px">Title</th>
+										<th>Date</th>
+									</tr>
 							{% for message in dbMessages %}
 							{% if message.schunread == True %}
 							<b>
-							<form action="/Mview/" method="POST">{%csrf_token%}
-							<input type="hidden" name="tid" value="{{message.tid}}">
-							<button type="submit">
-							{{message.head}}
-						</button>
-					   	</form> 
+									<tr>
+											<td>
+													<form action="/Mview/" method="POST">{%csrf_token%}
+														<input type="hidden" name="tid" value="{{message.tid}}">
+														<button class="message-submit" type="submit">
+															 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1" >{{message.head}}</span>
+															</button>
+													</form> 
+													<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+											</td>
+											<td><span style="font-size:0.90em">{{message.date}}</span></td>
+										</tr>
 							</b>
 							{% else %}
-							<form action="/Mview/" method="POST">{%csrf_token%}
-								<input type="hidden" name="tid" value="{{message.tid}}">
-								<button type="submit">
-								{{message.head}}
-							</button>
-							</form> 
+							<tr>
+									<td>
+											<form action="/Mview/" method="POST">{%csrf_token%}
+												<input type="hidden" name="tid" value="{{message.tid}}">
+												<button class="message-submit" type="submit">
+													 <span style="padding-left: 15px">{{message.head}}</span>
+													</button>
+											</form> 
+											<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+									</td>
+									<td><span style="font-size:0.90em">{{message.date}}</span></td>
+								</tr>
 							{% endif %}
 							{% endfor %}
 							{% else %}
@@ -400,25 +461,6 @@
 					.pwd{
 						display: none;
 					}
-</style>
-</div>
-</div>
- </div>
-				</div>
-		<div id="bottom">
-			<div style="<!--border:1px outset #eee;-->">
-				<div id="bottom-1">
-				<div id="bottom_useful-link"><div class="clear"></div></div>
-				<div id="bottom2"><div class="clear"></div></div>
-				<div id="bottom_contact"><div class="clear"></div></div>
-				<div class="clear"></div>
-				</div>
-			</div>
-		</div>
-		</div><div class="clear"></div>
-		</div>
-	</div>
-<style>
 	.headed{
 		padding-top: 2px;
 		text-align: center;
@@ -456,11 +498,6 @@
    }
 </style>
 <br>
-<div class="footer">
-	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
-</div>
-
-</div>
 <script>
 	function toggled(){
 		if(document.getElementById('pwd').style.display=='block'){

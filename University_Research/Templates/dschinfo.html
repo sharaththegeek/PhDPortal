@@ -66,27 +66,41 @@
 .divided{
     display: flex;
 }
-#done{
+.done{
     width: 50%;
     padding-left: 15px;
     padding-right: 15px;
     text-align: center;
 }
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
 					</style>
 							<nav>
-									<div class="indigo accent-1">
-										<div class="col s12">
+									<div class="white">
+										<div class="col s12" style="padding-left: 25px">
 											<a href="/profile" class="breadcrumb">Scholars</a>
 											<a href="#!" class="breadcrumb">{{name}}</a>
 										</div>
 									</div>
 								</nav>
 							
-					<h4>Scholar Information - {{name}}</h4>
-					<button><a href="/dschprog">View Progress</a></button>
-					<button><a href="/plusdc">Schedule DC Meeting</a></button>
+					<h4 style="padding-left:15px">Scholar Information - {{name}}</h4>
+					<div style="display:flex;padding-left:15px">
+					<div style="text-align:right;padding-right: 15px">
+							<a class="waves-effect waves-light blue darken-3 btn " href="/dschprog">view progress</a>
+					</div>
+					<div style="text-align:right;padding-right: 45px">
+							<a class="waves-effect waves-light blue darken-3 btn " href="/plusdc">schedule dc meeting</a>
+						</div>
+					</div>
 					<div class="divided">
-          <div class="card" id="done">
+					<div class="done">
+          <div class="card">
+					<div class="card-title">Personal Details</div>
 					<table>
             <tr>
 							<th style="width:30%">Name:</th>
@@ -118,28 +132,39 @@
 						</tr>
 					</table>
 				</div>
-				 <div class="card" id="done">
-					  <h5>Current Status: {{status1}} Completed</h5>
-						<h5>Supervisor: Dr. {{supervisor}}</h5>
-						<br><h5>Publication Details</h5><br>
-						<table>
-							<tr>
-								<th>Title of the Publication</th>
-								<th>Name of the Journal</th>
-								<th>Authors </th>
-								<th>Year of Publication</th>
-							</tr>
-							{%for p in pubs%}
-							  <tr>
-									<td>{{p.title}}</td>
-									<td>{{p.name}}</td>
-									<td>{{p.author}}</td>
-									<td>{{p.date}}</td>
-								</tr>
-							{%endfor%}
+			</div>
+			<div class="done">
+				 <div class="card">
+						<div class="card-title">Research Details</div>
 
+					  <h6 style="padding-bottom: 12px">Current Status: {{status1}} Completed</h6>
+						<h6>Supervisor: Dr. {{supervisor}}</h6>
+						<h5>DC Members</h5>
+						<table style="width: 80%;margin: auto">
+							<tr>
+							<th>Name</th>
+							<th>Institution</th>
+							<th>Designation</th>
+							 </tr>
+							 <tr>
+								 <td>{{supervisor}}</td>
+								 <td>SASTRA</td>
+								 <td>Professor</td>
+							 </tr>
+							 <tr>
+								 <td>XYZ</td>
+								 <td>IIT</td>
+								 <td>Research Associate</td>
+							 </tr>
+							 <tr>
+								 <td>ABC</td>
+								 <td>SASTRA</td>
+								 <td>Dean</td>
+							 </tr>
 						</table>
+						<br/>
 					</div>
+				</div>
 				</div>
 					<div class="footer">
 						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>

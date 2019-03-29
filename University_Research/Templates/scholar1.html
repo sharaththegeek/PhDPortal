@@ -21,13 +21,14 @@
 </head>
 <body oncontextmenu="return false" >
 			
-	<div id="navbar" style="z-index:999">
-			<a href="/logq" class="buttons">{{logg}}</a>
-			<a href="javascript:void(0)" class="buttons">Downloads</a>
+		<div id="navbar" style="z-index: 999">
+				<a href="/logq" class="buttons">{{logg}}</a>
+				<a href="/profile" class="buttons">Profile</a>
+				<a href="" class="buttons">Downloads</a>
 				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 				<p class="main">Research Portal</p>
-			<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-	</div>
+		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -79,10 +80,6 @@
 					.tabs .indicator{
   background-color: #3C5EC1;
 }
-
-					.main{
-	margin-right: 18%
-}
 					.tabbed{
 						color: white;
 						text-decoration: none;
@@ -96,10 +93,11 @@
 	width: 100%;
 	text-align: left;
 }
-				
+#card1{
+	height: 80%;
+	overflow-y:scroll;
+}
 					</style>
-					</head>
-					<body>
 					
 					<br>
 					<h6><p class="welcome">Welcome {{name}}</p></h6>	
@@ -116,7 +114,7 @@
 				<div id="profile">
 							<div class="divided">
 							<div class="done">
-							<div class="card">
+							<div class="card" id="card1">
 								<div class="card-title" style="padding-top: 15px">Personal Details</div>
 								<br/>
 								<table style="width:90%;margin:auto">
@@ -145,7 +143,7 @@
 											<td style="text-align:center">{{school}}</td>
 										</tr>
 									</table><br/>
-									<button class="btn-small waves-effect waves-light blue darken-3" onclick="toggled()">Change Password</button><br/><br/>
+									<button class="btn-small waves-effect waves-light blue darken-3" onclick="toggled()">Change Password</button><br/>
 					<div class="pwd" id="pwd">
 						<form method="POST" action="http://127.0.0.1:8000/chnpwd/">{%csrf_token%}
 							<div class="input-field">
@@ -168,9 +166,9 @@
 					</div>
 	
 					<div class="done">
-							<div class="card">
+							<div class="card" id="card1">
 							<div class="card-title" style="padding-top: 15px">Research Details</div><br/>
-							<center><h6 style="padding-bottom:10px;">Current Status: {{dbLatest.name}} Completed</h6></center>
+							<center><h6>Current Status: {{dbLatest.name}} Completed</h6></center>
 								<h6>Supervisor: Dr. {{supervisor}} </h6>
 								<br/>
 								<h5>DC Members</h5>
@@ -233,7 +231,7 @@
 						<div class="divided">
 							<div class="done">
 							<div class="card">
-								<h6 style="padding-top:15px;font-weight:bold">Completed</h6>
+							<div class="card-title" style="padding-top:15px">Completed</div>
 								<ul class="collapsible popout">
 									<li class="active">
 										<div class="collapsible-header">{{dbLatest.name}}</div>
@@ -243,7 +241,6 @@
 											 <p>Provisionally Admitted: Yes </p>
 											{% elif dbLatest.level == 2 or dbLatest.level == 5 or dbLatest.level == 6 %}
 											<p>Held on: {{dbLatest.date}}</p>
-											<p>DC Members:</p>
 											<p>Comments: {{dbLatest.comments}}</p>
 											{% elif dbLatest.level == 9%}
 											<p>Date: {{dbLatest.date}}</p>
@@ -280,14 +277,9 @@
 											<div class="collapsible-body">
 												{% if others.level == 1%}
 												 <p>Presented on: {{others.presented}} </p>
-												 {%ifequal others.fees "paid"%}
 												 <p>Provisionally Admitted: Yes </p>
-												 {%else%}
-												 <p>Provisionally Admitted: No </p>
-												 {%endifequal%}
 												{% elif others.level == 2 or others.level == 5 or others.level == 6 %}
 												<p>Held on: {{others.date}}</p>
-												<p>DC Members:</p>
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 9%}
 												<p>Date: {{others.date}}</p>
@@ -324,7 +316,7 @@
 						</div>
 						<div class="done">
 							<div class="card">
-								<h6 style="padding-top:15px;font-weight:bold">Upcoming</h6>
+								<div class="card-title" style="padding-top:15px">Upcoming</div>
 								<ul class="collapsible popout">
 									<li class="active">
 										<div class="collapsible-header">{{dbNext.name}}</div>
@@ -338,8 +330,9 @@
 												 {%endifequal%}
 												{% elif dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
 												{% if dbNext.date %}
-												<p>To be held on: {{dbNext.date}}</p>
-												<p>DC Members:</p>
+												<p>To be held on</p>
+												<p>Date: {{dbNext.date}}</p> 
+											  <p>Time: {{dbNext.time}} </p>
 												{% else %}
 												<p>To be held on: TBA</p>
 												{% endif %}
@@ -409,7 +402,7 @@
 													</form> 
 													<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
 											</td>
-											<td><span style="font-size:0.90em">{{message.date}}</span></td>
+											<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 										</tr>
 							</b>
 							{% else %}
@@ -423,7 +416,7 @@
 											</form> 
 											<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
 									</td>
-									<td><span style="font-size:0.90em">{{message.date}}</span></td>
+									<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 								</tr>
 							{% endif %}
 							{% endfor %}

@@ -23,12 +23,13 @@
 </head>
 <body oncontextmenu="return false" >
 			
-		<div id="navbar" style="z-index:999">
+		<div id="navbar" style="z-index: 999">
 				<a href="/logq" class="buttons">{{logg}}</a>
-				<a href="javascript:void(0)" class="buttons">Downloads</a>
-					<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-					<p class="main">Research Portal</p>
+				<a href="/profile" class="buttons">Profile</a>
+				<a href="" class="buttons">Downloads</a>
+				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
 				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+				<p class="main">Research Portal</p>
 		</div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -60,9 +61,6 @@
 	height: 5%;
 	text-align: center;
 	z-index: 999%;
-}
-.main{
-	margin-right: 20%;
 }
 .tabs .indicator{
 	background-color: #3C5EC1;
@@ -168,7 +166,7 @@ h5{
 																</button>
 														</form> 
 												</td>
-												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+												<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 											</tr>
 								</b>
 								{% elif message.sender == 'supervisor' %}
@@ -182,7 +180,7 @@ h5{
 																</button>
 														</form> 
 												</td>
-												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+												<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 											</tr>
 			
 								</b>
@@ -198,7 +196,7 @@ h5{
 														</form> 
 														<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
 												</td>
-												<td><span style="font-size:0.90em">{{message.date}}</span></td>
+												<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 											</tr>
 			
 								</b>
@@ -214,7 +212,7 @@ h5{
 											</form> 
 										  <span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
 									</td>
-									<td><span style="font-size:0.90em">{{message.date}}</span></td>
+									<td><span style="font-size:0.90em">{{message.latest}}</span></td>
 								</tr>
 
 								{% endif %}

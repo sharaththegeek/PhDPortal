@@ -24,12 +24,14 @@
 </head>
 <body oncontextmenu="return false" >
 			
-    <div id="navbar">
-        <a href="javascript:void(0)" class="buttons">Downloads</a>
-          <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-          <p class="main">Research Portal</p>
-        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-    </div>
+        <div id="navbar" style="z-index: 999">
+                <a href="/logq" class="buttons">{{logg}}</a>
+                <a href="/profile" class="buttons">Profile</a>
+                <a href="" class="buttons">Downloads</a>
+                <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+                <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                <p class="main">Research Portal</p>
+        </div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
 		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -66,7 +68,7 @@
                     <input placeholder="Phone Number" id="phno" name="phno" type="text" class="validate">
               </div>
               <div class="input-field col s6">
-                  <input placeholder="Register Number" id="mid" name="mid" type="text" class="validate">
+                  <input placeholder="Member ID" id="mid" name="mid" type="text" class="validate">
               </div>
               <div class="input-field col s6">
                   <input placeholder="Department" id="school" name="school" type="text" class="validate">
@@ -99,16 +101,14 @@
                   </div>
               </div>
               <br><br><br><br>
-              <center><button class="btn waves-effect waves-light blue" type="submit" name="Info">submit
+              <center><button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">submit
                 </button></center>            </form>
             </div>
             <style>
                 .external{
                     display: none;
                 }
-                .main{
-                    margin-right: 23%;
-                }
+            
             </style>
         </body>
         </html>

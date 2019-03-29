@@ -36,20 +36,19 @@ body{
     width: 80%;
     margin-left: 10%;
 }
-.main{
-    margin-right: 24%;
-}
+
 #scholar-box{
     display: none;
 }
         </style>
-        	<div id="navbar">
-                    <a href="/logq" class="buttons">{{logg}}</a>
-                    <a href="javascript:void(0)" class="buttons">Downloads</a>
-                        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">Research Portal</p>
-                    <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-            </div>
+<div id="navbar" style="z-index: 999">
+        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="/profile" class="buttons">Profile</a>
+        <a href="" class="buttons">Downloads</a>
+        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+        <p class="main">Research Portal</p>
+</div>
         <div id="navbar-mobile">
             <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
             <a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -74,9 +73,9 @@ body{
                 <label>
                         <input type="checkbox" name="approval" value="approved" />    
                         <span>Approve</span>
-                      </label>    
+                      </label> <br/>
                       <input type="hidden" name="mid" value="{{suObj.supervisor.mid}}">
-                      <button type="submit">Submit</button>            
+                      <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>            
             </form>
         </div>
     </div>

@@ -63,7 +63,8 @@ class Coursework(Progress):
    pass
 
 class Others(Progress):
-   date=models.DateTimeField(null=True)
+   date=models.DateField(null=True)
+   time=models.TimeField(null=True)
    marks=models.IntegerField(default=0)
    comments=models.CharField(max_length=500)
 
@@ -95,6 +96,7 @@ class Message(models.Model):
   head=models.CharField(max_length=100)
   body=models.CharField(max_length=1000)
   date=models.DateTimeField(default=datetime.now)
+  latest=models.DateTimeField(default=datetime.now)
   scholar=models.ForeignKey(Scholar,null=True)
   sender=models.CharField(max_length=100)
   schunread=models.BooleanField(default=False)

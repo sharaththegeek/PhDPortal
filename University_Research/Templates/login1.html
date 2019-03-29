@@ -19,12 +19,13 @@
 </head>
 <body oncontextmenu="return false" >
 			
-    <div id="navbar">
-        
-        <a href="javascript:void(0)" class="buttons">Downloads</a>
-          <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-          <p class="main">Research Portal</p>
+    <div id="navbar" style="z-index: 999">
+        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="/profile" class="buttons">Profile</a>
+        <a href="" class="buttons">Downloads</a>
+        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
         <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+        <p class="main">Research Portal</p>
     </div>
 	<div id="navbar-mobile">
 		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -46,18 +47,19 @@
 
               <br>
               <div class="card">
-                <div class="card-title"><center><b>Login</b></center></div>
-                <p style="color:{{col}}">{{message}}</p>
+                <div class="card-title"><b>Login</b></div>
+                <p class="card-message" style="color:{{col}}">{{message}}</p>
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
-                      <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
-                      <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
-                      <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
+                    <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
+                    <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
+                    <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
                   </ul>
                 </div>
                 <div class="card-content">
                   <div id="scholar">
                       <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
+                      <br/><br/>
                     <div class="input-field">
                     <input id='regno' type="text" name='regno' required/>
                     <label for="regno">Register Number</label>
@@ -65,14 +67,17 @@
                   <div class="input-field">
                     <input id="password" type="password" name="password" required/>
                     <label for="password">Password</label>
+                  </div><br/>
+                  <div class="submitted">
+                    <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>  
                   </div>
-                  <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
-                      <i class="material-icons right">send</i>
-                  </button></center>
                     </form>
                   </div>
                   <div id="supervisor">
                       <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
+                        <br/><br/>
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
                       <label for="regno">User ID</label>
@@ -80,14 +85,17 @@
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
-                    </div>
-                      <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
+                    </div><br/>
+                    <div class="submitted">
+                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
                           <i class="material-icons right">send</i>
-                      </button></center>
+                      </button>  
+                    </div>
                       </form>
                   </div>
                   <div id="dean">
                       <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
+                        <br/><br/>
                       <div class="input-field">
                       <input id='regno' type="text" name='mid' required/>
                       <label for="regno">Dean ID</label>
@@ -95,10 +103,12 @@
                     <div class="input-field">
                       <input id="password" type="password" name="password" required/>
                       <label for="password">Password</label>
+                    </div><br/>
+                    <div class="submitted">
+                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
+                          <i class="material-icons right">send</i>
+                      </button>  
                     </div>
-                    <center><button class="btn waves-effect waves-light blue" type="submit" name="action">Login
-                        <i class="material-icons right">send</i>
-                    </button></center>
                       </form>
                   </div>
                 </div>
@@ -106,6 +116,31 @@
             
                 
                 <style>
+                  .input-field label {
+     color: grey;
+   }
+   
+   /* label focus color */
+   .input-field #regno:focus + label {
+     color: grey;
+   }
+   .input-field #password:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #regno:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
+   #password:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+   }
+   .password input[type=text]:focus + label {
+     color:grey;
+   }
+  
                     @media only screen and (max-width:800px) {
                     /* For tablets: */
                     .mainmenu {
@@ -126,50 +161,42 @@
   margin-left: 38%;
   margin-right: 38%;
 }
+.input-field{
+  width: 70%;
+  padding-bottom: 30px;
+  margin: auto;
+}
+.card{
+  width: 60%;
+  height: 60%;
+  margin: auto;
+}
 body{
   font-size: 100%;
   margin: 0;
   padding: 0;
 }
-.main{
-	margin-right: 23%
-}
 h3{
  text-align:center;
 }
-.card{
-  width: 80%;
-  margin-left: 10%;
+.buttonlog {
+    background-color:darkblue;
+    border: solid;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 15px;
+  box-shadow: 0 4px #999;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
 }
+.buttonlog:hover {background-color: darkblue}
 
-
-
-.Top{
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
-  text-align: center;
-<<<<<<< HEAD
-  margin-left: 1%;
-}
-.headd{
-  font-size:300%;
-  margin-top:-9%;
-  margin-left:40%;
-}
-li{
-  font-size: 0.8em;
-}
-<<<<<<< HEAD
-li a{
-  text-decoration: none;
-  color: black;
-}
-li a.active{
-  font-weight: bolder;
-}
-li a:hover{
-  font-weight: bold;
+.buttonlog:active {
+  background-color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 .Top{
   margin-left: auto;
@@ -180,14 +207,33 @@ li a:hover{
 
 .footer{
 	width:100%;
-	background-color:#3C5EC1;
+	background-color: #3C5EC1;
 	color:white;
 	height: 5%;
     text-align: center;
 }
+.tabs .indicator{
+  background-color: #3C5EC1;
+}
+.card-title{
+  margin: auto;
+  text-align: center;
+}
+.card-message{
+  text-align: center;
+  margin: auto;
+}
+.submitted{
+  text-align: center;
+}
+.btn{
+  margin: auto;
+}
+
 </style>
 <script>
-  var Ti=setTimeout(me1(),100)
+   
+var Ti=setTimeout(me1(),100)
 function me1(){
   window.alert("You need to login first!");
 }

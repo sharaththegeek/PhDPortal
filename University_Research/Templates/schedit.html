@@ -65,13 +65,87 @@ body{
 .breadcrumb, .breadcrumb:last-child{
 	color:#3C5EC1;
 }
+.checkbox-blue[type="checkbox"]:checked + span:not(.lever):before{
+    border: 2px solid transparent;
+    border-bottom: 2px solid #3C5EC1;
+    border-right: 2px solid #3C5EC1;
+    background-color: transparent;
+}
+.datepicker-date-display {
+    background-color: #3C5EC1;
+}
+
+.datepicker-day-button:focus {
+    color: white !important;
+    background-color: #3C5EC1;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li>span,
+.is-today {
+    color: #3C5EC1; 
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+    background-color: #3C5EC1;
+}
+
+td.is-selected.is-today {
+    color: white !important
+}
+#date_1:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#thatcomment:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+input[type='radio']:checked + span:after{
+    background-color: #3C5EC1;
+    border: 1px solid #3C5EC1;
+}
+#course:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_5:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#comments:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#sCom:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#tCom:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_6:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_3:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
         </style>
-        	<div id="navbar">
+        	<div id="navbar" style="z-index: 999">
                     <a href="/logq" class="buttons">{{logg}}</a>
-                    <a href="javascript:void(0)" class="buttons">Downloads</a>
-                        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">PhD Portal</p>
+                    <a href="/profile" class="buttons">Profile</a>
+                    <a href="" class="buttons">Downloads</a>
+                    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                    <p class="main">Research Portal</p>
             </div>
         <div id="navbar-mobile">
             <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -97,17 +171,19 @@ body{
                     </div>
                 </div>
             </nav>
-        <h2>{{level.name}}</h2>
+            <div style="padding: 25px">
+        <h5>{{level.name}}</h5>
+       <br/>
         {% if level.level == 1 %}
         <form name="edit-zeroth" method="POST" action="/zeroth/">{%csrf_token%}
            <label>
-                <input type="checkbox" name="fees" value="Yes"/>
+                <input type="checkbox" class="checkbox-blue" id="checked" name="fees" value="Yes"/>
                 <span>Fees Paid</span>
-           </label>
+           </label><br/><br/>
            <label>
-               <span>Date of Fee Payment:</span>
-               <input type="text" class="datepicker" id="date_1" name="date">
-           </label>
+               <span style="padding-right: 10px">Date of Fee Payment:</span>
+               <input type="text" class="datepicker" style="width:10%" id="date_1" name="date">
+           </label><br/><br/>
            <button type="submit">Submit</button>
         </form>
         {% elif level.level == 4 or level.level == 7 or level.level == 8 or level.level == 10 %}
@@ -129,10 +205,10 @@ body{
         <label>
                 <input name="result" id="passer" type="radio" value="Fail" />
                 <span>Fail</span>
-        </label>      
+        </label><br/><br/>      
         <span>Enter Comments</span>
         <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
-        <button onclick="checkPass()">Next</button>
+        <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="checkPass()">Next</button>
     </div>
         <div class="failed" id="failed">
           <span>Enter date of re-appearance</span>
@@ -146,22 +222,22 @@ body{
         </div>
         <div class="passed" id="passed">
             {% if level.level == 4 or level.level == 10 %}
-            <span>You entered the following information:</span>
+            <span>Confirm status ?</span>
             <form name="passed" method="POST" action="/passed/">{%csrf_token%}
                 <input type="hidden" name="hComment" id="hCommentary"/>
                 <input type="hidden" name="level" value="{{level.level}}">
-                <button type="submit">Confirm</button>
+                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
             </form> 
-            <button><a href="/schprog/">Cancel</a></button>
+            <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
             {% elif level.level == 7 %}
             <span>Enter date for RAC</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
                 <input type="text" class="datepicker2" id="date_3" name="date">
                 <input type="hidden" name="hComment" id="hCommentary"/>
                 <input type="hidden" name="level" value="{{level.level}}">
-                <button type="submit">Confirm</button>
+                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
             </form>
-                <button><a href="/schprog/">Cancel</a></button>
+                <button class="btn-small waves-effect waves-lighten blue darken-3"><a href="/schprog/">Cancel</a></button>
             {% elif level.level == 10 %}
             <span>Enter date for Thesis Submission</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
@@ -179,7 +255,7 @@ body{
             <span>Enter date:</span>
             <input type="text" class="datepicker4" id="date_5" name="date">
             <input type="hidden" name="level" value="{{level.level}}">
-            <button type="submit">Submit</button>
+            <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
         </form>
         {% endif %}
         {% elif level.level == 2 %}
@@ -193,21 +269,21 @@ body{
                 <label>
                         <input name="result" type="radio" value="Fail" id="state"/>
                         <span>Fail</span>
-                </label>
+                </label><br/><br/>
                 <span>Enter Comments</span>
-                <textarea placeholder="Comments..." class="materialize-textarea" name="comments" id="thatcomment"></textarea>
-                <button onclick="thatfirst()">Next</button>
+                <textarea placeholder="Comments..." class="materialize-textarea" name="comments" id="thatcomment"></textarea><br/><br/>
+                <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="thatfirst()">Next</button>
                 </div>
                 <div id="second">
                 <span>Enter list of recommended courses:</span>
                 <form name="update-1-dc-pass" method="POST" action="/dcPass/">{%csrf_token%}
-                <input type='text' name="course[]" placeholder="Enter course">
-                <input type='text' name="course[]" placeholder="Enter course">
-                <input type='text' name="course[]" placeholder="Enter course">
-                <input type='text' name="course[]" placeholder="Enter course">
+                <input type='text' name="course[]" id="course" placeholder="Enter course">
+                <input type='text' name="course[]" id="course" placeholder="Enter course">
+                <input type='text' name="course[]" id="course" placeholder="Enter course">
+                <input type='text' name="course[]" id="course" placeholder="Enter course">
                 <input type="hidden" name="hComment" id="thoseComment">
                 <input type="hidden" name="level" value="{{level.level}}">
-                <button type="submit">Submit</button>
+                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                 </form>        
                 </div>
                 <div id="third">
@@ -233,23 +309,25 @@ body{
                     <label>
                         <input name="result" type="radio" value="Fail" id="sFate" />
                         <span>Fail</span>
-                        </label>
+                        </label><br/><br/>
                     <span>Enter Comments</span>
                     <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="sCom"></textarea>
-                    <button onclick="sHandle()">Next</button>
+                    <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="sHandle()">Next</button>
                 </div>
                     <div id="sPass">
+                    <span>The candidate has passed Second DC. Are you sure you want to confirm this status?</span><br/>
                     <form method="POST" action="/passed/">{%csrf_token%}
                     <input type="hidden" name="hComment" id="sComment">
                     <input type="hidden" name="level" value="{{level.level}}">
-                    <button type="submit">Submit</button>
+                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                      </form>
                     </div>
                     <div id="sFail">
+                            <span>The candidate has failed Second DC. Are you sure you want to confirm this status?</span><br/>
                             <form method="POST" action="/dcFail/">{%csrf_token%}
                                 <input type="hidden" name="hComment" id="sComment">
                                 <input type="hidden" name="level" value="{{level.level}}">
-                                <button type="submit">Submit</button>
+                                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                                  </form>
                     </div>
                
@@ -265,25 +343,26 @@ body{
                     <label>
                         <input name="result" type="radio" value="Fail" id="tFate" />
                         <span>Fail</span>
-                        </label>
+                        </label><br/><br/>
                     <span>Enter Comments</span>
                     <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="tCom"></textarea>
-                    <button onclick="tHandle()">Next</button>
+                    <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="tHandle()">Next</button>
                     </div>
                     <div id="second-t">
-                        <span>Enter date for synopsis submission</span>
+                        <span>Enter date for synopsis submission</span><br/>
                     <form method="POST" action="/nextPass/">{%csrf_token%}
                         <input type="text" name="date" class="datepicker5" id="date_6"/> 
                         <input type="hidden" name="hComment" id="tComment"/>
                         <input type="hidden" name="level" value="{{level.level}}">
-                        <button type="submit">Submit</button>
+                        <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                     </form>
                     </div>
                     <div id="third-t">
+                            <span>The candidate has failed Second DC. Are you sure you want to confirm this status?</span><br/>
                             <form method="POST" action="/dcFail/">{%csrf_token%}
                                 <input type="hidden" name="hComment" id="tComment">
                                 <input type="hidden" name="level" value="{{level.level}}">
-                                <button type="submit">Submit</button>
+                                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                             </form>
                     </div>
                 </div>
@@ -291,15 +370,16 @@ body{
             <div>
                     <form name="update-1-dc-pass" method="POST" action="/courseEdit/">{%csrf_token%}
                     <span>Enter list of recommended courses:</span>
-                    <input type='text' name="course[]" placeholder="Enter course">
-                    <input type='text' name="course[]" placeholder="Enter course">
-                    <input type='text' name="course[]" placeholder="Enter course">
-                    <input type='text' name="course[]" placeholder="Enter course">
+                    <input id="course" type='text' name="course[]" placeholder="Enter course">
+                    <input id="course" type='text' name="course[]" placeholder="Enter course">
+                    <input id="course" type='text' name="course[]" placeholder="Enter course">
+                    <input id="course" type='text' name="course[]" placeholder="Enter course">
                     <input type="hidden" name="level" value="{{level.level}}">
-                    <button type="submit">Submit</button>
+                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
                     </form>        
             </div>
             {% endif %}
+        </div>
         <script>
          document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');

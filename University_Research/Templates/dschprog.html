@@ -26,9 +26,7 @@
 	height: 5%;
     text-align: center;
 }
-.main{
-    margin-right: 21%;
-}
+
 .card{
     width: 80%;
     margin-left: 10%;
@@ -40,12 +38,13 @@
 	color:#3C5EC1;
 }
         </style>
-        	<div id="navbar">
+        	<div id="navbar" style="z-index: 999">
                     <a href="/logq" class="buttons">{{logg}}</a>
-                    <a href="javascript:void(0)" class="buttons">Downloads</a>
-                        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">Research Portal</p>
+                    <a href="/profile" class="buttons">Profile</a>
+                    <a href="" class="buttons">Downloads</a>
+                    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                    <p class="main">Research Portal</p>
             </div>
         <div id="navbar-mobile">
             <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -74,7 +73,7 @@
         <div id="divided">
             <div id="divide">
                 <div class="card">
-                    	Completed:
+                    	<div class="card-title" style="text-align: center">Completed</div>
 								<ul class="collapsible popout">
 									{%for others in dbCompleted%}
 									<li>
@@ -121,11 +120,11 @@
                                                         <td>{{subject.status}}</td>
                                                     </tr>
                                                     {%endfor%}
-                                                </table>
+                                                </table><br/>
                                                 <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
                                                     <input type="hidden" name="level" value="{{others.level}}"/>
                                                     <input type="hidden" name="move" value="edit"/>
-                                                    <button type="submit">Edit</button>
+                                                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Edit</button>
                                                 </form>
 												{%endif%}
 											</div>
@@ -136,28 +135,17 @@
             </div>
             <div id="divide">
                 <div class="card">
-                        Upcoming:
+                        <div class="card-title" style="text-align: center">Upcoming</div>
                         <ul class="collapsible popout">
                             <li class="active">
                                 <div class="collapsible-header">{{dbNext.name}}</div>
                                 <div class="collapsible-body">
                                         {% if dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
                                         {% if dbNext.date %}
-                                         <a href="/plusdc">Schedule Date for the meeting</a>
-                                         <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                         <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                         <input type="hidden" name="move" value="umem"/>
-                                         <button type="submit">Add DC Members</button>
-                                        </form>
-                                        {% else %}
                                         <p>To be held on: {{dbNext.date}}</p>
-                                        <p>DC Members:</p>
-                                        <a href="/plusdc">Reschedule Date</a>
-                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                            <input type="hidden" name="move" value="emem"/>
-                                            <button type="submit">Edit DC Members</button>
-                                        </form>
+                                        <a href="/plusdc">Reschedule Date for the meeting</a>
+                                        {% else %}
+                                        <a href="/plusdc">Schedule Date for the meeting</a>
                                         {% endif %}
                                         {% elif dbNext.level == 9%}
                                         <p>To be submitted before: {{dbNext.date}}</p>
@@ -186,11 +174,11 @@
 													<td>{{subject.name}}</td>
 												</tr>
 												{%endfor%}
-											</table>
+											</table><br/>
                                         <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
                                             <input type="hidden" name="level" value="{{dbNext.level}}"/>
                                             <input type="hidden" name="move" value="update"/>
-                                            <button type="submit">Update Result</button>
+                                            <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Update Result</button>
                                         </form>
                                         {%endif%}
                                     </div>

@@ -33,6 +33,7 @@ from Research.views import marked
 from Research.views import login
 from Research.views import loginsu
 from Research.views import logind
+from Research.views import otherEdit
 from Research.views import texted
 from Research.views import schprog
 from Research.views import newText
@@ -96,6 +97,7 @@ urlpatterns = [
     url(r'^chnpwd/',chnpwd),
     url(r'^login1/',login1),
     url(r'^supApprove/',supApprove),
+    url(r'^otherEdit/',otherEdit),
     url(r'^superApprove/',superApprove),
     url(r'^ann/',ann),
     url(r'^dsched',dsched),

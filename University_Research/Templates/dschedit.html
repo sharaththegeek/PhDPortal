@@ -30,14 +30,29 @@ body{
 	margin:0;
 	padding:0;
 }
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
+#course:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+input[type='radio']:checked + span:after{
+    background-color: #3C5EC1;
+    border: 1px solid #3C5EC1;
+}
         </style>
-        	<div id="navbar">
-                    <a href="/logq" class="buttons">{{logg}}</a>
-                    <a href="javascript:void(0)" class="buttons">Downloads</a>
-                        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">PhD Portal</p>
-                    <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
-            </div>
+        <div id="navbar" style="z-index: 999">
+                <a href="/logq" class="buttons">{{logg}}</a>
+                <a href="/profile" class="buttons">Profile</a>
+                <a href="" class="buttons">Downloads</a>
+                <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+                <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                <p class="main">Research Portal</p>
+        </div>
         <div id="navbar-mobile">
             <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
             <a href="javascript:void(0);" class="icon" onclick="sideLoad()">
@@ -53,16 +68,18 @@ body{
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
         <nav>
-                <div class="nav-wrapper">
-                    <div class="col s12">
+                <div class="nav-wrapper white">
+                    <div class="col s12" style="padding-left: 25px">
                         <a href="/profile" class="breadcrumb">Scholars</a>
-                        <a href="/schinfo" class="breadcrumb">{{name}}</a>
-                        <a href="/schprog" class="breadcrumb">Progress</a>
+                        <a href="/dschinfo" class="breadcrumb">{{name}}</a>
+                        <a href="/dschprog" class="breadcrumb">Progress</a>
                         <a href="#!" class="breadcrumb">Edit/Update</a>
                     </div>
                 </div>
         </nav>
-        <h2>{{level.name}}</h2>
+        <div style="padding: 20px">
+        <h5>{{level.name}}</h5>
+        <hr/>
        {% if level.level == 9 %}
        {% if move == "edit" %}
        <form name="edit-thesis">
@@ -88,11 +105,11 @@ body{
        {% elif move == "update" %}
        <form name="update-course" method="POST" action="/marked/">{%csrf_token%}
             {% for i in courses %}
-            <span>Course Name: {{i.name}}</span>
+            <h6 >Course Name: {{i.name}}</h6><br/>
             <span>Enter date of completion</span>
-            <input type="text" name="date[]" class="datepicker"/>
+            <input id="course" style="width: 20%" type="text" name="date[]" class="datepicker"/><br/><br/>
             <span>Enter the marks obtained</span>
-            <input type="text" name="marks[]"/>
+            <input id="course" style="width: 20%" type="text" name="marks[]"/><br/><br/>
             <span>Enter the result</span>
             <label>
                     <input name="result[]" type="radio" value="Pass"/>
@@ -101,8 +118,9 @@ body{
             <label>
                     <input name="result[]" type="radio" value="Fail" />
                     <span>Fail</span>
-            </label>
+            </label><br/><br/><hr/>
             {% endfor %}
+            <button type="submit" class="btn-small waves-effect waves-lighten blue darken-3">Submit</button>
        </form>
        {% endif %}
        {% elif level.level == 2 or level.level == 5 or level.level == 6 %}
@@ -112,5 +130,6 @@ body{
        <div class="add-members"></div>
        {% endif %}
        {% endif %}
+    </div>
     </body>
     </html>

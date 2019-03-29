@@ -27,16 +27,66 @@
     text-align: center;
     margin-top: 40%;
 }
-.main{
-    margin-right: 22%;
+
+.datepicker-date-display {
+    background-color: #3C5EC1;
+}
+
+.datepicker-day-button:focus {
+    color: white !important;
+    background-color: #3C5EC1;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li>span,
+.is-today {
+    color: #3C5EC1; 
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+    background-color: #3C5EC1;
+}
+
+td.is-selected.is-today {
+    color: white !important
+}
+#date:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+.timepicker-digital-display {
+    background-color: #3C5EC1
+}
+
+.timepicker-close {
+    color: #3C5EC1
+}
+
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+    fill: #3C5EC1 !important
+}
+
+.timepicker-canvas line {
+    stroke: #3C5EC1
+}
+
+.timepicker-tick:hover {
+    background-color: #3C5EC1
 }
         </style>
-        	<div id="navbar">
+        	<div id="navbar" style="z-index: 999">
                     <a href="/logq" class="buttons">{{logg}}</a>
-                    <a href="javascript:void(0)" class="buttons">Downloads</a>
-                        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
-                        <p class="main">Research Portal</p>
+                    <a href="/profile" class="buttons">Profile</a>
+                    <a href="" class="buttons">Downloads</a>
+                    <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
                     <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                    <p class="main">Research Portal</p>
             </div>
         <div id="navbar-mobile">
             <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
@@ -53,14 +103,16 @@
             <a href="#" onclick="sideClose()">SASTRA Home</a>
         </div> 	
         {% if dcLevel.level == 2 or dcLevel.level == 5 or dcLevel.level == 6 %}
-        <p>Schedule {{dcLevel.name}} for {{name}}</p>
+        <div style="padding: 20px">
+        <h5>Schedule {{dcLevel.name}} for {{name}}</h5><br/>
         <form name="schedule" method="POST" action="/schedule/">{%csrf_token%}
         <span>Choose Date: </span>
-        <input type="text" name="date" class="datepicker">
+        <input type="text" id="date" name="date" class="datepicker" required>
         <span>Choose Time: </span>
-        <input type="text" name="time" class="timepicker">
-        <button type="submit">Schedule</button>
+        <input type="text" id="date" name="time" class="timepicker" required>
+        <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Schedule</button>
         </form>
+    </div>
         {% else %}
        <center><h4>{{name}} is still working on {{dcLevel.name}}</h4></center> 
        <center><h4>No DC Meeting to be allocated!</h4></center> 

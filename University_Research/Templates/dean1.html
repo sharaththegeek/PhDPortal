@@ -440,21 +440,30 @@
 				plugins: [ 'dayGrid','timeGrid' ],
 				//timeZone: "Asia/Kolkata",
 				timeZone: "UTC",
-				defaultView: 'timeGridDay',
+				defaultView: 'timeGridFourDay',
 				header: {
 					left: 'prev,next',
 					center: 'title',
-					right: 'today'
+					right: 'timeGridFourDay,timeGridWeek,dayGridMonth'
+				},
+				views: {
+					timeGridFourDay: {
+						type: 'timeGrid',
+						buttonText: 'Day',
+						activeStart: 8,
+						currentStart: 8
+					}
 				},
 				events: [
 				  {
 					groupId: 999,
 					title  : 'event1',
-					start  : '2019-03-30T16:32:04+00:00',
-					end    : '2019-03-30T18:32:04+00:00'  
+					start  : '2019-03-30T11:32:04+00:00',
+					end    : '2019-03-30T12:32:04+00:00'  
 				  }
 				]
 			  });
+			  window.cal = calendar;
 			  calendar.render();
 	
 			});

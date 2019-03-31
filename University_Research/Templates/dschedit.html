@@ -1,0 +1,463 @@
+{%load static%}
+<html>
+<head>
+	<title>SASTRA Deemed University</title>
+	<meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+			<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<link rel="stylesheet" href="{%static 'header.css' %}">
+	<script src="{% static 'header.js' %}"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Research - SASTRA Deemed University</title>
+</head>
+<body oncontextmenu="return false" >
+        <style>
+            	.footer{
+	width:100%;
+	background-color: #3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
+body{
+	margin:0;
+	padding:0;
+}
+.failed{
+    display: none;
+}
+.passed{
+    display: none;
+}
+.checker{
+    display:block;
+}
+#second{
+    display: none;
+}
+#third{
+    display: none;
+}
+#sPass{
+    display:none;
+}
+#sFail{
+    display:none;
+}
+#second-t{
+    display: none;
+}
+#third-t{
+    display: none;
+}
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
+#course:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+input[type='radio']:checked + span:after{
+    background-color: #3C5EC1;
+    border: 1px solid #3C5EC1;
+}
+#date_5:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#comments:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#sCom:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#tCom:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_6:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_3:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#date_1:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+#thatcomment:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+}
+        </style>
+        <div id="navbar" style="z-index: 999">
+                <a href="/logq" class="buttons">{{logg}}</a>
+                <a href="/profile" class="buttons">Profile</a>
+                <a href="" class="buttons">Downloads</a>
+                <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+                <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+                <p class="main">Research Portal</p>
+        </div>
+        <div id="navbar-mobile">
+            <a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+            <a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+                        <i class="fas fa-bars"></i>
+            </a>
+        </div>
+        <div id="sidebar-mobile">
+            <a href="javascript:void(0);" class="icon" onclick="sideClose()">
+                        <i class="fas fa-times"></i>
+            </a>
+            <a href="#about" onclick="sideClose()">{{logg}}</a>
+            <a href="#" onclick="sideClose()">Downloads</a>
+            <a href="#" onclick="sideClose()">SASTRA Home</a>
+        </div> 	
+        <nav>
+                <div class="nav-wrapper white">
+                    <div class="col s12" style="padding-left: 25px">
+                        <a href="/profile" class="breadcrumb">Scholars</a>
+                        <a href="/dschinfo" class="breadcrumb">{{name}}</a>
+                        <a href="/dschprog" class="breadcrumb">Progress</a>
+                        <a href="#!" class="breadcrumb">Edit/Update</a>
+                    </div>
+                </div>
+        </nav>
+        <div style="padding: 20px">
+        <h5>{{level.name}}</h5>
+        <hr/>
+       {% if level.level == 9 %}
+       {% if move == "edit" %}
+       <form name="edit-thesis">
+           <span>Reupload new comments</span>
+       </form>
+       {% elif move == "update" %}
+        <div id="checker">
+            <span>Enter status</span> 
+            <label>
+                   <input name="result" id="passer" type="radio" value="Pass" />
+                   <span>Pass</span>
+           </label>
+           <label>
+                   <input name="result" id="passer" type="radio" value="Fail" />
+                   <span>Fail</span>
+           </label><br/><br/>      
+           <span>Enter Comments</span>
+           <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
+           <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="checkPass()">Next</button>
+        </div>
+        <div class="failed" id="failed">
+            <span>Enter date of re-appearance</span>
+            <form method="POST" action="/fail">{%csrf_token%}
+            <input type="text" class="datepicker1" id="date_2" name="date">
+            <input type="hidden" name="hComment" id="fComment"/>
+            <input type="hidden" name="level" value="{{level.level}}">
+            <button type="submit">Submit</button>
+          </form>
+          <button><a href="/schprog/">Cancel</a></button>
+          </div>
+          <div class="passed" id="passed">
+              <span>Confirm status ?</span>
+              <form name="passed" method="POST" action="/passed/">{%csrf_token%}
+                  <input type="hidden" name="hComment" id="hCommentary"/>
+                  <input type="hidden" name="level" value="{{level.level}}">
+                  <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
+              </form> 
+              <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
+            </div>
+       {% elif move == "dated" %}
+       <form name="date-thesis" action="/otherEdit/" method="POST">
+           <span>Schedule Date of Thesis Submission</span>
+           <input type="text" class="datepicker" name="date"/>
+           <input type="hidden" name="level" value="{{level.level}}">
+           <button type="submit">Submit</button>
+       </form>
+       {% endif %}
+       {% elif level.level == 3%}
+       {% if move == "edit" %}
+       <div>
+        <form name="update-1-dc-pass" method="POST" action="/courseEdit/">{%csrf_token%}
+        <span>Enter list of recommended courses:</span>
+        <input id="course" type='text' name="course[]" placeholder="Enter course">
+        <input id="course" type='text' name="course[]" placeholder="Enter course">
+        <input id="course" type='text' name="course[]" placeholder="Enter course">
+        <input id="course" type='text' name="course[]" placeholder="Enter course">
+        <input type="hidden" name="level" value="{{level.level}}">
+        <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+        </form>        
+        </div>
+       {% elif move == "update" %}
+       <form name="update-course" method="POST" action="/marked/">{%csrf_token%}
+            {% for i in courses %}
+            <h6 >Course Name: {{i.name}}</h6><br/>
+            <span>Enter date of completion</span>
+            <input id="course" style="width: 20%" type="text" name="date[]" class="datepicker"/><br/><br/>
+            <span>Enter the marks obtained</span>
+            <input id="course" style="width: 20%" type="text" name="marks[]"/><br/><br/>
+            <span>Enter the result</span>
+            <label>
+                    <input name="result[]" type="radio" value="Pass"/>
+                    <span>Pass</span>
+            </label>
+            <label>
+                    <input name="result[]" type="radio" value="Fail" />
+                    <span>Fail</span>
+            </label><br/><br/><hr/>
+            {% endfor %}
+            <button type="submit" class="btn-small waves-effect waves-lighten blue darken-3">Submit</button>
+       </form>
+       {% endif %}
+       {% elif level.level == 2 %}
+       <div>
+               <div id="first">
+               <span>Enter Status</span>
+               <label>
+                       <input name="result" type="radio" value="Pass" id="state"/>
+                       <span>Pass</span>
+               </label>
+               <label>
+                       <input name="result" type="radio" value="Fail" id="state"/>
+                       <span>Fail</span>
+               </label><br/><br/>
+               <span>Enter Comments</span>
+               <textarea placeholder="Comments..." class="materialize-textarea" name="comments" id="thatcomment"></textarea><br/><br/>
+               <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="thatfirst()">Next</button>
+               </div>
+               <div id="second">
+               <span>Enter list of recommended courses:</span>
+               <form name="update-1-dc-pass" method="POST" action="/dcPass/">{%csrf_token%}
+               <input type='text' name="course[]" id="course" placeholder="Enter course">
+               <input type='text' name="course[]" id="course" placeholder="Enter course">
+               <input type='text' name="course[]" id="course" placeholder="Enter course">
+               <input type='text' name="course[]" id="course" placeholder="Enter course">
+               <input type="hidden" name="hComment" id="thoseComment">
+               <input type="hidden" name="level" value="{{level.level}}">
+               <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+               </form>        
+               </div>
+               <div id="third">
+                  <span>The status uploaded by you is:</span>
+                  <p>Fail</p>
+                  <form method="POST" action="/dcFail/">
+                  <input type="hidden" name="hComment" id="thoseComment">
+                  <input type="hidden" name="level" value="{{level.level}}">
+                  <button type="submit">Confirm</button>
+               </form>
+                  <button>Cancel</button>
+               </div>
+           </div>
+           {% elif level.level == 5 %}
+           <div class="update-2-dc">
+               <div id="sMain">
+                   <span>Enter Status</span>
+                   <label>
+                       <input name="result" type="radio" value="Pass" id="sFate"/>
+                       <span>Pass</span>
+                   </label>
+                   <label>
+                       <input name="result" type="radio" value="Fail" id="sFate" />
+                       <span>Fail</span>
+                       </label><br/><br/>
+                   <span>Enter Comments</span>
+                   <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="sCom"></textarea>
+                   <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="sHandle()">Next</button>
+               </div>
+                   <div id="sPass">
+                   <span>The candidate has passed Second DC. Are you sure you want to confirm this status?</span><br/>
+                   <form method="POST" action="/passed/">{%csrf_token%}
+                   <input type="hidden" name="hComment" id="sComment">
+                   <input type="hidden" name="level" value="{{level.level}}">
+                   <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+                    </form>
+                   </div>
+                   <div id="sFail">
+                           <span>The candidate has failed Second DC. Are you sure you want to confirm this status?</span><br/>
+                           <form method="POST" action="/dcFail/">{%csrf_token%}
+                               <input type="hidden" name="hComment" id="sComment">
+                               <input type="hidden" name="level" value="{{level.level}}">
+                               <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+                                </form>
+                   </div>
+              
+           </div>
+           {% elif level.level == 6 %}
+           <div class="update-3-dc">
+                   <div id="first-t">
+                           <span>Enter Status</span>
+                   <label>
+                       <input name="result" type="radio" value="Pass" id="tFate"/>
+                       <span>Pass</span>
+                   </label>
+                   <label>
+                       <input name="result" type="radio" value="Fail" id="tFate" />
+                       <span>Fail</span>
+                       </label><br/><br/>
+                   <span>Enter Comments</span>
+                   <textarea placeholder="Comments..." class="materialize-textarea" name="hComment" id="tCom"></textarea>
+                   <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="tHandle()">Next</button>
+                   </div>
+                   <div id="second-t">
+                       <span>Enter date for synopsis submission</span><br/>
+                   <form method="POST" action="/nextPass/">{%csrf_token%}
+                       <input type="text" name="date" class="datepicker5" id="date_6"/> 
+                       <input type="hidden" name="hComment" id="tComment"/>
+                       <input type="hidden" name="level" value="{{level.level}}">
+                       <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+                   </form>
+                   </div>
+                   <div id="third-t">
+                           <span>The candidate has failed Second DC. Are you sure you want to confirm this status?</span><br/>
+                           <form method="POST" action="/dcFail/">{%csrf_token%}
+                               <input type="hidden" name="hComment" id="tComment">
+                               <input type="hidden" name="level" value="{{level.level}}">
+                               <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+                           </form>
+                   </div>
+               </div>
+       {% elif level.level == 4 or level.level == 7 or level.level == 8 or level.level == 10 %}
+       {% if move == "edit" %}
+       <form name="edit-others" action="/dcComments/" method="POST">{%csrf_token%}
+        <span>Edit Comments...</span>
+        <textarea placeholder="Comments..." class="materialize-textarea" name="comments"></textarea>
+        <input type="hidden" name="level" value="{{level.level}}"/>
+        <button type="submit">Make Changes</button>
+       </form>
+       {% elif move == "update" %}
+       <div id="main">
+       <div id="checker">
+        <span>Enter status</span> 
+        <label>
+               <input name="result" id="passer" type="radio" value="Pass" />
+               <span>Pass</span>
+       </label>
+       <label>
+               <input name="result" id="passer" type="radio" value="Fail" />
+               <span>Fail</span>
+       </label><br/><br/>      
+       <span>Enter Comments</span>
+       <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
+       <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="checkPass()">Next</button>
+   </div>
+       <div class="failed" id="failed">
+         <span>Enter date of re-appearance</span>
+         <form method="POST" action="/fail">{%csrf_token%}
+         <input type="text" class="datepicker1" id="date_2" name="date">
+         <input type="hidden" name="hComment" id="fComment"/>
+         <input type="hidden" name="level" value="{{level.level}}">
+         <button type="submit">Submit</button>
+       </form>
+       <button><a href="/schprog/">Cancel</a></button>
+       </div>
+       <div class="passed" id="passed">
+           {% if level.level == 4 or level.level == 10 %}
+           <span>Confirm status ?</span>
+           <form name="passed" method="POST" action="/passed/">{%csrf_token%}
+               <input type="hidden" name="hComment" id="hCommentary"/>
+               <input type="hidden" name="level" value="{{level.level}}">
+               <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
+           </form> 
+           <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
+           {% elif level.level == 7 %}
+           <span>Enter date for RAC</span>
+           <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
+               <input type="text" class="datepicker2" id="date_3" name="date">
+               <input type="hidden" name="hComment" id="hCommentary"/>
+               <input type="hidden" name="level" value="{{level.level}}">
+               <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
+           </form>
+               <button class="btn-small waves-effect waves-lighten blue darken-3"><a href="/schprog/">Cancel</a></button>
+           {% elif level.level == 10 %}
+           <span>Enter date for Thesis Submission</span>
+           <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
+               <input type="text" class="datepicker3" id="date_4" name="date">
+               <input type="hidden" name="hComment" id="hCommentary"/>
+               <input type="hidden" name="level" value="{{level.level}}">
+               <button type="submit">Confirm</button>
+           </form>
+           <button><a href="/schprog/">Cancel</a></button>
+           {% endif %}
+       </div>
+   </div>
+       {% elif move == "dedit" %}
+       <form name="edit" method="POST" action="/otherEdit/">{%csrf_token%}
+           <span>Enter date:</span>
+           <input type="text" class="datepicker4" id="date_5" name="date">
+           <input type="hidden" name="level" value="{{level.level}}">
+           <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+       </form>
+       {% endif %}
+       {% endif %}
+    </div>
+    <script>
+          function checkPass(){
+            var passed=document.getElementById('passer').value;
+            var comment=document.getElementById('comments').value;
+            if (passed == "Pass"){
+                document.getElementById('passed').style.display="block";
+                document.getElementById('checker').style.display="none";
+                document.getElementById('hCommentary').value=comment;
+            }
+            else if(passed == "Fail"){
+                document.getElementById('failed').style.display="block";
+                document.getElementById('checker').style.display="none";
+                document.getElementById('fComment').value=comment;
+            }
+        }
+        function thatfirst(){
+            var passed=document.getElementById('state').value;
+            var comment=document.getElementById('thatcomment').value;
+            if (passed=="Pass"){
+                document.getElementById('first').style.display="none";
+                document.getElementById('second').style.display="block";
+                document.getElementById('thoseComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('first').style.display="none";
+                document.getElementById('third').style.display="block";
+                document.getElementById('thoseComment').value=comment;
+            }
+        }
+        function sHandle(){
+            var passed=document.getElementById('sFate').value;
+            var comment=document.getElementById('sCom').value;
+            if (passed=="Pass"){
+                document.getElementById('sMain').style.display="none";
+                document.getElementById('sPass').style.display="block";
+                document.getElementById('sComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('sMain').style.display="none";
+                document.getElementById('sFail').style.display="block";
+                document.getElementById('sComment').value=comment;
+            }
+        }
+        function tHandle(){
+            var passed=document.getElementById('tFate').value;
+            var comment=document.getElementById('tCom').value;
+            if (passed=="Pass"){
+                document.getElementById('first-t').style.display="none";
+                document.getElementById('second-t').style.display="block";
+                document.getElementById('tComment').value=comment;
+            }
+            else if(passed=="Fail"){
+                document.getElementById('first-t').style.display="none";
+                document.getElementById('third-t').style.display="block";
+                document.getElementById('tComment').value=comment;
+            }
+        }
+    </script>
+    </body>
+    </html>

@@ -1,0 +1,219 @@
+{%load static%}
+<html>
+<head>
+	<title>SASTRA Deemed University</title>
+	<meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+			<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<link rel="stylesheet" href="{%static 'header.css' %}">
+	<script src="{% static 'header.js' %}"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Research - SASTRA Deemed University</title>
+</head>
+<body oncontextmenu="return false" >
+			
+		<div id="navbar" style="z-index: 999">
+				<a href="/logq" class="buttons">{{logg}}</a>
+				<a href="/profile" class="buttons">Profile</a>
+				<a href="" class="buttons">Downloads</a>
+				<a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+				<a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+				<p class="main">Research Portal</p>
+		</div>
+	<div id="navbar-mobile">
+		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+					<i class="fas fa-bars"></i>
+		</a>
+	</div>
+	<div id="sidebar-mobile">
+		<a href="javascript:void(0);" class="icon" onclick="sideClose()">
+					<i class="fas fa-times"></i>
+		</a>
+		<a href="#about" onclick="sideClose()">{{logg}}</a>
+		<a href="#" onclick="sideClose()">Downloads</a>
+		<a href="#" onclick="sideClose()">SASTRA Home</a>
+	</div> 	
+			<!---------------- Mid content ----------------------------------->
+					<div class="clearpad"><div class="item-page">
+						<style>
+					body {font-family: Arial;}
+
+			
+
+					.Start{
+						display: none;
+						z-index: 1;
+						left: 0;
+						top:0;
+						overflow: auto;
+						padding-top: 50px;
+					}
+					
+					body{
+	margin:0;
+	padding:0;
+}
+.divided{
+    display: flex;
+}
+.done{
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+.breadcrumb:before{
+	color: #3C5EC1;
+}
+.breadcrumb, .breadcrumb:last-child{
+	color:#3C5EC1;
+}
+					</style>
+							<nav>
+									<div class="white">
+										<div class="col s12" style="padding-left: 25px">
+											<a href="/profile" class="breadcrumb">Scholars</a>
+											<a href="#!" class="breadcrumb">{{name}}</a>
+										</div>
+									</div>
+								</nav>
+							
+					<h4 style="padding-left:15px">Scholar Information - {{name}}</h4>
+					<div style="display:flex;padding-left:15px">
+					<div style="text-align:right;padding-right: 15px">
+							<a class="waves-effect waves-light blue darken-3 btn " href="/dschprog">view progress</a>
+					</div>
+					<div style="text-align:right;padding-right: 45px">
+							<a class="waves-effect waves-light blue darken-3 btn " href="/plusdc">schedule dc meeting</a>
+						</div>
+					</div>
+					<div class="divided">
+					<div class="done">
+          <div class="card">
+					<div class="card-title">Personal Details</div>
+					<table>
+            <tr>
+							<th style="width:30%">Name:</th>
+							<td style="text-align:center">{{name}}</td>
+						</tr>
+						<tr>
+							<th>Date of Birth:</th>
+							<td style="text-align:center">{{dob}}</td>
+						</tr>
+						<tr>
+							<th>Email:</th>
+							<td style="text-align:center">{{email}}</td>
+						</tr>
+						<tr>
+							<th>Sex:</th>
+							<td style="text-align:center">{{sex}}</td>
+						</tr>
+						<tr>
+							<th>Registration Number:</th>
+							<td style="text-align:center">{{regno}}</td>
+						</tr>
+						<tr>
+							<th>Registration Date:</th>
+							<td style="text-align:center">{{regdate}}</td>
+					  </tr>
+						<tr>
+							<th>School:</th>
+							<td style="text-align:center">{{school}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="done">
+				 <div class="card">
+						<div class="card-title">Research Details</div>
+
+					  <h6 style="padding-bottom: 12px">Current Status: {{status1}} Completed</h6>
+						<h6>Supervisor: Dr. {{supervisor}}</h6>
+						<h5>DC Members</h5>
+						<table style="width: 80%;margin: auto">
+							<tr>
+							<th>Name</th>
+							<th>Institution</th>
+							<th>Designation</th>
+							 </tr>
+							 <tr>
+								 <td>{{supervisor}}</td>
+								 <td>SASTRA</td>
+								 <td>Professor</td>
+							 </tr>
+							 <tr>
+								 <td>XYZ</td>
+								 <td>IIT</td>
+								 <td>Research Associate</td>
+							 </tr>
+							 <tr>
+								 <td>ABC</td>
+								 <td>SASTRA</td>
+								 <td>Dean</td>
+							 </tr>
+						</table>
+						<br/>
+					</div>
+				</div>
+				</div>
+				<div class="publication-holder" style="padding: 15px;margin:auto;text-align: center">
+					<div class="card">
+						<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
+						<table>
+							<tr>
+								<th style="padding-left:20px">Title of the Publication</th>
+								<th>Name of the Journal</th>
+								<th>Authors </th>
+								<th>Year of Publication</th>
+							</tr>
+							<tr>
+								<td style="padding-left:20px">Sample Research</td>
+								<td>Sample Title</td>
+								<td>{{name}}</td>
+								<td>12 Jan 2019</td>
+							</tr>
+							{%for p in pubs%}
+								<tr>
+									<td style="padding-left:20px">{{p.title}}</td>
+									<td>{{p.name}}</td>
+									<td>{%for scholar in p.scholars.all%}{{scholar.personal_det.name}}{%endfor%} , {%for scholar in p.supervisors.all%}{{scholar.su_personal_det.name}}{%endfor%}</td>
+									<td>{{p.date}}</td>
+								</tr>
+							{%endfor%}
+	
+						</table>
+					</div>
+				</div>
+					<div class="footer">
+						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+					</div>
+					<style>
+				
+					.footer{
+	width:100%;
+	background-color: #3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
+</style>
+
+<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-48118274-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</body>
+</html>

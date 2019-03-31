@@ -1,0 +1,5 @@
+<form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
+    <input type="hidden" name="level" value="{{dbNext.level}}"/>
+    <input type="hidden" name="move" value="umem"/>
+    <button type="submit">Add DC Members</button>
+   </form>

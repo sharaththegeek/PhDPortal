@@ -1,0 +1,468 @@
+{%load static%}
+<html>
+    <head>
+        <title>SASTRA Deemed University</title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+        <link rel="stylesheet" href="{%static 'header.css' %}">
+        <link rel="stylesheet" href="{%static 'scholar.css' %}">
+        <link rel="stylesheet" href="{%static 'awesomplete.css'%}" />
+        <!--Materialize CSS-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href='{% static "fullcalendar/core/main.css" %}' rel='stylesheet' />
+		<link href='{% static "fullcalendar/daygrid/main.css" %}' rel='stylesheet' />
+		<link href='{% static "fullcalendar/timegrid/main.css" %}' rel='stylesheet' />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript for Materialize -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="{% static 'awesomplete.js'%}" async></script>
+		<script src="{% static 'header.js' %}"></script>
+		<style>
+			/* Remove that awful yellow color and border from today in Schedule */
+.fc-state-highlight {
+    opacity: 0;
+    border: none;
+}
+
+/* Styling for each event from Schedule */
+.fc-time-grid-event.fc-v-event.fc-event {
+    border-radius: 4px;
+    border: none;
+    padding: 5px;
+    opacity: .65;
+    left: 5% !important;
+    right: 5% !important;
+}
+
+/* Bolds the name of the event and inherits the font size */
+.fc-event {
+    font-size: inherit !important;
+    font-weight: bold !important;
+}
+
+/* Remove the header border from Schedule */
+.fc td, .fc th {
+    border-style: none !important;
+    border-width: 1px !important;
+    padding: 0 !important;
+    vertical-align: top !important;
+}
+
+/* Inherits background for each event from Schedule. */
+.fc-event .fc-bg {
+    z-index: 1 !important;
+    background: inherit !important;
+    opacity: .25 !important;
+}
+
+/* Normal font weight for the time in each event */
+.fc-time-grid-event .fc-time {
+    font-weight: normal !important;
+}
+
+/* Apply same opacity to all day events */
+.fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
+    opacity: .65 !important;
+    margin-left: 12px !important;
+    padding: 5px !important;
+}
+
+/* Apply same opacity to all day events */
+.fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
+    opacity: .65 !important;
+    margin-left: 12px !important;
+    padding: 5px !important;
+}
+
+/* Material design button */
+.fc-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 88px;
+    line-height: 36px;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    border: 0;
+    padding: 0 6px;
+    margin: 6px 8px;
+    letter-spacing: .01em;
+    background: transparent;
+    color: currentColor;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    -webkit-transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+}
+
+.fc-button:hover {
+    background-color: rgba(158,158,158,0.2);
+}
+
+.fc-button:focus, .fc-button:hover {
+    text-decoration: none;
+}
+
+/* The active button box is ugly so the active button will have the same appearance of the hover */
+.fc-state-active {
+    background-color: rgba(158,158,158,0.2);
+}
+
+/* Not raised button */
+.fc-state-default {
+    box-shadow: None;
+}
+		</style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <title>Research - SASTRA Deemed University</title>
+    </head>
+    <body oncontextmenu="return false" >
+        <div id="navbar" style="z-index: 999">
+            <a href="/logq" class="buttons">{{logg}}</a>
+            <a href="/profile" class="buttons">Profile</a>
+            <a href="" class="buttons">Downloads</a>
+            <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+            <a href="http://www.sastra.edu" class="brand-logo">
+                <div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div>
+            </a>
+            <p class="main">Research Portal</p>
+        </div>
+        <div id="navbar-mobile">
+            <a href="#" class="brand-logo">
+                <div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div>
+            </a>
+            <a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+            <i class="fas fa-bars"></i>
+            </a>
+        </div>
+        <div id="sidebar-mobile">
+            <a href="javascript:void(0);" class="icon" onclick="sideClose()">
+            <i class="fas fa-times"></i>
+            </a>
+            <a href="#about" onclick="sideClose()">{{logg}}</a>
+            <a href="#" onclick="sideClose()">Downloads</a>
+            <a href="#" onclick="sideClose()">SASTRA Home</a>
+        </div>
+        <br><br>
+        <!---------------- Mid content ----------------------------------->
+        <style>
+            body {font-family: Arial;}
+            .messenger{
+            float: right;
+            margin-right: 1%;
+            }
+            .footer{
+            width:100%;
+            background-color:  #3C5EC1;
+            color:white;
+            height: 5%;
+            text-align: center;
+            z-index: 999%;
+            }
+            .tabs .indicator{
+            background-color: #3C5EC1;
+            }
+            #regno:focus{
+            border-bottom: 1px solid grey;
+            box-shadow: 0 1px 0 0 grey;
+            }
+            #mid:focus{
+            border-bottom: 1px solid grey;
+            box-shadow: 0 1px 0 0 grey;
+            }
+            h5{
+            padding-top: 10px;
+            }
+            #messages{
+            text-align: center;
+            }
+            .boss{
+            color: #757575;
+            }
+            .message-submit{
+            border: 0;
+            background-color: white;
+            width: 100%;
+            text-align: left;
+            }
+        </style>
+        <center>
+            <div class="hold">
+                <div class="holding s-12">
+                    <ul class="tabs">
+                        <li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Members</span></a></li>
+                        <li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Messages</span></a></li>
+                        <li class="tab"><a class="tabbed" href="#schedule"><span class="blue-text text-darken-2">Schedule</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </center>
+        <div id="profile">
+            <h4 style="text-align: center">Members</h4>
+            <div class="divided">
+                <div class="done">
+                    <div class="card">
+                        <h5>Scholars</h5>
+                        <h6>Total No of Scholars: {{sch}}</h6>
+                        <a href="http://127.0.0.1:8000/reg/">
+                            <p>Create new Scholar</p>
+                        </a>
+                        <br>
+                        <h6>Search for a Scholar</h6>
+                        <br>
+                        <form method="POST" action="http://127.0.0.1:8000/storesch/">
+                            {%csrf_token%}
+                            <input id="regno" class="awesomplete" name="regno" list="mylist"/>
+                            <datalist id="mylist">
+                                {% for student in dbA %}
+                                <option>{{student.scholar.regno}} - {{student.name}}</option>
+                                {% endfor %}
+                            </datalist>
+                            <button class="btn-flat waves-effect waves-light" id="scholarButton" type="submit" name="Info" disabled>Search
+                            </button>									      
+                        </form>
+                        <br>
+                    </div>
+                </div>
+                <div class="done">
+                    <div class="card">
+                        <h5>Supervisors</h5>
+                        <h6>Total No of Supervisors: {{sup}}</h6>
+                        <a href="http://127.0.0.1:8000/spreg/">
+                            <p>Create new Supervisor</p>
+                        </a>
+                        <br>
+                        <h6>Search for a Supervisor</h6>
+                        <br>
+                        <form method="POST" action="http://127.0.0.1:8000/suinfo/">
+                            {%csrf_token%}
+                            <input id="mid" class="awesomplete" name="mid" list="mylist1"/>
+                            <datalist id="mylist1">
+                                {% for super in dbSList %}
+                                <option>{{super.supervisor.mid}} - {{super.name}}</option>
+                                {% endfor %}
+                            </datalist>
+                            <button class="btn-flat waves-effect waves-light" id="superButton" type="submit" name="Info" disabled>Search
+                            </button>													  
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="messages">
+        <h4>Messages</h4>
+        <div class="card">
+            <br/>
+            <a class="btn-floating messenger tooltipped waves-effect waves-light blue darken-3" href="/dtexted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
+            <br/>
+            <br/>
+            {% if dbMessages %}
+            <table>
+                <tr class="boss">
+                    <th style="width: 90%;padding-left: 25px">Title</th>
+                    <th>Date</th>
+                </tr>
+                {% for message in dbMessages %}
+                {% if message.deanunread == True %}
+                {% if message.sender == 'scholar' %}
+                <b>
+                    <tr>
+                        <td>
+                            <form action="/schApprove/" method="POST">{%csrf_token%}
+                                <input type="hidden" name="tid" value="{{message.tid}}">
+                                <button class="message-submit" type="submit">
+                                <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+                                </button>
+                            </form>
+                        </td>
+                        <td><span style="font-size:0.90em">{{message.latest}}</span></td>
+                    </tr>
+                </b>
+                {% elif message.sender == 'supervisor' %}
+                <b>
+                    <tr>
+                        <td>
+                            <form action="/supApprove/" method="POST">{%csrf_token%}
+                                <input type="hidden" name="tid" value="{{message.tid}}">
+                                <button class="message-submit" type="submit">
+                                <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+                                </button>
+                            </form>
+                        </td>
+                        <td><span style="font-size:0.90em">{{message.latest}}</span></td>
+                    </tr>
+                </b>
+                {% else %}
+                <b>
+                    <tr>
+                        <td>
+                            <form action="/Mview/" method="POST">{%csrf_token%}
+                                <input type="hidden" name="tid" value="{{message.tid}}">
+                                <button class="message-submit" type="submit">
+                                <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1">{{message.head}}</span>
+                                </button>
+                            </form>
+                            <span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+                        </td>
+                        <td><span style="font-size:0.90em">{{message.latest}}</span></td>
+                    </tr>
+                </b>
+                {%endif%}
+                {% else %}
+                <tr>
+                    <td>
+                        <form action="/Mview/" method="POST">{%csrf_token%}
+                            <input type="hidden" name="tid" value="{{message.tid}}">
+                            <button class="message-submit" type="submit">
+                            <span style="padding-left: 15px">{{message.head}}</span>
+                            </button>
+                        </form>
+                        <span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
+                    </td>
+                    <td><span style="font-size:0.90em">{{message.latest}}</span></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+            {% else %}
+            <br/>
+            <p>No messages to show currently!</p>
+            <br/>
+            {% endif %}
+		</div>
+        </div>
+        <div id="schedule">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+                            <center>
+                                    <h4>
+                                        Schedule a DC Meeting:
+                                    </h4>
+                                </center>
+                                <form method="POST" action="http://127.0.0.1:8000/dsched/">
+                                    {%csrf_token%}
+                                    <input class="awesomplete" name="regno" placeholder="Search Scholar..." list="mylist"/>
+                                    <datalist style="z-index: 999" id="mylist">
+                                        {% for student in dbA %}
+                                        <option>{{student.scholar.regno}} - {{student.name}}</option>
+                                        {% endfor %}
+                                    </datalist>
+                                    <button class="btn waves-effect waves-light blue" type="submit" name="Info">Search
+                                    </button>						
+                                </form>
+                                <br>
+                                <br/>
+						<div id="calendar">
+			
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <br><br><br><br>
+        <script>
+            var element=document.querySelector('.tabs');
+            var instance=M.Tabs.init(element,{
+			swipeable: false,
+			onShow: function () {
+				$('.fc-next-button.fc-button.fc-button-primary').click();
+				$('.fc-prev-button.fc-button.fc-button-primary').click();
+			}
+            });
+            document.addEventListener('DOMContentLoaded',function(){
+            var elems=document.querySelectorAll('.tooltipped');
+            var instances=M.Tooltip.init(elems);
+            });
+        </script>
+        <!-- <div id="bottom">
+            <div >
+                <div id="bottom-1">
+                    <div id="bottom_useful-link">
+                        <div class="clear"></div>
+                    </div>
+                    <div id="bottom2">
+                        <div class="clear"></div>
+                    </div>
+                    <div id="bottom_contact">
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br>
+        <div class="footer">
+            <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+        </div> -->
+        <script>
+            document.getElementById('regno').addEventListener('awesomplete-selectcomplete',function(){
+            document.getElementById('scholarButton').disabled = false;
+            })
+            document.getElementById('mid').addEventListener('awesomplete-selectcomplete',function(){
+            document.getElementById('superButton').disabled = false;
+            })
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            
+            ga('create', 'UA-48118274-1', 'auto');
+            ga('send', 'pageview');
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src='{% static "fullcalendar/core/main.js" %}'></script>
+		<script src='{% static "fullcalendar/daygrid/main.js" %}'></script>
+		<script src='{% static "fullcalendar/timegrid/main.js" %}'></script>
+		<script>
+            var dates={{ dates|safe }};
+				document.addEventListener('DOMContentLoaded',function(){
+			var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+				plugins: [ 'dayGrid','timeGrid' ],
+				//timeZone: "Asia/Kolkata",
+				timeZone: "UTC",
+				defaultView: 'timeGridFourDay',
+				header: {
+					left: 'prev,next',
+					center: 'title',
+					right: 'timeGridFourDay,timeGridWeek,dayGridMonth'
+				},
+				views: {
+					timeGridFourDay: {
+						type: 'timeGrid',
+						buttonText: 'Day',
+						activeStart: 8,
+						currentStart: 8
+					}
+				},
+				events: dates
+			  });
+			  window.cal = calendar;
+			  calendar.render();
+	
+			});
+		</script>
+		
+    </body>
+</html>

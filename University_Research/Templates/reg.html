@@ -1,0 +1,448 @@
+{%load static%}
+<html>
+<head>
+	<title>SASTRA Deemed University</title>
+	<meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+	<link rel="stylesheet" href="{%static 'header.css' %}">
+  <script src="{% static 'header.js' %}"></script>
+    	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script> 
+  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Research - SASTRA Deemed University</title>
+</head>
+<body oncontextmenu="return false" >
+			
+    <div id="navbar" style="z-index: 999">
+        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="/profile" class="buttons">Profile</a>
+        <a href="" class="buttons">Downloads</a>
+        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+        <p class="main">Research Portal</p>
+    </div>
+	<div id="navbar-mobile">
+		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+					<i class="fas fa-bars"></i>
+		</a>
+	</div>
+	<div id="sidebar-mobile">
+		<a href="javascript:void(0);" class="icon" onclick="sideClose()">
+					<i class="fas fa-times"></i>
+		</a>
+		<a href="#about" onclick="sideClose()">{{logg}}</a>
+		<a href="#" onclick="sideClose()">Downloads</a>
+		<a href="#" onclick="sideClose()">SASTRA Home</a>
+	</div> 	
+
+
+          <div class="container">
+              <h3 class="item-page-title">Registration Form - Scholar</h3>
+            <div class="divider"></div>
+            <form method="POST" action="http://127.0.0.1:8000/schreg/" name="logins">
+              {%csrf_token%}
+              <div class="row">
+                
+              <blockquote style="border-left:5px solid #3C5EC1;"> Name</blockquote>
+      
+           		<div class="input-field col s6">
+          <input id="first_name" type="text" name="name" class="validate">
+          <label for="first_name"> Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="former_name" type="text" class="validate">
+          <label for="former_name">Former Name</label>
+        </div>
+      </div>
+      <div class="row">
+       <div class="input-field col s6">
+           <input type="text" id="dob" name="dob" class="datepicker">
+          <label for="dob">Date Of Birth(MM/DD/YY)</label>
+        </div>
+      
+       <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="parent_name">Name of the Parent/Guardian</label>
+        </div>
+   
+      <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="parent_occup">Parent's/Guardian's Occupation</label>
+        </div>
+    </div>
+    
+      <blockquote style="border-left:5px solid #3C5EC1;">Address</blockquote>
+      <div class="row">
+               
+      
+              <div class="input-field col s6">
+          <input id="first_name" type="text" class="validate">
+          <label for="perm_ad">Permanent Address</label>
+        </div>
+          <div class="input-field col s6">
+          <input id="first_name" type="text" class="validate">
+          <label for="mail_ad"s>Mailing Address</label>
+        </div>
+    </div>
+        
+      <div class="row">
+
+      	 <blockquote style="border-left:5px solid #3C5EC1;">Additional Information</blockquote>
+               
+      
+              <div class="input-field col s6">
+          <input id="Home_tel" type="text" class="validate">
+          <label for="Home_tel">Home Tel Phone</label>
+        </div>
+          <div class="input-field col s6">
+          <input id="cell_phone" type="text" class="validate">
+          <label for="cell_phone">Cell Phone </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="fax_num" type="text" class="validate">
+          <label for="fax_num">Fax Number </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="mail" type="text" name="email" class="validate">
+          <label for="mail">Email Address </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="pob" type="text" class="validate">
+          <label for="pob">Place Of Birth  </label>
+      </div>
+          <div class="input-field col s6">
+          <input id="national" type="text" class="validate">
+          <label for="national">Nationality </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="reg" type="text" class="validate">
+          <label for="reg">Religion </label>
+        </div>
+         <div class="input-field col s6">
+          <select name="category">
+                  <option value="" disabled selected>Community</option>
+                  <option name="category" value="OC">OC</option>
+                  <option name="category" value="BC">BC</option>
+                  <option name="category" value="MBC">MBC</option>
+                  <option name="category" value="SC">SC</option>
+                  <option name="category" value="ST">ST</option>
+              </select>
+          </div>
+      </div>
+      <div class="row">
+
+      	 <blockquote style="border-left:5px solid #3C5EC1;">Category of Ph.D.Programme Applied</blockquote>
+       <p style="margin-left: 10%;">
+      <label>
+        <input type="checkbox" class="filled-in"  />
+        <span>Internal</span>
+      </label>
+      
+      &nbsp;
+        &nbsp;
+          &nbsp;
+            &nbsp;
+       <label >
+        <input type="checkbox" class="filled-in" />
+        <span>External</span>
+      </label>
+    </p>
+   </div>
+   <div class="row">
+    <blockquote style="border-left:5px solid #3C5EC1;">School to Which Ph.D. Applications Is Made</blockquote>
+    <div class="input-field col s6">
+      <select name="school">
+              <option value="" disabled selected>Name of the School</option>
+              <option name="school" value="SoC">SoC</option>
+              <option name="school" value="SoME">SoME</option>
+              <option name="school" value="SCBT">SCBT</option>
+              <option name="school" value="SoEEE">SoEEE</option>
+              <option name="school" value="SCE">SCE</option>
+          </select>
+      </div>
+          <div class="input-field col s6">
+          <input id="name_discp" type="text" class="validate">
+          <label for="name_discp">Name of the Main Discipline  </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="aor" type="text" class="validate">
+          <label for="aor">Area of Research </label>
+        </div>
+        <div class="input-field col s6">
+          <input id=name_researchsup" type="text" class="validate">
+          <label for="name_researchsup">Name of the Prospective Research Supervisor </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="name_co-research_sup" type="text" class="validate">
+          <br>
+          <label for="name_co-research_sup">If the Co-research Supervisor
+           at Sastra University(external) </label>
+      </div>
+          <div class="input-field col s6">
+          <input id="signre_sup" type="text" class="validate">
+          <label for="signre_sup">Signature of the Research Supervisor</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="sign_co-re_sup" type="text" class="validate">
+          <label for="sign_co-re_sup">Signature of the Co-Research Supervisor </label>
+        </div>
+    </div>
+    <div class="row">
+    <blockquote style="border-left:5px solid #3C5EC1;">Hostel Facilities</blockquote>
+    <div class="input-field col s6">
+          <input id="hostel" type="text" class="validate">
+          <label for="hostel">Do you Require Hostel Accomodation?</label>
+        </div>
+    </div>
+      <div class="row">
+    <blockquote style="border-left:5px solid #3C5EC1;">Privacy</blockquote>
+    <p> 
+    	Note: No one but your parents/gaurdian may gain access or make changes to your admissions file.<br>
+    	if you want the admission committee to discuss your application with a friend or relative kindly<br>
+    	mention their names and sign below.<br>
+    </p>
+    <b>	The following person(s) have my permission to gain access or make changes to my admission file</b>
+    <div class="row">
+    <div class="input-field col s6">
+          <input id="name1" type="text" class="validate">
+          <label for="name1">Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="relationship1" type="text" class="validate">
+          <label for="relationship1">Relationship </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="name2" type="text" class="validate">
+          <label for="name2">Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="rel2" type="text" class="validate">
+          <label for="rel2">Relationship </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="rel2" type="text" class="validate">
+          <label for="rel2">Relationship </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="sign" type="text" class="validate">
+          <label for="sign">Signature of the Applicant</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="rel2" type="text" class="validate">
+          <label for="rel2">Date(MM/DD/YY) </label>
+        </div>
+    </div>
+      <div class="row">
+    <blockquote style="border-left:5px solid #3C5EC1;">UnderGraduate Programme Details </blockquote>
+     <div class="input-field col s6">
+          <input id="name_col" type="text" class="validate">
+          <label for="name_col">Name of the College/University</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="bos" type="text" class="validate">
+          <label for="bos">Branch of Study </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="dateft" type="text" class="validate">
+          <label for="dateft">Dates Attended From and to </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="yos" type="text" class="validate">
+          <label for="yos">Year of Passing</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="degob" type="text" class="validate">
+          <label for="degob">Degree Obatined  </label>
+        </div>   
+        <div class="input-field col s6">
+          <input id="ovp" type="text" class="validate">
+          <label for="ovp">Overall % </label>
+        </div>  
+    </div>
+     <div class="row">
+    <blockquote style="border-left:5px solid #3C5EC1;">PostGraduate Programme Details </blockquote>
+     <div class="input-field col s6">
+          <input id="name_col2" type="text" class="validate">
+          <label for="name_col2">Name of the College/University</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="bos2" type="text" class="validate">
+          <label for="bos2">Branch of Study </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="dateft2" type="text" class="validate">
+          <label for="dateft2">Dates Attended From and to </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="yos2" type="text" class="validate">
+          <label for="yos2">Year of Passing</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="degob2" type="text" class="validate">
+          <label for="degob2">Degree Obatined  </label>
+        </div>   
+        <div class="input-field col s6">
+          <input id="ovp2" type="text" class="validate">
+          <label for="ovp2">Overall % </label>
+        </div>  
+    </div>
+
+<div class="external" id="external">
+                  <div class="input-field col s6">
+                      <input id="inst" name="institution" type="text" value="Institution Name" class="validate">
+                  </div>
+                  <div class="input-field col s6">
+                      <input id="inst_ad" name="institution_ad" type="text" value="Institution Address" class="validate">
+                  </div>
+              </div>
+              <br><br><br><br>
+              <center><button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">submit
+                </button></center>
+
+   
+</form>
+</div>
+
+       
+
+<style>
+input{
+  padding-right: 5%;
+  padding-left: 5%;
+}
+.external{
+	display: none;
+	width:100%;
+}
+.externalsu{
+	display:none;
+	width:100%;
+}
+
+
+.footer{
+	width:100%;
+	background-color:#3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+    z-index: 999%;
+}
+
+
+</style>
+
+</div>
+</div>
+ </div>
+				</div>
+		<div id="bottom">
+			<div style="<!--border:1px outset #eee;-->">
+				<div id="bottom-1">
+				<div id="bottom_useful-link"><div class="clear"></div></div>
+				<div id="bottom2"><div class="clear"></div></div>
+				<div id="bottom_contact"><div class="clear"></div></div>
+				<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		</div><div class="clear"></div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+	</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+     document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, options);
+  });
+
+
+$(function(){
+  $("#datepicker").datepicker({
+  dateFormat: "dd mmm yy",
+  changeYear: true,
+  changeMonth: true,
+});
+  $("#datepicker1").datepicker({
+  dateFormat: "dd mmm yy"
+});
+});
+
+function myfunc1(){
+  var A=document.getElementById('1')
+  {
+    A.style.fontWeight='bold';
+    A.style.borderBottom='none';
+    A.style.borderWidth='thin';
+  }
+  var B=document.getElementById('2')
+  {
+    B.style.fontWeight='normal';
+    B.style.borderBottom='solid';
+    B.style.borderWidth='thin';
+  }
+  var C=document.getElementById('11')
+  {
+    C.style.display='block';
+  }
+  var D=document.getElementById('22')
+  {
+    D.style.display='none';
+  }
+
+}
+function myfunc2(){
+  var A=document.getElementById('1')
+  {
+    A.style.fontWeight='normal';
+    A.style.borderBottom='solid';
+    A.style.borderWidth='thin';
+  }
+  var B=document.getElementById('2')
+  {
+    B.style.fontWeight='bold';
+    B.style.borderBottom='none';
+    B.style.borderWidth='thin';
+
+  }
+  var C=document.getElementById('11')
+  {
+    C.style.display='none';
+  }
+  var D=document.getElementById('22')
+  {
+    D.style.display='block';
+  }
+}
+
+
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-48118274-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</body>
+</html>

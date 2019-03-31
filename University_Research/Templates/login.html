@@ -1,0 +1,245 @@
+{%load static%}
+<html>
+<head>
+	<title>SASTRA Deemed University</title>
+	<meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  <link rel="stylesheet" href="{%static 'header.css' %}">
+  	<!--Materialize CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript for Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="{% static 'header.js' %}"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Research - SASTRA Deemed University</title>
+</head>
+<body oncontextmenu="return false" >
+			
+    <div id="navbar" style="z-index: 999">
+        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="/profile" class="buttons">Profile</a>
+        <a href="" class="buttons">Downloads</a>
+        <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+        <a href="http://www.sastra.edu" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+        <p class="main">Research Portal</p>
+    </div>
+	<div id="navbar-mobile">
+		<a href="#" class="brand-logo"><div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div></a>
+		<a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+					<i class="fas fa-bars"></i>
+		</a>
+	</div>
+	<div id="sidebar-mobile">
+		<a href="javascript:void(0);" class="icon" onclick="sideClose()">
+					<i class="fas fa-times"></i>
+		</a>
+		<a href="#about" onclick="sideClose()">{{logg}}</a>
+		<a href="#" onclick="sideClose()">Downloads</a>
+		<a href="#" onclick="sideClose()">SASTRA Home</a>
+	</div> 	
+  
+  			<!---------------- Mid content ----------------------------------->
+  					<div class="clearpad"><div class="item-page">
+
+              <br>
+              <div class="card">
+                <div class="card-title"><b>Login</b></div>
+                <p class="card-message" style="color:{{col}}">{{message}}</p>
+                <div class="card-tabs">
+                  <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
+                    <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
+                    <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
+                  </ul>
+                </div>
+                <div class="card-content">
+                  <div id="scholar">
+                      <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
+                      <br/><br/>
+                    <div class="input-field">
+                    <input id='regno' type="text" name='regno' required/>
+                    <label for="regno">Register Number</label>
+                  </div>
+                  <div class="input-field">
+                    <input id="password" type="password" name="password" required/>
+                    <label for="password">Password</label>
+                  </div><br/>
+                  <div class="submitted">
+                    <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>  
+                  </div>
+                    </form>
+                  </div>
+                  <div id="supervisor">
+                      <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
+                        <br/><br/>
+                      <div class="input-field">
+                      <input id='regno' type="text" name='mid' required/>
+                      <label for="regno">User ID</label>
+                    </div>
+                    <div class="input-field">
+                      <input id="password" type="password" name="password" required/>
+                      <label for="password">Password</label>
+                    </div><br/>
+                    <div class="submitted">
+                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
+                          <i class="material-icons right">send</i>
+                      </button>  
+                    </div>
+                      </form>
+                  </div>
+                  <div id="dean">
+                      <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
+                        <br/><br/>
+                      <div class="input-field">
+                      <input id="regno" type="text" name='mid' required/>
+                      <label for="regno">Dean ID</label>
+                    </div>
+                    <div class="input-field">
+                      <input id="password" type="password" name="password" required/>
+                      <label for="password">Password</label>
+                    </div><br/>
+                    <div class="submitted">
+                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
+                          <i class="material-icons right">send</i>
+                      </button>  
+                    </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            
+                
+                <style>
+
+                  .input-field label {
+     color: grey;
+   }
+   
+   /* label focus color */
+   .input-field #regno:focus + label {
+     color: grey;
+   }
+   .input-field #password:focus + label {
+     color: grey;
+   }
+   /* label underline focus color */
+   #regno:focus {
+     border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+
+   }
+   #password:focus{
+    border-bottom: 1px solid grey;
+     box-shadow: 0 1px 0 0 grey;
+   }
+   .password input[type=text]:focus + label {
+     color:grey;
+   }
+  
+                    @media only screen and (max-width:800px) {
+                    /* For tablets: */
+                    .mainmenu {
+                      width: 80%;
+                      padding: 0;
+                    }
+                    .menunav{
+                      width: 100%;
+                    }
+                  }
+                  @media only screen and (max-width:500px) {
+                    /* For mobile phones: */
+                    .mainmenu, .menunav{
+                      width: 100%;
+                    }
+                  }
+.box_size{
+  margin-left: 38%;
+  margin-right: 38%;
+}
+.input-field{
+  width: 70%;
+  padding-bottom: 30px;
+  margin: auto;
+}
+.card{
+  width: 60%;
+  height: 60%;
+  margin: auto;
+}
+body{
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+}
+h3{
+ text-align:center;
+}
+.buttonlog {
+    background-color:darkblue;
+    border: solid;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 15px;
+  box-shadow: 0 4px #999;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+}
+.buttonlog:hover {background-color: darkblue}
+
+.buttonlog:active {
+  background-color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.Top{
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  text-align: center;
+}
+
+.footer{
+	width:100%;
+	background-color: #3C5EC1;
+	color:white;
+	height: 5%;
+    text-align: center;
+}
+.tabs .indicator{
+  background-color: #3C5EC1;
+}
+.card-title{
+  margin: auto;
+  text-align: center;
+}
+.card-message{
+  text-align: center;
+  margin: auto;
+}
+.submitted{
+  text-align: center;
+}
+.btn{
+  margin: auto;
+}
+
+</style>
+<script>
+  	var element=document.querySelector('.tabs');
+						var instance=M.Tabs.init(element,{
+							swipeable: true,
+						});
+</script>
+<div class="footer">
+	<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+</div>
+</body>
+</html>

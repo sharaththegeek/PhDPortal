@@ -7,12 +7,12 @@ from polymorphic.models import PolymorphicModel
 from datetime import datetime
 # Create your models here.
 class Scholar(models.Model):
-   regno=models.CharField(max_length=17,primary_key=True)
+   regno=models.CharField(max_length=255,primary_key=True)
    password=models.CharField(max_length=30)
    approved=models.BooleanField(default=False)
 
 class Supervisor(models.Model):
-   mid=models.CharField(max_length=15,primary_key=True)
+   mid=models.CharField(max_length=255,primary_key=True)
    password=models.CharField(max_length=30)
    dean=models.BooleanField(default=False)
    external=models.BooleanField(default=False)

@@ -19,6 +19,7 @@ from django.conf import settings
 from Research.views import synopsis
 from Research.views import superText
 from Research.views import pubPlus
+from Research.views import loginm
 from Research.views import addpub
 from django.contrib import admin
 from Research.views import home 
@@ -166,6 +167,7 @@ urlpatterns = [
     url(r'^schform/',schform),
     url(r'^superText/',superText),
     url(r'^thesis',thesis),
+    url(r'^loginm/',loginm)
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

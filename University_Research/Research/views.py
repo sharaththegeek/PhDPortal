@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import json
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import get_connection
 from django.core import serializers
 from Research.forms import LoginS
 from Research.forms import medit
@@ -573,10 +574,6 @@ def sureg(request):
          SuObj.save()
          SuuObj.save()
          message="Registered Successfully! The Member ID is: "+str(mid)
-         head="Approval for Supervisor "+RegSu.cleaned_data['name']
-         dObj=Supervisor.objects.get(mid='ES0000')
-         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
-         mObj.save()
          return render(request,"login.html",{"message":message,"logg":"Login"})
       else:
          SuuObj=Supervisor(mid=RegSu.cleaned_data['mid'],password=RegSu.cleaned_data['mid'])
@@ -587,10 +584,6 @@ def sureg(request):
          SuObj.supervisor=SuuObj
          SuObj.save()
          SuuObj.save()
-         head="Approval for Supervisor "+RegSu.cleaned_data['name']
-         dObj=Supervisor.objects.get(mid='ES0000')
-         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
-         mObj.save()
          return render(request,"login.html",{"message":"Registered Successfully!","col":"green","logg":"Login"})
     else:
       return render(request,"login.html",{"message":"Couldn't register!","col":"red","logg":"Login"})
@@ -1207,3 +1200,34 @@ def dschpub(request):
   name=Personal_Det.objects.get(scholar__regno=regno).name
   pubs=Publications.objects.filter(scholars__regno=regno)
   return render(request,"dschpub.html",{"pubs":pubs,"name":name})
+
+def loginm(request):
+  if request.POST:
+    MyUseForm=LoginS(request.POST)
+    if MyUseForm.is_valid():
+     dbN=Scholar.objects.filter(regno=MyUseForm.cleaned_data['regno'])
+     if dbN:
+       request.session['regno']=MyUseForm.cleaned_data['regno']
+       return HttpResponseRedirect('/scholar1')
+     dbN=Supervisor.objects.filter(mid=MyUseForm.cleaned_data['regno'])
+     isLoggedIn = False
+     connection=get_connection(host='mail.sastra.edu',port=587,username=MyUseForm.cleaned_data['regno'],password=MyUseForm.cleaned_data['password'],use_tls=False)
+     try:
+       connection.open()
+     except:
+       pass
+     else:
+       isLoggedIn=True
+     if dbN and isLoggedIn:
+       request.session['mid']=MyUseForm.cleaned_data['regno']
+       dbN=Supervisor.objects.get(mid=MyUseForm.cleaned_data['regno'])
+       if dbN.dean:
+         return HttpResponseRedirect('/dean1')
+       else:
+         return HttpResponseRedirect('/supervisor1')
+     else:
+       return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
+    else:
+     return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
+  else:
+    return render(request,"login.html",{})

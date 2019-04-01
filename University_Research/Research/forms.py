@@ -3,31 +3,8 @@ from Research.models import Scholar
 from Research.models import Supervisor
 from django.core.validators import MaxValueValidator, MinValueValidator
 class LoginS(forms.Form):
-  regno=forms.CharField(max_length=17)
+  regno=forms.CharField(max_length=255)
   password=forms.CharField(widget=forms.PasswordInput())
-
-  def clean_regno(self):
-      regno=self.cleaned_data.get("regno")
-      dbn=Scholar.objects.filter(regno=regno)
-      if not dbn:
-        raise forms.ValidationError("Incorrect Username")
-      else:
-        return regno
-  
-  def clean_password(self):
-      regno=self.cleaned_data.get("regno")
-      password=self.cleaned_data.get("password")
-      dbn=Scholar.objects.filter(regno=regno)
-      if not dbn:
-       raise forms.ValidationError("Incorrect Username")
-      else:
-       dbm=Scholar.objects.get(regno=regno)
-       dbp1=dbm.password
-       dbp=(password==dbp1)
-       if not dbp:
-         raise forms.ValidationError("Incorrect Password")
-       else:
-         return password
 
 class LoginSu(forms.Form):
   mid=forms.CharField(max_length=15)
@@ -136,7 +113,7 @@ class suregForm(forms.Form):
    name=forms.CharField(max_length=30)
    sex=forms.CharField(max_length=10)
    phno=forms.CharField(max_length=11)
-   mid=forms.CharField(max_length=15)
+   mid=forms.CharField(max_length=255)
    school=forms.CharField(max_length=30)
    email=forms.EmailField()
    pemail=forms.EmailField()

@@ -242,8 +242,11 @@ def scholar1(request):
   dbP=Personal_Det.objects.get(scholar__regno=rno)
   dbPu=Publications.objects.filter(scholars__regno=rno)
   dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
-  dbNext=dbUpcoming[0]
-  dbRest=dbUpcoming[1:]
+  dbNext=""
+  dbRest=""
+  if dbUpcoming:
+    dbNext=dbUpcoming[0]
+    dbRest=dbUpcoming[1:]
   dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
   subjects=dbSubjects.subjected_set.all()
   dbMessages=Message.objects.filter(scholar__regno=rno).order_by('-latest')
@@ -329,8 +332,11 @@ def dschprog(request):
       rno=request.session['stored']
       dbP=Personal_Det.objects.get(scholar__regno=rno)
       dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
-      dbNext=dbUpcoming[0]
-      dbRest=dbUpcoming[1:]
+      dbNext=""
+      dbRest=""
+      if dbUpcoming:
+        dbNext=dbUpcoming[0]
+        dbRest=dbUpcoming[1:]
       dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
       subjects=dbSubjects.subjected_set.all()
       dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
@@ -386,8 +392,11 @@ def schprog(request):
     rno=request.session['stored']
     dbP=Personal_Det.objects.get(scholar__regno=rno)
     dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
-    dbNext=dbUpcoming[0]
-    dbRest=dbUpcoming[1:]
+    dbNext=""
+    dbRest=""
+    if dbUpcoming:
+      dbNext=dbUpcoming[0]
+      dbRest=dbUpcoming[1:]
     dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
     subjects=dbSubjects.subjected_set.all()
     today=datetime.datetime.today().strftime('%d-%b-%Y')
@@ -734,7 +743,7 @@ def dcComments(request):
         dProg=Progress.objects.get(scholar__regno=rno,level=level)
         dProg.comments=comments
         dProg.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -753,7 +762,7 @@ def fail(request):
         dbProg.date=date
         dbProg.comments=hComment
         dbProg.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
 
@@ -769,7 +778,7 @@ def passed(request):
         dbProg.comments=hComment
         dbProg.result="pass"
         dbProg.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -791,7 +800,7 @@ def nextPass(request):
         dbProg.save()
         dbNext.date=date
         dbNext.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -808,7 +817,7 @@ def otherEdit(request):
         dbProg=Progress.objects.get(scholar__regno=rno,level=level)
         dbProg.date=date
         dbProg.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -825,7 +834,7 @@ def dcFail(request):
         dbProg=Progress.objects.get(scholar__regno=rno,level=level)
         dbProg.comment=comment
         dbProg.save()
-        return HttpResponseRedirect('/schprog')
+        return HttpResponseRedirect('/dschprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -881,12 +890,12 @@ def superText(request):
         mObj.scholar=Scholar.objects.get(regno=rno)
         mObj.schunread=True
       elif receiver == '2':
-        mObj.dean=Supervisor.objects.get(mid='ES0000')
+        mObj.deanText=Supervisor.objects.get(mid='ES0000')
         mObj.deanunread=True
       else:
         rno=scholar.split(' ')[0]
         mObj.scholar=Scholar.objects.get(regno=rno)
-        mObj.dean=Supervisor.objects.get(mid='ES0000')
+        mObj.deanText=Supervisor.objects.get(mid='ES0000')
         mObj.deanunread=True
       mObj.save()
       return HttpResponseRedirect('/profile')
@@ -986,7 +995,7 @@ def dcPass(request):
     for subj in dcObj:
       nS=Subjected(name=subj,course=dbNext)
       nS.save()
-    return HttpResponseRedirect('/schprog')
+    return HttpResponseRedirect('/dschprog')
   else:
     print form.errors
     return HttpResponseRedirect('/profile')
@@ -1000,7 +1009,7 @@ def courseEdit(request):
     for subj in dcObj:
       nS=Subjected(name=subj,course=dbProg)
       nS.save()
-    return HttpResponseRedirect('/schprog')
+    return HttpResponseRedirect('/dschprog')
   else:
     return HttpResponseRedirect('/profile')
 

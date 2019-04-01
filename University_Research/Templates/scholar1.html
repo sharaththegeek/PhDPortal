@@ -245,9 +245,16 @@
 											{% elif dbLatest.level == 9%}
 											<p>Date: {{dbLatest.date}}</p>
 											<p>Comments: {{dbLatest.comments}}</p>
+											{% if dbLatest.doc %}
+											<a href="{{MEDIA_URL}}{{dbLatest.doc.url}}">View Uploaded File</a>
+											{%endif%}
 											{% elif dbLatest.level == 4 or dbLatest.level == 7 or dbLatest.level == 8 or dbLatest.level == 10%}
 											<p>Date: {{dbLatest.date}}</p>
 											<p>Comments: {{dbLatest.comments}}</p>
+											{% if dbLatest.doc %}
+											<a href="{{MEDIA_URL}}{{dbLatest.doc.url}}">View Uploaded File</a>
+											{%endif%}
+
 											{% elif dbLatest.level == 3%}
 											<p>Subjects:</p>
 											<table>
@@ -300,10 +307,16 @@
 												{% endif %}
 												{% elif others.level == 9%}
 												<p>Date: {{others.date}}</p>
+												{% if others.doc %}
+												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+												{%endif%}
 												<p>Comments: {{others.comments}}</p>
 												{% elif others.level == 4 or others.level == 7 or others.level == 8 or others.level == 10%}
 												<p>Date: {{others.date}}</p>
 												<p>Comments: {{others.comments}}</p>
+												{% if others.doc %}
+												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+												{%endif%}
 												{% elif others.level == 3%}
 												<p>Subjects:</p>
 												<table>
@@ -335,6 +348,7 @@
 							<div class="card">
 								<div class="card-title" style="padding-top:15px">Upcoming</div>
 								<ul class="collapsible popout">
+									{% if dbNext %}
 									<li class="active">
 										<div class="collapsible-header">{{dbNext.name}}</div>
 										<div class="collapsible-body">
@@ -349,7 +363,7 @@
 												{% if dbNext.date %}
 												<p>To be held on</p>
 												<p>Date: {{dbNext.date}}</p> 
-											  <p>Time: {{dbNext.time}} </p>
+											  <p>Time: {{dbNext.start}} - {{dbNext.end}} </p>
 												{% else %}
 												<p>To be held on: TBA</p>
 												{% endif %}
@@ -397,6 +411,9 @@
 									<div class="collapsible-header">{{come.name}}</div>
 							   	</li>
 									{%endfor%}
+									{%else%}
+									<span>You have completed Ph.D.</span>
+									{%endif%}
 								</ul>	
 								
 							</div>
@@ -456,7 +473,9 @@
 							{% endif %}
 							{% endfor %}
 							{% else %}
+							<br/>
 							<p style="text-align: center">No messages to show currently!</p>
+							<br/>
 							{% endif %}
 						</div>
 						</div>

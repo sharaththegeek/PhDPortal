@@ -126,9 +126,15 @@
 												{% elif others.level == 9%}
 												<p>Date: {{others.date}}</p>
                                                 <p>Comments: {{others.comments}}</p>
+                                                {% if others.doc %}
+												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+												{%endif%}
 												{% elif others.level == 4 or others.level == 7 or others.level == 8 or others.level == 10%}
 												<p>Date: {{others.date}}</p>
                                                 <p>Comments: {{others.comments}}</p>
+                                                {% if others.doc %}
+												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+												{%endif%}
 												{% elif others.level == 3%}
                                                 <p>Subjects:</p>
                                                 <table>
@@ -160,6 +166,7 @@
                 <div class="card">
                     <div class="card-title" style="padding-top:15px;text-align: center">Upcoming</div>
                         <ul class="collapsible popout">
+                            {% if dbNext %}
                             <li class="active">
                                 <div class="collapsible-header">{{dbNext.name}}</div>
                                 <div class="collapsible-body">
@@ -172,7 +179,7 @@
                                         {% else %}
                                         <p>Held on: </p>
                                         <p>Date: {{dbNext.date}}</p>
-                                        <p>Time: {{dbNext.time}}</p>
+                                        <p>Time: {{dbNext.start}} - {{dbNext.end}}</p>
                                         {% endif %}
                                         {% else %}
                                         <p>To be held on: TBA </p>
@@ -180,9 +187,15 @@
                                 
                                         {% elif dbNext.level == 9%}
                                         <p>To be submitted before: {{dbNext.date}}</p>
+                                        {% if others.doc %}
+                                        <a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+                                        {%endif%}
                                         {% elif dbNext.level == 4 or dbNext.level == 7 or dbNext.level == 8 or dbNext.level == 10%}
                                         {% if dbNext.date %}
                                         <p>Date: {{dbNext.date}}</p>
+                                        {% if others.doc %}
+                                        <a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
+                                        {%endif%}
                                         {%else%}
                                         <p>Date: TBA</p>
                                         {%endif%}
@@ -210,6 +223,11 @@
                             <div class="collapsible-header">{{come.name}}</div>
                            </li>
                             {%endfor%}
+                            {%else%}
+                            <br/>
+                            <center><span>{{name}} has completed Ph.D.</span></center>
+                            <br/>
+                            {%endif%}
                         </ul>	
                 </div>
             </div>

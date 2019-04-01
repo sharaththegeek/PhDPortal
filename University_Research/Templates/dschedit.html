@@ -379,7 +379,7 @@ input[type='radio']:checked + span:after{
                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
            </form>
                <button class="btn-small waves-effect waves-lighten blue darken-3"><a href="/schprog/">Cancel</a></button>
-           {% elif level.level == 10 %}
+           {% elif level.level == 8 %}
            <span>Enter date for Thesis Submission</span>
            <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
                <input type="text" class="datepicker3" id="date_4" name="date">

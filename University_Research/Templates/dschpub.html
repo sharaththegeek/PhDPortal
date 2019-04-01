@@ -153,7 +153,8 @@
 									<div class="nav-wrapper">
 										<div class="col s12" style="padding-left: 25px">
 											<a href="/profile" class="breadcrumb">Scholars</a>
-											<a href="#!" class="breadcrumb">{{name}}</a>
+                                            <a href="/dschprog" class="breadcrumb">{{name}}</a>
+                                            <a href="#!" class="breadcrumb">Publications</a>
 										</div>
 									</div>
 								</div>
@@ -167,81 +168,35 @@
 					<div style="text-align:right;padding-right: 15px">
 							<a class="waves-effect waves-light blue darken-3 btn " href="/schprog">view progress</a>
 					</div>
-					<div style="text-align:right;padding-right: 45px">
-							<a class="waves-effect waves-light blue darken-3 btn " href="/schpub">view publications</a>
-						</div>
 					</div>
-					<div class="divided">
-						<div class="done">
-          <div class="card">
-						<div class="card-title">Personal Details</div>
-					<table>
-            <tr>
-							<th style="width:30%">Name:</th>
-							<td style="text-align:center">{{name}}</td>
-						</tr>
-						<tr>
-							<th>Date of Birth:</th>
-							<td style="text-align:center">{{dob}}</td>
-						</tr>
-						<tr>
-							<th>Email:</th>
-							<td style="text-align:center">{{email}}</td>
-						</tr>
-						<tr>
-							<th>Sex:</th>
-							<td style="text-align:center">{{sex}}</td>
-						</tr>
-						<tr>
-							<th>Registration Number:</th>
-							<td style="text-align:center">{{regno}}</td>
-						</tr>
-						<tr>
-							<th>Registration Date:</th>
-							<td style="text-align:center">{{regdate}}</td>
-					  </tr>
-						<tr>
-							<th>School:</th>
-							<td style="text-align:center">{{school}}</td>
-						</tr>
-					</table>
-					<br/>
-				</div>
-			</div>
-				<div class="done">
-				 <div class="card">
-						<div class="card-title">Research Details</div>
-						<center><h6 style="padding-bottom:7px;">Current Status: {{status1}} Completed</h6></center>
-						<h6>Supervisor: Dr. {{supervisor}} </h6>
-						<br/>
-						<h5>DC Members</h5>
-						<table style="width: 80%;margin: auto">
+				<div class="publication-holder" style="padding: 30px;margin:auto;text-align: center">
+					<div class="card">
+						<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
+						<table>
 							<tr>
-							<th>Name</th>
-							<th>Institution</th>
-							<th>Designation</th>
-							 </tr>
-							 <tr>
-								 <td>{{supervisor}}</td>
-								 <td>SASTRA</td>
-								 <td>Professor</td>
-							 </tr>
-							 <tr>
-								 <td>XYZ</td>
-								 <td>IIT</td>
-								 <td>Research Associate</td>
-							 </tr>
-							 <tr>
-								 <td>ABC</td>
-								 <td>SASTRA</td>
-								 <td>Dean</td>
-							 </tr>
+								<th style="padding-left:20px">Title of the Publication</th>
+								<th>Name of the Journal</th>
+								<th>Authors </th>
+								<th>Year of Publication</th>
+							</tr>
+							<tr>
+								<td style="padding-left:20px">Sample Research</td>
+								<td>Sample Title</td>
+								<td>{{name}}</td>
+								<td>12 Jan 2019</td>
+							</tr>
+							{%for p in pubs%}
+								<tr>
+									<td style="padding-left:20px">{{p.title}}</td>
+									<td>{{p.name}}</td>
+									<td>{%for scholar in p.scholars.all%}{{scholar.personal_det.name}}{%endfor%} , {%for scholar in p.supervisors.all%}{{scholar.su_personal_det.name}}{%endfor%}</td>
+									<td>{{p.date}}</td>
+								</tr>
+							{%endfor%}
+	
 						</table>
-						<br/>
 					</div>
 				</div>
-				</div>
-
 					<div class="footer">
 						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 					</div>

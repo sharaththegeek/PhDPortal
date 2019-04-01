@@ -92,6 +92,9 @@
 							<a class="waves-effect waves-light blue darken-3 btn " href="/dschprog">view progress</a>
 					</div>
 					<div style="text-align:right;padding-right: 45px">
+						<a class="waves-effect waves-light blue darken-3 btn " href="/dschpub">View Publications</a>
+					</div>
+					<div style="text-align:right;padding-right: 85px">
 							<a class="waves-effect waves-light blue darken-3 btn " href="/plusdc">schedule dc meeting</a>
 						</div>
 					</div>
@@ -164,34 +167,7 @@
 					</div>
 				</div>
 				</div>
-				<div class="publication-holder" style="padding: 15px;margin:auto;text-align: center">
-					<div class="card">
-						<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
-						<table>
-							<tr>
-								<th style="padding-left:20px">Title of the Publication</th>
-								<th>Name of the Journal</th>
-								<th>Authors </th>
-								<th>Year of Publication</th>
-							</tr>
-							<tr>
-								<td style="padding-left:20px">Sample Research</td>
-								<td>Sample Title</td>
-								<td>{{name}}</td>
-								<td>12 Jan 2019</td>
-							</tr>
-							{%for p in pubs%}
-								<tr>
-									<td style="padding-left:20px">{{p.title}}</td>
-									<td>{{p.name}}</td>
-									<td>{%for scholar in p.scholars.all%}{{scholar.personal_det.name}}{%endfor%} , {%for scholar in p.supervisors.all%}{{scholar.su_personal_det.name}}{%endfor%}</td>
-									<td>{{p.date}}</td>
-								</tr>
-							{%endfor%}
 	
-						</table>
-					</div>
-				</div>
 					<div class="footer">
 						<p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
 					</div>

@@ -29,6 +29,8 @@ from Research.views import logins
 from Research.views import spreg
 from Research.views import nextPass
 from Research.views import schedule
+from Research.views import schpub
+from Research.views import dschpub
 from Research.views import stexted
 from Research.views import thesis
 from Research.views import ann
@@ -130,6 +132,8 @@ urlpatterns = [
     url(r'^fail/',fail),
     url(r'^deanText/',deanText),
     url(r'^newText/',newText),
+    url(r'^schpub/',schpub),
+    url(r'^dschpub/',dschpub),
     url(r'^newann/',newann),
     url(r'^suinfo/',suinfo),
     url(r'^logout/',logout),

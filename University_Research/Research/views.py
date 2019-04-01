@@ -1180,7 +1180,9 @@ def schform(request):
   return render(request,"schreg.html",{})
 
 def addpub(request):
-  return render(request,"addpub.html",{})
+  regno=request.session['stored']
+  name=Personal_Det.objects.get(scholar__regno=regno).name
+  return render(request,"addpub.html",{"name":name})
 
 def pubPlus(request):
   regno=request.session['stored']
@@ -1193,3 +1195,15 @@ def pubPlus(request):
   dbP.supervisors.add(suObj)
   dbP.save()
   return HttpResponseRedirect('/profile')
+
+def schpub(request):
+  regno=request.session['stored']
+  name=Personal_Det.objects.get(scholar__regno=regno).name
+  pubs=Publications.objects.filter(scholars__regno=regno)
+  return render(request,"schpub.html",{"pubs":pubs,"name":name})
+
+def dschpub(request):
+  regno=request.session['stored']
+  name=Personal_Det.objects.get(scholar__regno=regno).name
+  pubs=Publications.objects.filter(scholars__regno=regno)
+  return render(request,"dschpub.html",{"pubs":pubs,"name":name})

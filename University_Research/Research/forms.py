@@ -132,7 +132,7 @@ class schregForm(forms.Form):
    email=forms.EmailField()
    pemail=forms.EmailField()
    phno=forms.CharField(max_length=11)
-   supervisor=forms.CharField(max_length=15)
+   supervisor=forms.CharField(max_length=255)
    regdate=forms.DateField()
    retitle=forms.CharField(max_length=500)
    typet=forms.CharField(max_length=30)

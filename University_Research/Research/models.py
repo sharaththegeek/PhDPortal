@@ -134,3 +134,6 @@ class Subjected(Subject):
 class DCMembers(models.Model):
    scholar=models.OneToOneField(Scholar)
    members=models.ManyToManyField(Supervisor)
+
+class Superior(models.Model):
+   email=models.EmailField()

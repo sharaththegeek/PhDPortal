@@ -14,6 +14,7 @@ from Research.forms import viewM
 from Research.forms import newMessage
 from Research.forms import snewMessage
 from Research.models import Comments
+from Research.models import Superior
 from Research.models import Scholar
 from Research.forms import Passed
 from Research.models import Subjected
@@ -104,6 +105,8 @@ def logq(request):
     return HttpResponseRedirect('/logoutsu/')    
   elif request.session.has_key('regno'):
     return HttpResponseRedirect('/logout/')
+  elif request.session.has_key('superior'):
+    return HttpResponseRedirect('/logoutsp/')
   else:
     return HttpResponseRedirect('/login/')
 
@@ -117,6 +120,8 @@ def profile(request):
        return HttpResponseRedirect('/supervisor1/')
   elif request.session.has_key('regno'):
     return HttpResponseRedirect('/scholar1/')
+  elif request.session.has_key('superior'):
+    return HttpResponseRedirect('/superview/')
   else:
     return HttpResponseRedirect('/login1/')
 
@@ -210,6 +215,15 @@ def logout(request):
 def logoutsu(request):
   try:
     del request.session['mid']
+    if request.session.has_key('stored'):
+      del request.session['stored']
+  except:
+    pass
+  return render(request,"login.html",{"message":"Logged out successfully!","col":"green","logg":"Login"})
+
+def logoutsp(request):
+  try:
+    del request.session['superior']
     if request.session.has_key('stored'):
       del request.session['stored']
   except:
@@ -324,6 +338,8 @@ def dschinfo(request):
 def dschprog(request):
   if request.session.has_key('mid'):
     logg="Logout"
+  elif request.session.has_key('superior'):
+    return HttpResponseRedirect('/sprinfo')
   else:
     return HttpResponseRedirect('/profile')
   if request.session.has_key('stored'):
@@ -522,7 +538,7 @@ def dean1(request):
     dbSList=Su_Personal_Det.objects.only("name","supervisor")
     Schcnt=Scholar.objects.filter().count()
     Supcnt=Supervisor.objects.filter().count()-1
-    dbMessages=Message.objects.filter(deanText__mid='ES0000').order_by('-latest')
+    dbMessages=Message.objects.filter(deanText__mid='deanresearch@sastra.edu').order_by('-latest')
     dates=[]
     dbDs=Progress.objects.filter().all()
     for Ds in dbDs:
@@ -565,7 +581,7 @@ def sureg(request):
            dbC=Supervisor.objects.filter(mid=mid)
            if not dbC.exists():
              check=False
-         SuuObj=Supervisor(mid=mid,password=mid)
+         SuuObj=Supervisor(mid=RegSu.cleaned_data['email'],password=mid)
          SuuObj.save()
          SuObj.institution=RegSu.cleaned_data['institution']
          SuObj.designation=RegSu.cleaned_data['designation']
@@ -574,9 +590,13 @@ def sureg(request):
          SuObj.save()
          SuuObj.save()
          message="Registered Successfully! The Member ID is: "+str(mid)
+         head="Approval for Supervisor "+RegSu.cleaned_data['name']
+         dObj=Supervisor.objects.get(mid='deanresearch@sastra.edu')
+         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
+         mObj.save()
          return render(request,"login.html",{"message":message,"logg":"Login"})
       else:
-         SuuObj=Supervisor(mid=RegSu.cleaned_data['mid'],password=RegSu.cleaned_data['mid'])
+         SuuObj=Supervisor(mid=RegSu.cleaned_data['email'],password=RegSu.cleaned_data['mid'])
          SuuObj.save()
          SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
          SuObj.institution="SASTRA"
@@ -584,6 +604,10 @@ def sureg(request):
          SuObj.supervisor=SuuObj
          SuObj.save()
          SuuObj.save()
+         head="Approval for Supervisor "+RegSu.cleaned_data['name']
+         dObj=Supervisor.objects.get(mid='deanresearch@sastra.edu')
+         mObj=Message(head=head,supervisorText=SuuObj,sender='supervisor',deanText=dObj,deanunread=True)
+         mObj.save()
          return render(request,"login.html",{"message":"Registered Successfully!","col":"green","logg":"Login"})
     else:
       return render(request,"login.html",{"message":"Couldn't register!","col":"red","logg":"Login"})
@@ -595,7 +619,7 @@ def schreg(request):
     RegS=schregForm(request.POST)
     if RegS.is_valid():
       SObj=Personal_Det(name=RegS.cleaned_data['name'],sex=RegS.cleaned_data['sex'],dob=RegS.cleaned_data['dob'],school=RegS.cleaned_data['school'],email=RegS.cleaned_data['email'],regdate=RegS.cleaned_data['regdate'],category=RegS.cleaned_data['category'],pemail=RegS.cleaned_data['pemail'],phno=RegS.cleaned_data['phno'],retitle=RegS.cleaned_data['retitle'],typet=RegS.cleaned_data['typet'])
-      TObj=Scholar(regno=RegS.cleaned_data['regno'],password=RegS.cleaned_data['regno'])
+      TObj=Scholar(regno=RegS.cleaned_data['email'],password=RegS.cleaned_data['regno'])
       SuObj=Supervisor.objects.get(mid=RegS.cleaned_data['supervisor'])
       SObj.supervisor=SuObj
       TObj.save()
@@ -626,7 +650,7 @@ def schreg(request):
           thesis=Thesis(level=key,name=values,scholar=TObj,result="yet")
           thesis.save()
       head="Approval for Scholar - "+RegS.cleaned_data['name']
-      dObj=Supervisor.objects.get(mid='ES0000')
+      dObj=Supervisor.objects.get(mid='deanresearch@sastra.edu')
       mObj=Message(head=head,sender='scholar',scholar=TObj,deanText=dObj,deanunread=True)
       mObj.save()
       return render(request,"login.html",{"message":"Registered Successfully!","col":"green","logg":"Login"})
@@ -848,12 +872,12 @@ def newText(request):
         mObj.supervisorText=suObj
         mObj.supunread=True
       elif receiver == '2':
-        suObj=Supervisor.objects.get(mid='ES0000')
+        suObj=Supervisor.objects.get(mid='deanresearch@sastra.edu')
         mObj.deanText=suObj
         mObj.deanunread=True
       elif receiver == '3':
         suObj=sObj.supervisor
-        suObj1=Supervisor.objects.get(mid='ES0000')
+        suObj1=Supervisor.objects.get(mid='deanresearch@sastra.edu')
         mObj.supervisorText=suObj
         mObj.deanText=suObj1
         mObj.supunread=True
@@ -883,12 +907,12 @@ def superText(request):
         mObj.scholar=Scholar.objects.get(regno=rno)
         mObj.schunread=True
       elif receiver == '2':
-        mObj.deanText=Supervisor.objects.get(mid='ES0000')
+        mObj.deanText=Supervisor.objects.get(mid='deanresearch@sastra.edu')
         mObj.deanunread=True
       else:
         rno=scholar.split(' ')[0]
         mObj.scholar=Scholar.objects.get(regno=rno)
-        mObj.deanText=Supervisor.objects.get(mid='ES0000')
+        mObj.deanText=Supervisor.objects.get(mid='deanresearch@sastra.edu')
         mObj.deanunread=True
       mObj.save()
       return HttpResponseRedirect('/profile')
@@ -1095,7 +1119,7 @@ def deanText(request):
       name = request.POST.get('title')
       content = request.POST.get('content')
       sObj=Scholar.objects.get(regno=regno)
-      dObj=Supervisor.objects.get(mid='ES0000')
+      dObj=Supervisor.objects.get(mid='deanresearch@sastra.edu')
       mObj= Message(head=name,body=content,scholar=sObj,deanText=dObj,sender='Dean',schunread=True)
       mObj.save()
     elif receiver == '2':
@@ -1103,7 +1127,7 @@ def deanText(request):
       name = request.POST.get('title')
       content = request.POST.get('content')
       sObj = Supervisor.objects.get(mid=mid)
-      dObj = Supervisor.objects.get(mid='ES0000')
+      dObj = Supervisor.objects.get(mid='deanresearch@sastra.edu')
       mObj = Message(head=name,body=content,supervisorText=sObj,deanText=dObj,sender='Dean',supunread=True)
       mObj.save()
     elif receiver == '3':
@@ -1113,7 +1137,7 @@ def deanText(request):
       content = request.POST.get('content')
       sObj = Scholar.objects.get(regno=regno)
       suObj = Supervisor.objects.get(mid=mid)
-      dObj = Supervior.objects.get(mid='ES0000')
+      dObj = Supervior.objects.get(mid='deanresearch@sastra.edu')
       mObj = Message(head=name,body=content,scholar=sObj,supervisorText=suObj,deanText=dObj,sender='Dean',schunread=True,supunread=True)
       mObj.save()
     return HttpResponseRedirect('/profile')
@@ -1207,27 +1231,117 @@ def loginm(request):
     if MyUseForm.is_valid():
      dbN=Scholar.objects.filter(regno=MyUseForm.cleaned_data['regno'])
      if dbN:
-       request.session['regno']=MyUseForm.cleaned_data['regno']
-       return HttpResponseRedirect('/scholar1')
-     dbN=Supervisor.objects.filter(mid=MyUseForm.cleaned_data['regno'])
-     isLoggedIn = False
-     connection=get_connection(host='mail.sastra.edu',port=587,username=MyUseForm.cleaned_data['regno'],password=MyUseForm.cleaned_data['password'],use_tls=False)
-     try:
-       connection.open()
-     except:
-       pass
-     else:
-       isLoggedIn=True
-     if dbN and isLoggedIn:
-       request.session['mid']=MyUseForm.cleaned_data['regno']
-       dbN=Supervisor.objects.get(mid=MyUseForm.cleaned_data['regno'])
-       if dbN.dean:
-         return HttpResponseRedirect('/dean1')
+       dbN=Scholar.objects.get(regno=MyUseForm.cleaned_data['regno'])
+       if dbN.approved==True:
+         request.session['regno']=dbN.regno
+         request.session['regno']=MyUseForm.cleaned_data['regno']
+         return HttpResponseRedirect('/scholar1')
        else:
-         return HttpResponseRedirect('/supervisor1')
+         return render(request,"login.html",{"message":"Your account is yet to be approved","col":"orange","logg":"Login"})
+     dbN=Supervisor.objects.filter(mid=MyUseForm.cleaned_data['regno'])
+     if dbN:
+       dbN=Supervisor.objects.get(mid=MyUseForm.cleaned_data['regno'])
+       if dbN.approved==False:
+         return render(request,"login.html",{"message":"Your account is yet to be approved","col":"orange","logg":"Login"})
+       isLoggedIn = True #change to false for shanmail-auth
+       connection=get_connection(host='mail.sastra.edu',port=587,username=MyUseForm.cleaned_data['regno'],password=MyUseForm.cleaned_data['password'],use_tls=False)
+       try:
+         connection.open()
+       except:
+         pass
+       else:
+         isLoggedIn=True
+       if dbN and isLoggedIn:
+         request.session['mid']=MyUseForm.cleaned_data['regno']
+         if dbN.dean:
+           return HttpResponseRedirect('/dean1')
+         else:
+           return HttpResponseRedirect('/supervisor1')
+       else:
+         return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
      else:
-       return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
+       dbN=Superior.objects.filter(email=MyUseForm.cleaned_data['regno'])
+       if dbN:
+         isLoggedIn = True
+         connection=get_connection(host='mail.sastra.edu',port=587,username=MyUseForm.cleaned_data['regno'],password=MyUseForm.cleaned_data['password'],use_tls=False)
+         try:
+           connection.open()
+         except:
+           pass
+         else:
+           isLoggedIn=True
+         if dbN and isLoggedIn:
+           request.session['superior']=MyUseForm.cleaned_data['regno']
+           return HttpResponseRedirect('/superview')
+         else:
+           return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
+       else:
+         return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
     else:
-     return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
+       return render(request,"login.html",{"message":"Invalid Username or Password","col":"red","logg":"Login"})
   else:
     return render(request,"login.html",{})
+
+def viewer(request):
+  if request.POST:
+    IForm=infof(request.POST)
+    if IForm.is_valid():
+      rdata=IForm.cleaned_data['regno']
+      rno=rdata.split()[0]
+      request.session['stored']=rno
+      return HttpResponseRedirect('/sprinfo')
+    else:
+      return HttpResponseRedirect('/profile')
+  else:
+    return HttpResponseRedirect('/profile')
+
+def superview(request):
+  if request.session.has_key('superior'):
+      logg="Logout"
+  else:
+      return HttpResponseRedirect('/login/')
+  dbA=Personal_Det.objects.only("name","scholar")
+  dbSList=Su_Personal_Det.objects.only("name","supervisor")
+  return render(request,"superview.html",{"dbA":dbA,"dbSList":dbSList,"logg":logg})
+
+
+def sprinfo(request):
+  if request.session.has_key('superior'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  status1=""
+  if request.session.has_key('stored'):
+    rno=request.session['stored']
+    dbP=Personal_Det.objects.get(scholar__regno=rno)
+    dbPu=Publications.objects.filter(scholars__regno=rno)
+    dbSu=Su_Personal_Det.objects.get(supervisor__mid=dbP.supervisor.mid)
+    dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+    current=dbCompleted[0].name
+    return render(request,"sprinfo.html",{"logg":logg,"name":dbP.name,"dob":dbP.dob,"sex":dbP.sex,"email":dbP.email,"regno":dbP.scholar.regno,"regdate":dbP.regdate,"school":dbP.school,"pubs":dbPu,"supervisor":dbSu.name,"status1":current})
+  else:
+    return render(request,"home.html",{})
+
+def spschprog(request):
+  if request.session.has_key('superior'):
+    logg="Logout"
+  else:
+    return HttpResponseRedirect('/profile')
+  if request.session.has_key('stored'):
+    current=""
+    rno=request.session['stored']
+    dbP=Personal_Det.objects.get(scholar__regno=rno)
+    dbUpcoming=Progress.objects.filter(scholar__regno=rno).order_by('level').exclude(result="pass")
+    dbNext=""
+    dbRest=""
+    if dbUpcoming:
+      dbNext=dbUpcoming[0]
+      dbRest=dbUpcoming[1:]
+    dbSubjects=Progress.objects.get(scholar__regno=rno,level=3)
+    subjects=dbSubjects.subjected_set.all()
+    today=datetime.datetime.today().strftime('%d-%b-%Y')
+    dbCompleted=Progress.objects.filter(scholar__regno=rno,result="pass").order_by('-level')
+    DCguys=DCMembers.objects.filter(scholar__regno=rno)
+    return render(request,"spschprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"today":today,"subjects":subjects})
+  else:
+    return render(request,"home.html",{})

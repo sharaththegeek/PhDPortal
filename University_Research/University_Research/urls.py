@@ -20,6 +20,8 @@ from Research.views import synopsis
 from Research.views import superText
 from Research.views import pubPlus
 from Research.views import loginm
+from Research.views import logoutsp
+from Research.views import sprinfo
 from Research.views import addpub
 from django.contrib import admin
 from Research.views import home 
@@ -29,6 +31,9 @@ from django.views.generic import TemplateView
 from Research.views import logins
 from Research.views import spreg
 from Research.views import nextPass
+from Research.views import superview
+from Research.views import viewer
+from Research.views import spschprog
 from Research.views import schedule
 from Research.views import schpub
 from Research.views import dschpub
@@ -163,11 +168,16 @@ urlpatterns = [
     url(r'^courseEdit/',courseEdit),
     url(r'^sureg',sureg),
     url(r'^spreg',spreg),
+    url(r'^logoutsp',logoutsp),
     url(r'^supmes',supmes),
     url(r'^schform/',schform),
     url(r'^superText/',superText),
     url(r'^thesis',thesis),
-    url(r'^loginm/',loginm)
+    url(r'^loginm/',loginm),
+    url(r'^superview/',superview),
+    url(r'^sprinfo/',sprinfo),
+    url(r'^viewer/',viewer),
+    url(r'^spschprog/',spschprog),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

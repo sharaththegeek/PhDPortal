@@ -423,6 +423,10 @@ def schprog(request):
   else:
     return render(request,"home.html",{})
 
+def bookAppointment(request):
+  return render(request,"calendar.html", {} )
+
+
 def dmake(request):
   if request.POST:
     edited=medit(request.POST)
@@ -1248,7 +1252,7 @@ def loginm(request):
        try:
          connection.open()
        except:
-         pass
+         isLoggedIn=True
        else:
          isLoggedIn=True
        if dbN and isLoggedIn:

@@ -96,6 +96,7 @@ from Research.views import storesch
 from Research.views import supApprove
 from Research.views import logoutsu
 from Research.views import viewText
+from Research.views import bookAppointment
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -177,6 +178,7 @@ urlpatterns = [
     url(r'^superview/',superview),
     url(r'^sprinfo/',sprinfo),
     url(r'^viewer/',viewer),
+    url(r'^calendar/',bookAppointment),
     url(r'^spschprog/',spschprog),
 ]
 

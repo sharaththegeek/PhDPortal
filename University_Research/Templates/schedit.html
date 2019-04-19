@@ -186,6 +186,53 @@ input[type='radio']:checked + span:after{
            </label><br/><br/>
            <button type="submit">Submit</button>
         </form>
+        {% elif level.level == 9 %}
+        {% if move == "edit" %}
+        <form name="edit-thesis">
+            <span>Reupload new comments</span>
+        </form>
+        {% elif move == "update" %}
+         <div id="checker">
+             <span>Enter status</span> 
+             <label>
+                    <input name="result" id="passer" type="radio" value="Pass" />
+                    <span>Pass</span>
+            </label>
+            <label>
+                    <input name="result" id="passer" type="radio" value="Fail" />
+                    <span>Fail</span>
+            </label><br/><br/>      
+            <span>Enter Comments</span>
+            <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
+            <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="checkPass()">Next</button>
+         </div>
+         <div class="failed" id="failed">
+             <span>Enter date of re-appearance</span>
+             <form method="POST" action="/fail">{%csrf_token%}
+             <input type="text" class="datepicker1" id="date_2" name="date">
+             <input type="hidden" name="hComment" id="fComment"/>
+             <input type="hidden" name="level" value="{{level.level}}">
+             <button type="submit">Submit</button>
+           </form>
+           <button><a href="/schprog/">Cancel</a></button>
+           </div>
+           <div class="passed" id="passed">
+               <span>Confirm status ?</span>
+               <form name="passed" method="POST" action="/passed/">{%csrf_token%}
+                   <input type="hidden" name="hComment" id="hCommentary"/>
+                   <input type="hidden" name="level" value="{{level.level}}">
+                   <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
+               </form> 
+               <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
+             </div>
+        {% elif move == "dated" %}
+        <form name="date-thesis" action="/otherEdit/" method="POST">
+            <span>Schedule Date of Thesis Submission</span>
+            <input type="text" class="datepicker" name="date"/>
+            <input type="hidden" name="level" value="{{level.level}}">
+            <button type="submit">Submit</button>
+        </form>
+        {% endif %}
         {% elif level.level == 4 or level.level == 7 or level.level == 8 or level.level == 10 %}
         {% if move == "edit" %}
         <form name="edit-others" action="/dcComments/" method="POST">{%csrf_token%}
@@ -238,7 +285,7 @@ input[type='radio']:checked + span:after{
                 <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
             </form>
                 <button class="btn-small waves-effect waves-lighten blue darken-3"><a href="/schprog/">Cancel</a></button>
-            {% elif level.level == 10 %}
+            {% elif level.level == 8 %}
             <span>Enter date for Thesis Submission</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
                 <input type="text" class="datepicker3" id="date_4" name="date">
@@ -366,27 +413,43 @@ input[type='radio']:checked + span:after{
                     </div>
                 </div>
             {% elif level.level == 3 %}
+            {% if move == "edit" %}
             <div>
-                    <form name="update-1-dc-pass" method="POST" action="/courseEdit/">{%csrf_token%}
-                    <span>Enter list of recommended courses:</span>
-                    <input id="course" type='text' name="course[]" placeholder="Enter course">
-                    <input id="course" type='text' name="course[]" placeholder="Enter course">
-                    <input id="course" type='text' name="course[]" placeholder="Enter course">
-                    <input id="course" type='text' name="course[]" placeholder="Enter course">
-                    <input type="hidden" name="level" value="{{level.level}}">
-                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
-                    </form>        
-            </div>
+             <form name="update-1-dc-pass" method="POST" action="/courseEdit/">{%csrf_token%}
+             <span>Enter list of recommended courses:</span>
+             <input id="course" type='text' name="course[]" placeholder="Enter course">
+             <input id="course" type='text' name="course[]" placeholder="Enter course">
+             <input id="course" type='text' name="course[]" placeholder="Enter course">
+             <input id="course" type='text' name="course[]" placeholder="Enter course">
+             <input type="hidden" name="level" value="{{level.level}}">
+             <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Submit</button>
+             </form>        
+             </div>
+            {% elif move == "update" %}
+            <form name="update-course" method="POST" action="/marked/">{%csrf_token%}
+                 {% for i in courses %}
+                 <h6 >Course Name: {{i.name}}</h6><br/>
+                 <span>Enter date of completion</span>
+                 <input id="course" style="width: 20%" type="text" name="date[]" class="datepicker"/><br/><br/>
+                 <span>Enter the marks obtained</span>
+                 <input id="course" style="width: 20%" type="text" name="marks[]"/><br/><br/>
+                 <span>Enter the result</span>
+                 <label>
+                         <input name="result[]" type="radio" value="Pass"/>
+                         <span>Pass</span>
+                 </label>
+                 <label>
+                         <input name="result[]" type="radio" value="Fail" />
+                         <span>Fail</span>
+                 </label><br/><br/><hr/>
+                 {% endfor %}
+                 <button type="submit" class="btn-small waves-effect waves-lighten blue darken-3">Submit</button>
+            </form>
+            {% endif %}
             {% endif %}
         </div>
         <script>
-         document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {
-        format:'dd mmm yyyy',
-        autoClose: true,
-    });
-  });
+         
   
         function checkPass(){
             var passed=document.getElementById('passer').value;

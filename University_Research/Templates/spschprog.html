@@ -83,7 +83,13 @@
 								<ul class="collapsible popout">
 									{%for others in dbCompleted%}
 									<li>
-											<div class="collapsible-header">{{others.name}}</div>
+											{% if others.level == 6 %}
+                                            {% if not others.current %}
+                                              <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
+                                            {% else %}
+                                            <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
 											<div class="collapsible-body">
 												{% if others.level == 1%}
                                                  <p>Presented on: {{others.presented}} </p>
@@ -162,7 +168,13 @@
                         <ul class="collapsible popout">
                             {% if dbNext %}
                             <li class="active">
-                                <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {% if dbNext.level == 6 %}
+                                    {% if not dbNext.current %}
+                                      <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {%endif%}
+                                    {% else %}
+                                    <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {%endif%}
                                 <div class="collapsible-body">
                                         {% if dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
                                         {% if dbNext.date %}

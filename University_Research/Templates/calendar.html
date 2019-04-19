@@ -1,0 +1,102 @@
+{%load static%}
+<html>
+   <head>
+      <title>SASTRA Deemed University</title>
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, shrink-to-fit=no"
+         />
+      <link rel="stylesheet" href="{%static 'header.css' %}">
+      <!--Materialize CSS-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href='{% static "fullcalendar/core/main.css" %}' rel='stylesheet' />
+      <link href='{% static "fullcalendar/daygrid/main.css" %}' rel='stylesheet' />
+      <link href='{% static "fullcalendar/timegrid/main.css" %}' rel='stylesheet' />
+      <!-- Compiled and minified JavaScript for Materialize -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script src="{% static 'header.js' %}"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+      <title>Research - SASTRA Deemed University</title>
+   </head>
+   <body oncontextmenu="return false" >
+      <div id="navbar" style="z-index: 999">
+         <a href="/logq" class="buttons">{{logg}}</a>
+         <a href="/profile" class="buttons">Profile</a>
+         <a href="" class="buttons">Downloads</a>
+         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
+         <a href="http://www.sastra.edu" class="brand-logo">
+            <div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div>
+         </a>
+         <p class="main">Research Portal</p>
+      </div>
+      <div id="navbar-mobile">
+         <a href="#" class="brand-logo">
+            <div class="logo2"><img src="https://www.sastra.edu/images/sastra/SASTRA_DEEMED_NEW_1.png" alt="SASTRA" /></div>
+         </a>
+         <a href="javascript:void(0);" class="icon" onclick="sideLoad()">
+         <i class="fas fa-bars"></i>
+         </a>
+      </div>
+      <div id="sidebar-mobile">
+         <a href="javascript:void(0);" class="icon" onclick="sideClose()">
+         <i class="fas fa-times"></i>
+         </a>
+         <a href="#about" onclick="sideClose()">{{logg}}</a>
+         <a href="#" onclick="sideClose()">Downloads</a>
+         <a href="#" onclick="sideClose()">SASTRA Home</a>
+      </div>
+      <div id="calendar">
+			
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src='{% static "fullcalendar/core/main.js" %}'></script>
+      <script src='{% static "fullcalendar/daygrid/main.js" %}'></script>
+      <script src='{% static "fullcalendar/timegrid/main.js" %}'></script>
+      <script src='https://fullcalendar.io/releases/interaction/4.0.2/main.min.js'></script>
+      <script>
+         document.addEventListener('DOMContentLoaded',function(){
+         var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+         plugins: ['interaction', 'dayGrid','timeGrid' ],
+         //timeZone: "Asia/Kolkata",
+         timeZone: "UTC",
+         defaultView: 'timeGridFourDay',
+         header: {
+         left: 'prev,next',
+         center: 'title',
+         right: 'timeGridWeek,dayGridMonth'
+         },
+         views: {
+         timeGridFourDay: {
+         type: 'dayGridMonth',
+         buttonText: 'Day',
+         activeStart: 8,
+         currentStart: 8
+         }
+         },
+         selectable: true,
+        select: function(info) {
+          alert('selected ' + info.startStr + ' to ' + info.endStr); // INFO: Use this and pass data to backend. 
+        },
+         events: [
+            {"title":"DC Meet #1","start":"2019-04-19"},
+            {"title":"DC Meet #2","start":"2019-04-19", "className": "event-orange"},
+         ]
+         });
+         window.cal = calendar;
+         calendar.render();
+         
+         });
+      
+      </script>
+      <style>
+        .event-orange {
+          background-color: #d05833;
+          border: none;
+        }
+      </style>
+      <div class="footer">
+         <p class="footer-text">&copy; SASTRA DEEMED UNIVERSITY, All Rights Reserved. 2019</p>
+      </div>
+   </body>
+</html>

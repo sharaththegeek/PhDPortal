@@ -139,53 +139,7 @@ input[type='radio']:checked + span:after{
         <div style="padding: 20px">
         <h5>{{level.name}}</h5>
         <hr/>
-       {% if level.level == 9 %}
-       {% if move == "edit" %}
-       <form name="edit-thesis">
-           <span>Reupload new comments</span>
-       </form>
-       {% elif move == "update" %}
-        <div id="checker">
-            <span>Enter status</span> 
-            <label>
-                   <input name="result" id="passer" type="radio" value="Pass" />
-                   <span>Pass</span>
-           </label>
-           <label>
-                   <input name="result" id="passer" type="radio" value="Fail" />
-                   <span>Fail</span>
-           </label><br/><br/>      
-           <span>Enter Comments</span>
-           <textarea placeholder="Comments..." class="materialize-textarea" id="comments" name="comments"></textarea>
-           <button class="btn-small waves-effect waves-lighten blue darken-3" onclick="checkPass()">Next</button>
-        </div>
-        <div class="failed" id="failed">
-            <span>Enter date of re-appearance</span>
-            <form method="POST" action="/fail">{%csrf_token%}
-            <input type="text" class="datepicker1" id="date_2" name="date">
-            <input type="hidden" name="hComment" id="fComment"/>
-            <input type="hidden" name="level" value="{{level.level}}">
-            <button type="submit">Submit</button>
-          </form>
-          <button><a href="/schprog/">Cancel</a></button>
-          </div>
-          <div class="passed" id="passed">
-              <span>Confirm status ?</span>
-              <form name="passed" method="POST" action="/passed/">{%csrf_token%}
-                  <input type="hidden" name="hComment" id="hCommentary"/>
-                  <input type="hidden" name="level" value="{{level.level}}">
-                  <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
-              </form> 
-              <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
-            </div>
-       {% elif move == "dated" %}
-       <form name="date-thesis" action="/otherEdit/" method="POST">
-           <span>Schedule Date of Thesis Submission</span>
-           <input type="text" class="datepicker" name="date"/>
-           <input type="hidden" name="level" value="{{level.level}}">
-           <button type="submit">Submit</button>
-       </form>
-       {% endif %}
+
        {% elif level.level == 3%}
        {% if move == "edit" %}
        <div>

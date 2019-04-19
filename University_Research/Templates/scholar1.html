@@ -207,8 +207,15 @@
 							<div class="card-title" style="padding-top:15px">Completed</div>
 								<ul class="collapsible popout">
 									<li class="active">
-										<div class="collapsible-header">{{dbLatest.name}}</div>
-										<div class="collapsible-body">
+											{% if dbLatest.level == 6 %}
+											{% if not dbLatest.current %}
+												<div class="collapsible-header">{{dbLatest.name}}</div>
+											{%endif%}
+											{% else %}
+											<div class="collapsible-header">{{dbLatest.name}}</div>
+											{%endif%}		
+											{% if not dbLatest.current %}								
+											<div class="collapsible-body">
 											{% if dbLatest.level == 1 %}
 											 <p>Presented on: {{dbLatest.presented}} </p>
 											 <p>Provisionally Admitted: Yes </p>
@@ -250,10 +257,17 @@
 											</table>											
 											{% endif %}
 										</div>
+										{%endif%}
 									</li>
 									{%for others in dbOthers%}
 									<li>
-											<div class="collapsible-header">{{others.name}}</div>
+											{% if others.level == 6 %}
+                                            {% if not others.current %}
+                                              <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
+                                            {% else %}
+                                            <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
 											<div class="collapsible-body">
 												{% if others.level == 1%}
 												 <p>Presented on: {{others.presented}} </p>
@@ -323,7 +337,13 @@
 								<ul class="collapsible popout">
 									{% if dbNext %}
 									<li class="active">
-										<div class="collapsible-header">{{dbNext.name}}</div>
+											{% if dbNext.level == 6 %}
+											{% if not dbNext.current %}
+												<div class="collapsible-header">{{dbNext.name}}</div>
+											{%endif%}
+											{% else %}
+											<div class="collapsible-header">{{dbNext.name}}</div>
+											{%endif%}
 										<div class="collapsible-body">
 												{% if dbNext.level == 1%}
 												 <p>Presented on: {{dbNext.presented}} </p>

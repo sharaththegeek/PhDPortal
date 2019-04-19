@@ -83,7 +83,13 @@
 								<ul class="collapsible popout">
 									{%for others in dbCompleted%}
 									<li>
-											<div class="collapsible-header">{{others.name}}</div>
+											{% if others.level == 6 %}
+                                            {% if not others.current %}
+                                              <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
+                                            {% else %}
+                                            <div class="collapsible-header">{{others.name}}</div>
+                                            {%endif%}
 											<div class="collapsible-body">
 												{% if others.level == 1%}
                                                  <p>Presented on: {{others.presented}} </p>
@@ -115,22 +121,14 @@
 												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
 												{%endif%}
                                                 <p>Comments: {{others.comments}}</p>
-                                                <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
-                                                    <input type="hidden" name="level" value="{{others.level}}"/>
-                                                    <input type="hidden" name="move" value="edit"/>
-                                                    <button type="submit">Edit</button>
-                                                </form>
+                           
 												{% elif others.level == 4 or others.level == 7 or others.level == 8 or others.level == 10%}
                                                 <p>Date: {{others.date}}</p>
                                                 {% if others.doc %}
 												<a href="{{MEDIA_URL}}{{others.doc.url}}">View Uploaded File</a>
 												{%endif%}
                                                 <p>Comments: {{others.comments}}</p>
-                                                <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                                    <input type="hidden" name="level" value="{{others.level}}"/>
-                                                    <input type="hidden" name="move" value="edit"/>
-                                                    <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Edit
-                                                        </button>                                                </form>
+
 												{% elif others.level == 3%}
                                                 <p>Subjects:</p>
                                                 <table>
@@ -151,11 +149,7 @@
                                                     </tr>
                                                     {%endfor%}
                                                 </table><br/>
-                                                <form name="makedit" method="POST" action="/dmake/">{%csrf_token%}
-                                                    <input type="hidden" name="level" value="{{others.level}}"/>
-                                                    <input type="hidden" name="move" value="edit"/>
-                                                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Edit</button>
-                                                </form>
+   
 												{%endif%}
 											</div>
 										</li>
@@ -169,71 +163,43 @@
                         <ul class="collapsible popout">
                             {% if dbNext %}
                             <li class="active">
-                                <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {% if dbNext.level == 6 %}
+                                    {% if not dbNext.current %}
+                                      <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {%endif%}
+                                    {% else %}
+                                    <div class="collapsible-header">{{dbNext.name}}</div>
+                                    {%endif%}
                                 <div class="collapsible-body">
                                         {% if dbNext.level == 2 or dbNext.level == 5 or dbNext.level == 6 %}
                                         {% if dbNext.date %}
                                         <p>To be held on: {{dbNext.date}}</p>
                                         <a href="/plusdc">Reschedule Date for the meeting</a>
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="update"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Update Comments
-                                                </button>                                        </form>
                                         {% else %}
+                                        <p>To be held on: TBA</p>                                       
                                         <a href="/plusdc">Schedule Date for the meeting</a>
                                         {% endif %}
                                         {% elif dbNext.level == 9%}
                                         <p>To be submitted before: {{dbNext.date}}</p>
-                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                            <input type="hidden" name="move" value="edit"/>
-                                            <button class="btn-small waves-effect waves-light blue darken-3" type="submit">Change Date of Submission</button>
-                                        </form>
+                                       
                                         {% if dbNext.doc %}
                                         <a href="{{MEDIA_URL}}{{dbNext.doc.url}}">View Uploaded File</a>
-                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                            <input type="hidden" name="move" value="update"/>
-                                            <button class="btn-small waves-effect waves-light blue darken-3" type="submit">Update Result</button>
-                                        </form>
+                                        
                                         {%endif%}
                                         {% elif dbNext.level == 4 or dbNext.level == 8 or dbNext.level == 10%}
                                         {% if dbNext.date %}
                                         <p>Date: {{dbNext.date}}</p>
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="dated"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Edit
-                                                </button>                                        </form>
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="update"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Update Status
-                                                </button>                                        </form>
+                                      
                                         {%else%}
                                         <p>Date: TBA</p>
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="dedit"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Add Date
-                                                </button>   
-                                        </form>
+                                       
                                         {%endif%}
                                         {% elif dbNext.level == 7 %}
                                         <p>Date of Submission: {{dbNext.date}}</p>
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="dated"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Edit
-                                                </button>                                        </form>
+                                        
                                         {% if dbNext.doc %}
                                         <a href="{{MEDIA_URL}}{{dbNext.doc.url}}">View Uploaded File</a>
-                                        <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                            <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                            <input type="hidden" name="move" value="update"/>
-                                            <button class="btn-small waves-effect waves-light blue darken-3" type="submit">Update Result</button>
-                                        </form>
+                                       
                                         {%endif%}
                                         {% elif dbNext.level == 3%}
                                         {% if subjects %}
@@ -250,17 +216,9 @@
 												</tr>
 												{%endfor%}
                                             </table><br/>
-                                            <form name="dcmem" action="/dmake/" method="POST">{%csrf_token%}
-                                                <input type="hidden" name="level" value="{{dbNext.level}}"/>
-                                                <input type="hidden" name="move" value="update"/>
-                                                <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Update Result</button>
-                                            </form>
+                                            
                                         {%endif%}
-                                        <form method="POST" name="makedit" action="/dmake/">{%csrf_token%}
-                                            <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="edit"/>
-                                            <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Edit
-                                                </button>      
+                        
                                       
                                         {%endif%}
                                         

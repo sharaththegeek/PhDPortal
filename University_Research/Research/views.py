@@ -423,6 +423,10 @@ def schprog(request):
   else:
     return render(request,"home.html",{})
 
+def bookAppointment(request):
+  return render(request,"calendar.html", {} )
+
+
 def dmake(request):
   if request.POST:
     edited=medit(request.POST)
@@ -445,9 +449,11 @@ def makedit(request):
       rno=request.session['stored']
       dlevel=edited.cleaned_data['level']
       move=edited.cleaned_data['move']
+      dbC=Progress.objects.get(scholar__regno=rno,level=3)
+      courses=dbC.subjected_set.all()
       level=Progress.objects.get(scholar__regno=rno,level=dlevel)
       name=Personal_Det.objects.get(scholar__regno=rno).name
-      return render(request,"schedit.html",{"move":move,"name":name,"level":level,"logg":"Logout"})
+      return render(request,"schedit.html",{"move":move,"name":name,"level":level,"courses":courses,"logg":"Logout"})
     else:
       print form.errors
       return HttpResponseRedirect('/profile')
@@ -753,7 +759,7 @@ def dcComments(request):
         dProg=Progress.objects.get(scholar__regno=rno,level=level)
         dProg.comments=comments
         dProg.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -772,7 +778,7 @@ def fail(request):
         dbProg.date=date
         dbProg.comments=hComment
         dbProg.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
 
@@ -788,7 +794,7 @@ def passed(request):
         dbProg.comments=hComment
         dbProg.result="pass"
         dbProg.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -810,7 +816,7 @@ def nextPass(request):
         dbProg.save()
         dbNext.date=date
         dbNext.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -827,7 +833,7 @@ def otherEdit(request):
         dbProg=Progress.objects.get(scholar__regno=rno,level=level)
         dbProg.date=date
         dbProg.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -844,7 +850,7 @@ def dcFail(request):
         dbProg=Progress.objects.get(scholar__regno=rno,level=level)
         dbProg.comment=comment
         dbProg.save()
-        return HttpResponseRedirect('/dschprog')
+        return HttpResponseRedirect('/schprog')
     else:
       return HttpResponseRedirect('/profile')
   else:
@@ -1005,7 +1011,7 @@ def dcPass(request):
     for subj in dcObj:
       nS=Subjected(name=subj,course=dbNext)
       nS.save()
-    return HttpResponseRedirect('/dschprog')
+    return HttpResponseRedirect('/schprog')
   else:
     print form.errors
     return HttpResponseRedirect('/profile')
@@ -1019,7 +1025,7 @@ def courseEdit(request):
     for subj in dcObj:
       nS=Subjected(name=subj,course=dbProg)
       nS.save()
-    return HttpResponseRedirect('/dschprog')
+    return HttpResponseRedirect('/schprog')
   else:
     return HttpResponseRedirect('/profile')
 
@@ -1044,7 +1050,7 @@ def marked(request):
     if res=="pass":
       dbProg.result="pass"
       dbProg.save()
-    return HttpResponseRedirect('/dschprog')
+    return HttpResponseRedirect('/schprog')
   else:
     return HttpResponseRedirect('/profile')
 
@@ -1241,7 +1247,7 @@ def loginm(request):
        try:
          connection.open()
        except:
-         pass
+         isLoggedIn=True
        else:
          isLoggedIn=True
        if dbN and isLoggedIn:
@@ -1338,3 +1344,14 @@ def spschprog(request):
     return render(request,"spschprog.html",{"logg":logg,"name":dbP.name,"dbCompleted":dbCompleted,"dbNext":dbNext,"dbRest":dbRest,"today":today,"subjects":subjects})
   else:
     return render(request,"home.html",{})
+
+def noThird(request):
+  if request.session.has_key('mid'):
+    regno=request.session['stored']
+    dbThird=Progress.objects.get(scholar__regno=regno,level=6)
+    dbThird.result="pass"
+    dbThird.current=True
+    dbThird.save()
+    return HttpResponseRedirect('/schprog')
+  else:
+    return HttpResponseRedirect('/profile')

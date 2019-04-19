@@ -22,6 +22,7 @@ from Research.views import pubPlus
 from Research.views import loginm
 from Research.views import logoutsp
 from Research.views import sprinfo
+from Research.views import noThird
 from Research.views import addpub
 from django.contrib import admin
 from Research.views import home 
@@ -96,6 +97,7 @@ from Research.views import storesch
 from Research.views import supApprove
 from Research.views import logoutsu
 from Research.views import viewText
+from Research.views import bookAppointment
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -177,7 +179,9 @@ urlpatterns = [
     url(r'^superview/',superview),
     url(r'^sprinfo/',sprinfo),
     url(r'^viewer/',viewer),
+    url(r'^calendar/',bookAppointment),
     url(r'^spschprog/',spschprog),
+    url(r'^noThird/',noThird),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

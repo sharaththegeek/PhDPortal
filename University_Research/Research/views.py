@@ -574,18 +574,11 @@ def sureg(request):
     RegSu=suregForm(request.POST)
     if RegSu.is_valid():
       if RegSu.cleaned_data['exin']=="Other":
-         check=True
-         mid=0
-         while(check):
-           mid=random.randint(200000000,200009999)
-           dbC=Supervisor.objects.filter(mid=mid)
-           if not dbC.exists():
-             check=False
          SuuObj=Supervisor(mid=RegSu.cleaned_data['email'],password=mid)
          SuuObj.save()
          SuObj.institution=RegSu.cleaned_data['institution']
          SuObj.designation=RegSu.cleaned_data['designation']
-         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'],pemail=RegSu.cleaned_data['pemail'])
+         SuObj=Su_Personal_Det(name=RegSu.cleaned_data['name'],sex=RegSu.cleaned_data['sex'],school=RegSu.cleaned_data['school'],email=RegSu.cleaned_data['email'],aoi=RegSu.cleaned_data['aoi'],phno=RegSu.cleaned_data['phno'])
          SuObj.supervisor=SuuObj
          SuObj.save()
          SuuObj.save()
@@ -618,7 +611,7 @@ def schreg(request):
   if request.POST:
     RegS=schregForm(request.POST)
     if RegS.is_valid():
-      SObj=Personal_Det(name=RegS.cleaned_data['name'],sex=RegS.cleaned_data['sex'],dob=RegS.cleaned_data['dob'],school=RegS.cleaned_data['school'],email=RegS.cleaned_data['email'],regdate=RegS.cleaned_data['regdate'],category=RegS.cleaned_data['category'],pemail=RegS.cleaned_data['pemail'],phno=RegS.cleaned_data['phno'],retitle=RegS.cleaned_data['retitle'],typet=RegS.cleaned_data['typet'])
+      SObj=Personal_Det(name=RegS.cleaned_data['name'],sex=RegS.cleaned_data['sex'],dob=RegS.cleaned_data['dob'],school=RegS.cleaned_data['school'],email=RegS.cleaned_data['email'],regdate=RegS.cleaned_data['regdate'],category=RegS.cleaned_data['category'],phno=RegS.cleaned_data['phno'],retitle=RegS.cleaned_data['retitle'],typet=RegS.cleaned_data['typet'])
       TObj=Scholar(regno=RegS.cleaned_data['email'],password=RegS.cleaned_data['regno'])
       SuObj=Supervisor.objects.get(mid=RegS.cleaned_data['supervisor'])
       SObj.supervisor=SuObj

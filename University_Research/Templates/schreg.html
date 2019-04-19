@@ -25,7 +25,7 @@
 <body oncontextmenu="return false" >
 			
     <div id="navbar" style="z-index: 999">
-        <a href="/logq" class="buttons">{{logg}}</a>
+        <a href="/logq" class="buttons">Logout</a>
         <a href="/profile" class="buttons">Profile</a>
         <a href="" class="buttons">Downloads</a>
         <a href="http://www.sastra.edu" class="buttons">SASTRA Home</a>
@@ -79,53 +79,57 @@
               <div class="input-field col s6">
                   <input placeholder="Register Number" id="regno" name="regno" type="text" class="validate">
               </div>
-              <div class="input-field col s6">
-                  <input placeholder="Department" id="school" name="school" type="text" class="validate">
-              </div>
+              <span>School:</span>
+              <select name="school">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option name="school" value="SoC">SoC</option>
+                  <option name="school" value="SoME">SoME</option>
+                  <option name="school" value="SCBT">SCBT</option>
+                  <option name="school" value="SEEE">SEEE</option>
+              </select>
               <div class="input-field col s6">
                   <input placeholder="Official E-mail ID" id="email" name="email" type="text" class="validate">
-              </div>
-              <div class="input-field col s6">
-                  <input placeholder="Personal E-mail ID" id="pemail" name="pemail" type="text" class="validate">
               </div>
               <div class="input-field col s6">
                   <input placeholder="Phone Number" id="phno" name="phno" type="text" class="validate">
               </div>
               <div class="input-field col s6">
-                  <input placeholder="Supervisor ID" id="sup" name="supervisor" type="text" class="validate">
+                  <input placeholder="Supervisor Email" id="sup" name="supervisor" type="text" class="validate">
               </div>
               <span>Date of Registration</span>
               <input type="text" class="datepicker" name="regdate">
               <div class="input-field col s6">
                   <input id="title" name="retitle" type="text" class="validate">
-                  <label for="title">Proposed Title of Research</label>
+                  <label for="title">Area of Research</label>
               </div>
               <span>Type</span>
               <label>
-                  <input name="typet" value="Part-Time" type="radio">
+                  <input name="typet" value="Part-Time" type="radio" onclick="document.getElementById('school_box').style.display='block'">
                   <span>Part-Time Scholar</span>
               </label>
               <label>
-                  <input name="typet" value="Full-Time" type="radio">
+                  <input name="typet" value="Full-Time" type="radio" onclick="document.getElementById('school_box').style.display='block'">
                   <span>Full-Time Scholar</span>
               </label>
               <br><br>
+              <div id="school_box">
               <span>Institution:</span>
               <label>
                   <input name="exin" value="SASTRA" type="radio" onclick="document.getElementById('external').style.display='none'">
-                  <span>SASTRA</span>
+                  <span>Internal</span>
               </label>
               <label>
                   <input name="exin" value="Other" type="radio" onclick="document.getElementById('external').style.display='block'">
-                  <span>Other</span>
+                  <span>External</span>
               </label>
               <br>
+            </div>
               <div class="external" id="external">
                   <div class="input-field col s6">
-                      <input id="inst" name="institution" type="text" value="Institution Name" class="validate">
+                      <input id="inst" name="institution" type="text" value="External Institution Name" class="validate">
                   </div>
                   <div class="input-field col s6">
-                      <input id="inst_ad" name="institution_ad" type="text" value="Institution Address" class="validate">
+                      <input id="inst_ad" name="institution_ad" type="text" value="External Institution Address" class="validate">
                   </div>
               </div>
               <br><br><br><br>
@@ -137,6 +141,9 @@
 input{
   padding-right: 5%;
   padding-left: 5%;
+}
+#school_box{
+  display: none;
 }
 .external{
 	display: none;

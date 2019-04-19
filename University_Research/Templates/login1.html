@@ -49,20 +49,13 @@
               <div class="card">
                 <div class="card-title"><b>Login</b></div>
                 <p class="card-message" style="color:{{col}}">{{message}}</p>
-                <div class="card-tabs">
-                  <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#scholar"><span class="blue-text text-darken-3">Scholar</span></a></li>
-                    <li class="tab"><a href="#supervisor"><span class="blue-text text-darken-3">Supervisor</span></a></li>
-                    <li class="tab"><a href="#dean"><span class="blue-text text-darken-3">Dean</span></a></li>
-                  </ul>
-                </div>
                 <div class="card-content">
                   <div id="scholar">
-                      <form method="POST" action="http://127.0.0.1:8000/logins/" name="logins"> {%csrf_token%}
+                      <form method="POST" action="http://127.0.0.1:8000/loginm/" name="logins"> {%csrf_token%}
                       <br/><br/>
                     <div class="input-field">
                     <input id='regno' type="text" name='regno' required/>
-                    <label for="regno">Register Number</label>
+                    <label for="regno">Email</label>
                   </div>
                   <div class="input-field">
                     <input id="password" type="password" name="password" required/>
@@ -75,47 +68,12 @@
                   </div>
                     </form>
                   </div>
-                  <div id="supervisor">
-                      <form method="POST" action="http://127.0.0.1:8000/loginsu/" name="loginsu">{%csrf_token%}
-                        <br/><br/>
-                      <div class="input-field">
-                      <input id='regno' type="text" name='mid' required/>
-                      <label for="regno">User ID</label>
-                    </div>
-                    <div class="input-field">
-                      <input id="password" type="password" name="password" required/>
-                      <label for="password">Password</label>
-                    </div><br/>
-                    <div class="submitted">
-                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
-                          <i class="material-icons right">send</i>
-                      </button>  
-                    </div>
-                      </form>
-                  </div>
-                  <div id="dean">
-                      <form method="POST" action="http://127.0.0.1:8000/logind/" name="logind">{%csrf_token%}
-                        <br/><br/>
-                      <div class="input-field">
-                      <input id='regno' type="text" name='mid' required/>
-                      <label for="regno">Dean ID</label>
-                    </div>
-                    <div class="input-field">
-                      <input id="password" type="password" name="password" required/>
-                      <label for="password">Password</label>
-                    </div><br/>
-                    <div class="submitted">
-                      <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Login
-                          <i class="material-icons right">send</i>
-                      </button>  
-                    </div>
-                      </form>
-                  </div>
                 </div>
               </div>
             
                 
                 <style>
+
                   .input-field label {
      color: grey;
    }
@@ -232,11 +190,12 @@ h3{
 
 </style>
 <script>
-   
+
 var Ti=setTimeout(me1(),100)
 function me1(){
   window.alert("You need to login first!");
 }
+
   	var element=document.querySelector('.tabs');
 						var instance=M.Tabs.init(element,{
 							swipeable: true,
@@ -247,6 +206,5 @@ function me1(){
 </div>
 </body>
 </html>
-
 
 

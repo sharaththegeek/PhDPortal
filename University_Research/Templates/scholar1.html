@@ -106,7 +106,7 @@
 							<ul class="tabs tabs-fixed-width">
 								<li class="tab"><a class="tabbed" href="#profile"><span class="blue-text text-darken-2">Profile</span></a></li>
 								<li class="tab"><a class="tabbed" href="#progress"><span class="blue-text text-darken-2">Progress</span></a></li>
-								<li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Messages{% if unread %}<span class="new badge blue" data-badge-caption="">{{unread}}</span>{%endif%}</span></a></li>
+								<li class="tab"><a class="tabbed" href="#messages"><span class="blue-text text-darken-2">Publications</span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -198,34 +198,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="publication-holder" style="padding: 15px;margin:auto;text-align: center">
-				<div class="card">
-					<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
-					<table>
-						<tr>
-							<th style="padding-left:20px">Title of the Publication</th>
-							<th>Name of the Journal</th>
-							<th>Authors </th>
-							<th>Year of Publication</th>
-						</tr>
-						<tr>
-							<td style="padding-left:20px">Sample Research</td>
-							<td>Sample Title</td>
-							<td>{{name}}</td>
-							<td>12 Jan 2019</td>
-						</tr>
-						{%for p in pubs%}
-							<tr>
-								<td style="padding-left:20px">{{p.title}}</td>
-								<td>{{p.name}}</td>
-								<td>{%for scholar in p.scholars.all%}{{scholar.personal_det.name}}{%endfor%} , {%for scholar in p.supervisors.all%}{{scholar.su_personal_det.name}}{%endfor%}</td>
-								<td>{{p.date}}</td>
-							</tr>
-						{%endfor%}
-
-					</table>
-				</div>
-			</div>
+				
 			</div>
           <div id="progress" >
 						<div class="divided">
@@ -422,62 +395,33 @@
 						<br><br>
 					</div>
 					<div id="messages">
-						<div class="card">
-							<div class="headed">
-							<h5>Reports</h5></div><br/>
-							<p style="text-align: center">No reports to show currently!</p><br/>
-						</div>
-						<div class="message">
+						<div class="publication-holder" style="padding: 15px;margin:auto;text-align: center">
 							<div class="card">
-							<div class="headed">
-							<h5>Messages</h5>
-							<a class="messenger btn-floating tooltipped waves-effect waves-light blue darken-3" href="/texted/" data-position="top" data-tooltip="Click to send a new message"><i class="material-icons">add</i></a>
-							<br/>
-							<br/>
-						</div>
-							{% if dbMessages %}
-							<table>
-									<tr class="boss">
-										<th style="width: 90%;padding-left: 25px">Title</th>
-										<th>Date</th>
-									</tr>
-							{% for message in dbMessages %}
-							{% if message.schunread == True %}
-							<b>
+								<div class="card-title" style="padding-top: 15px">Publication Details</div><br/>
+								<table>
 									<tr>
-											<td>
-													<form action="/Mview/" method="POST">{%csrf_token%}
-														<input type="hidden" name="tid" value="{{message.tid}}">
-														<button class="message-submit" type="submit">
-															 <span style="padding-left: 15px; font-weight: bolder;color: #3C5EC1" >{{message.head}}</span>
-															</button>
-													</form> 
-													<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
-											</td>
-											<td><span style="font-size:0.90em">{{message.latest}}</span></td>
+										<th style="padding-left:20px">Title of the Publication</th>
+										<th>Name of the Journal</th>
+										<th>Authors </th>
+										<th>Year of Publication</th>
+									</tr>
+									<tr>
+										<td style="padding-left:20px">Sample Research</td>
+										<td>Sample Title</td>
+										<td>{{name}}</td>
+										<td>12 Jan 2019</td>
+									</tr>
+									{%for p in pubs%}
+										<tr>
+											<td style="padding-left:20px">{{p.title}}</td>
+											<td>{{p.name}}</td>
+											<td>{%for scholar in p.scholars.all%}{{scholar.personal_det.name}}{%endfor%} , {%for scholar in p.supervisors.all%}{{scholar.su_personal_det.name}}{%endfor%}</td>
+											<td>{{p.date}}</td>
 										</tr>
-							</b>
-							{% else %}
-							<tr>
-									<td>
-											<form action="/Mview/" method="POST">{%csrf_token%}
-												<input type="hidden" name="tid" value="{{message.tid}}">
-												<button class="message-submit" type="submit">
-													 <span style="padding-left: 15px">{{message.head}}</span>
-													</button>
-											</form> 
-											<span style="padding-left: 22px;font-size: 0.8em;color:grey">Created By {{message.sender}}</span>
-									</td>
-									<td><span style="font-size:0.90em">{{message.latest}}</span></td>
-								</tr>
-							{% endif %}
-							{% endfor %}
-							{% else %}
-							<br/>
-							<p style="text-align: center">No messages to show currently!</p>
-							<br/>
-							{% endif %}
-						</div>
+									{%endfor%}
+			
+								</table>
+							</div>
 						</div>
 					</div>
 					<script>

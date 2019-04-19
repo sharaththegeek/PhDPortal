@@ -223,7 +223,7 @@ input[type='radio']:checked + span:after{
                    <input type="hidden" name="level" value="{{level.level}}">
                    <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
                </form> 
-               <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
+               <a style="text-decoration: none" href="/schprog/">  <button class="btn-small waves-effect waves-lighten blue darken-3">Cancel</button></a>
              </div>
         {% elif move == "dated" %}
         <form name="date-thesis" action="/otherEdit/" method="POST">
@@ -275,7 +275,7 @@ input[type='radio']:checked + span:after{
                 <input type="hidden" name="level" value="{{level.level}}">
                 <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
             </form> 
-            <button class="btn-small waves-effect waves-lighten blue darken-3"><a style="text-decoration: none" href="/schprog/">Cancel</a></button>
+            <a style="text-decoration: none" href="/schprog/">  <button class="btn-small waves-effect waves-lighten blue darken-3">Cancel</button></a>
             {% elif level.level == 7 %}
             <span>Enter date for RAC</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
@@ -284,7 +284,7 @@ input[type='radio']:checked + span:after{
                 <input type="hidden" name="level" value="{{level.level}}">
                 <button class="btn-small waves-effect waves-lighten blue darken-3" type="submit">Confirm</button>
             </form>
-                <button class="btn-small waves-effect waves-lighten blue darken-3"><a href="/schprog/">Cancel</a></button>
+            <a href="/schprog/">   <button class="btn-small waves-effect waves-lighten blue darken-3">Cancel</button></a>
             {% elif level.level == 8 %}
             <span>Enter date for Thesis Submission</span>
             <form name="nextPass" method="POST" action="/nextPass/">{%csrf_token%}
@@ -341,7 +341,7 @@ input[type='radio']:checked + span:after{
                    <input type="hidden" name="level" value="{{level.level}}">
                    <button type="submit">Confirm</button>
                 </form>
-                   <button>Cancel</button>
+                 <a href="/schprog">  <button>Cancel</button></a>
                 </div>
             </div>
             {% elif level.level == 5 %}

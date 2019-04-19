@@ -265,7 +265,7 @@
                                         <p>Date of Submission: {{dbNext.date}}</p>
                                         <form method="POST" name="makedit" action="/makedit/">{%csrf_token%}
                                             <input type="hidden" name="level" value='{{dbNext.level}}'/>
-                                            <input type="hidden" name="move" value="dated"/>
+                                            <input type="hidden" name="move" value="dedit"/>
                                             <button class="btn waves-effect waves-light blue darken-3" type="submit" name="Info">Edit
                                                 </button>                                        </form>
                                         {% if dbNext.doc %}
